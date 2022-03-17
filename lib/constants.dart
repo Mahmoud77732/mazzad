@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+const kPrimaryColor = Colors.deepOrangeAccent;
+
 class Constants {
   // Colors
   static const kPrimaryColor = Color(0xFFFF7643);
