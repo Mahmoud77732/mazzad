@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:mazzad/screens/onboard_screen/on_board_screen.dart';
+import 'package:mazzad/screens/otb_screen/otb_screen.dart';
 import './size_config.dart';
 
 void main() {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
     // SizeConfig().init(context);
     return const GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: OnBoardScreen(),
+      home: OTPScreen(),
     );
   }
 }
