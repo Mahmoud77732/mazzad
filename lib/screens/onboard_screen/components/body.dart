@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mazzad/components/default_button.dart';
 import './on_board_content.dart';
 import './/constants.dart';
 
@@ -31,32 +32,62 @@ class _BodyState extends State<Body> {
       child: Column(
         children: [
           Expanded(
+            flex: 3,
             child: PageView.builder(
-                itemCount: splashData.length,
-                itemBuilder: (_, index) => OnBoardContent(
-                      image: splashData[index]['image'],
-                      text: splashData[index]['text'],
-                    )),
-          ),
-          Row(
-            children: List.generate(
-              splashData.length,
-              (index) => buildDot(index: index),
+              itemCount: splashData.length,
+              itemBuilder: (_, index) => OnBoardContent(
+                image: splashData[index]['image'],
+                text: splashData[index]['text'],
+              ),
+              onPageChanged: (index) {
+                setState(() {
+                  currentPage = index;
+                });
+              },
             ),
           ),
-          TextButton(
-            onPressed: () {},
-            child: Text('Login'),
-          ),
-          Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Constants.kPrimaryColor),
-            child: TextButton(
-              onPressed: () {},
-              child: Text('Login'),
+          Expanded(
+            flex: 2,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: Constants.kHorizontalSpacing),
+              child: Column(
+                children: [
+                  const Spacer(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(
+                      splashData.length,
+                      (index) => buildDot(index: index),
+                    ),
+                  ),
+                  const Spacer(
+                    flex: 3,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: DefaultButton(
+                          onPressed: () {},
+                          text: "Login",
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        child: DefaultButton(
+                          onPressed: () {},
+                          text: "Sign Up",
+                        ),
+                      ),
+                    ],
+                  ),
+                  Spacer(),
+                ],
+              ),
             ),
-          ),
+          )
         ],
       ),
     );
@@ -72,6 +103,7 @@ class _BodyState extends State<Body> {
         color: currentPage == index
             ? Constants.kPrimaryColor
             : const Color(0xFFD8D8D8),
+        borderRadius: BorderRadius.circular(3),
       ),
     );
   }

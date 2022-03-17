@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mazzad/constants.dart';
+import 'package:mazzad/size_config.dart';
 
 class OnBoardContent extends StatelessWidget {
   final String? image;
@@ -10,18 +11,33 @@ class OnBoardContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          'MAZZAD',
-          style: TextStyle(
-              color: Constants.kPrimaryColor,
-              fontWeight: FontWeight.bold,
-              fontSize: 30),
-        ),
-        Image.asset(image!),
-        Text(text!),
-      ],
+    return Padding(
+      padding:
+          const EdgeInsets.symmetric(horizontal: Constants.kHorizontalSpacing),
+      child: Column(
+        children: [
+          const Spacer(),
+          Text(
+            'MAZZAD',
+            style: TextStyle(
+                color: Constants.kPrimaryColor,
+                fontWeight: FontWeight.bold,
+                fontSize: getProportionateScreenWidth(36)),
+            textAlign: TextAlign.center,
+          ),
+          const Spacer(flex: 2),
+          Image.asset(
+            image!,
+            height: getProportionateScreenHeight(265),
+            width: getProportionateScreenWidth(235),
+          ),
+          const Spacer(),
+          Text(
+            text!,
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
     );
   }
 }
