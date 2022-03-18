@@ -35,6 +35,9 @@ class OnBoardContent extends StatelessWidget {
           Text(
             text!,
             textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: getProportionateScreenHeight(14),
+            ),
           ),
         ],
       ),
