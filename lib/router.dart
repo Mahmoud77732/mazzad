@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:mazzad/screens/otb/otb_screen.dart';
+import './screens/onboard/on_board_screen.dart';
 
 // take the settings from onGenerateRoute in GetMaterial
 class Router {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case "":
-        return SlideRoute(page: Container());
-
+      case OnBoardScreen.rountName:
+        return SlideRoute(page: const OnBoardScreen());
+      case OTPScreen.routeName:
+        return SlideRoute(page: const OTPScreen());
       default:
         return SlideRoute(page: Container());
     }
