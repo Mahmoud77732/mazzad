@@ -9,10 +9,7 @@ class OTPScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text("OTP Verification"),
-      // ),
+    return const Scaffold(
       body: Body(),
     );
   }

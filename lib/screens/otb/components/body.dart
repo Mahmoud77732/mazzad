@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mazzad/constants.dart';
-import 'package:mazzad/screens/otb_screen/components/otp_form.dart';
-import 'package:mazzad/size_config.dart';
+
+import './/size_config.dart';
+import './/constants.dart';
+
+import './otp_form.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);

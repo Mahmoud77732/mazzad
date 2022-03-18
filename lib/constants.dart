@@ -21,6 +21,7 @@ class Constants {
   static const String kNamelNullError = "Please Enter your name";
   static const String kPhoneNumberNullError = "Please Enter your phone number";
   static const String kAddressNullError = "Please Enter your address";
+
   // size
   static const double kHorizontalSpacing = 15;
 
