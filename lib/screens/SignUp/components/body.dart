@@ -118,7 +118,7 @@ class BodyState extends State<Body> {
             RaisedButton(
               child: Text('Login', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
               onPressed: () {},
-              color: kPrimaryColor,
+              color: Constants.kPrimaryColor,
               padding: EdgeInsets.fromLTRB(170, 15, 170, 15),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10)
