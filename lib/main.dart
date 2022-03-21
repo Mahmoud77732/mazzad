@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mazzad/screens/Details/details_screen.dart';
 import './screens/home/home_screen.dart';
 import './screens/otb/otb_screen.dart';
 
