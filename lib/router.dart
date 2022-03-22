@@ -1,5 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:mazzad/screens/SignUp/signup_screen.dart';
+import 'package:mazzad/screens/auctions/auctions.dart';
+import 'package:mazzad/screens/categories/categories_screen.dart';
+import 'package:mazzad/screens/home/home_screen.dart';
+import 'package:mazzad/screens/login/login_screen.dart';
 import 'package:mazzad/screens/otb/otb_screen.dart';
+import 'package:mazzad/screens/profile/profile_screen.dart';
 import './screens/onboard/on_board_screen.dart';
 
 // take the settings from onGenerateRoute in GetMaterial
@@ -10,8 +18,20 @@ class Router {
         return SlideRoute(page: const OnBoardScreen());
       case OTPScreen.routeName:
         return SlideRoute(page: const OTPScreen());
+      case LoginScreen.routeName:
+        return SlideRoute(page: LoginScreen());
+      case SignupScreen.routeName:
+        return SlideRoute(page: SignupScreen());
+      case ProfileScreen.routeName:
+        return SlideRoute(page: ProfileScreen());
+      case HomeScreen.routeName:
+        return SlideRoute(page: HomeScreen());
+      case CategoriesScreen.routeName:
+        return SlideRoute(page: CategoriesScreen());
+      case Auctions.routeName:
+        return SlideRoute(page: Auctions());
       default:
-        return SlideRoute(page: Container());
+        return SlideRoute(page: HomeScreen());
     }
   }
 }

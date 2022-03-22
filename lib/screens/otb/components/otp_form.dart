@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mazzad/components/default_button.dart';
+import 'package:mazzad/screens/home/home_screen.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -107,7 +109,9 @@ class _OTPFormState extends State<OTPForm> {
           SizedBox(height: SizeConfig.screenHeight * 0.15),
           DefaultButton(
             text: "Continue",
-            onPressed: () {},
+            onPressed: () {
+              Get.offAllNamed(HomeScreen.routeName);
+            },
           )
         ],
       ),

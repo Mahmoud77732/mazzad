@@ -2,11 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:mazzad/components/already_have_an_account_check.dart';
+import 'package:mazzad/components/default_button.dart';
 import 'package:mazzad/screens/SignUp/components/background.dart';
 import 'package:mazzad/screens/login/login_screen.dart';
-
-import '../../../constants.dart';
+import 'package:mazzad/screens/otb/otb_screen.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -28,7 +29,8 @@ class BodyState extends State<Body> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text('SignUp', style: TextStyle(fontWeight: FontWeight.bold)),
-            SvgPicture.asset('assets/icons/singup.svg', height: size.height * 0.35),
+            SvgPicture.asset('assets/icons/singup.svg',
+                height: size.height * 0.35),
             SizedBox(height: 8.0),
             Container(
               margin: EdgeInsets.symmetric(horizontal: 20),
@@ -110,30 +112,21 @@ class BodyState extends State<Body> {
                     keyboardType: TextInputType.visiblePassword,
                     obscureText: passVisible2,
                   ),
-                  
                 ],
               ),
             ),
             SizedBox(height: 5.0),
-            RaisedButton(
-              child: Text('Login', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-              onPressed: () {},
-              color: kPrimaryColor,
-              padding: EdgeInsets.fromLTRB(170, 15, 170, 15),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10)
-              ),
+            DefaultButton(
+              text: 'Create',
+              onPressed: () {
+                Get.toNamed(OTPScreen.routeName);
+              },
             ),
             SizedBox(height: 8.0),
             AlreadyHaveAnAccountCheck(
               login: false,
               press: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) {
-                    return LoginScreen();
-                  }),
-                );
+                Get.offAllNamed(LoginScreen.routeName);
               },
             ),
           ],

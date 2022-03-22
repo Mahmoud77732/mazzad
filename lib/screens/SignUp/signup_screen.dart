@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mazzad/screens/SignUp/components/body.dart';
 
 class SignupScreen extends StatelessWidget {
+  static const routeName = '/signup_screen';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,5 +12,3 @@ class SignupScreen extends StatelessWidget {
     );
   }
 }
-
-

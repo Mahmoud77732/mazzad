@@ -1,8 +1,17 @@
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:mazzad/constants.dart';
-import 'package:mazzad/size_config.dart';
+
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:mazzad/screens/auctions/auctions.dart';
+import 'package:mazzad/screens/profile/profile_screen.dart';
+import 'package:mazzad/screens/shop/shop_screen.dart';
+
+import './/components/category_button.dart';
+import './/components/auction_item.dart';
+import '../../components/search_textfield.dart';
+import './/constants.dart';
+import './/size_config.dart';
+import 'components/body.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -16,48 +25,22 @@ class _HomeScreenState extends State<HomeScreen> {
   var _bottomNavIndex = 0;
   List<IconData> navIcons = [
     Icons.home,
-    Icons.shop,
-    Icons.mic,
+    Icons.speaker,
+    Icons.shopping_cart,
     Icons.person,
+  ];
+  List<Widget> navPages = [
+    Body(),
+    Auctions(),
+    ShopScreen(),
+    ProfileScreen(),
   ];
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
       extendBody: true,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.notifications_outlined,
-              color: Colors.black,
-              size: getProportionateScreenHeight(30),
-            ),
-          ),
-          CircleAvatar(
-            radius: getProportionateScreenHeight(15),
-          ),
-          SizedBox(
-            width: Constants.kHorizontalSpacing,
-          ),
-        ],
-        centerTitle: false,
-        title: Text(
-          'Home',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: getProportionateScreenHeight(24),
-          ),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [],
-        ),
-      ),
+      body: navPages[_bottomNavIndex],
       bottomNavigationBar: AnimatedBottomNavigationBar(
         backgroundColor: Colors.white,
         icons: navIcons,
@@ -70,34 +53,14 @@ class _HomeScreenState extends State<HomeScreen> {
         rightCornerRadius: 32,
         gapLocation: GapLocation.center,
         activeIndex: _bottomNavIndex,
+        activeColor: Constants.kPrimaryColor,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Constants.kPrimaryColor.withOpacity(0.8),
+        backgroundColor: Constants.kPrimaryColor,
         onPressed: () {},
         child: const Icon(Icons.add),
       ),
-      //   gapLocation: GapLocation.center,
-      //   icons: [
-      //     Icons.home,
-      //     Icons.home,
-      //     Icons.shop,
-      //   ],
-      //   notchSmoothness: NotchSmoothness.verySmoothEdge,
-      //   leftCornerRadius: 32,
-      //   // rightCornerRadius: 32,
-      //   onTap: (index) {
-      //     setState(() {
-      //       _bottomNavIndex = index;
-      //     });
-      //   },
-      //   activeIndex: _bottomNavIndex,
-      // ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      // // floatingActionButton: FloatingActionButton(
-      // //   onPressed: () {},
-      // //   child: Icon(Icons.add),
-      // // ),
     );
   }
 }
