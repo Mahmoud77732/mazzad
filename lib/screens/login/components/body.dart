@@ -2,9 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mazzad/components/default_button.dart';
 import 'package:mazzad/constants.dart';
 import 'package:mazzad/screens/SignUp/signup_screen.dart';
 import 'package:mazzad/screens/login/components/background.dart';
+import 'package:mazzad/size_config.dart';
 import '../../../components/already_have_an_account_check.dart';
 
 class Body extends StatefulWidget {
@@ -21,24 +23,35 @@ class BodyState extends State<Body> {
   bool passVisible2 = true;
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    SizeConfig().init(context);
     return Background(
       child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Login', style: TextStyle(fontWeight: FontWeight.bold)),
-            SizedBox(height: size.height * 0.03),
-            SvgPicture.asset('assets/icons/signin.svg', height: size.height * 0.35),
-            SizedBox(height: 20),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
+        child: Padding(
+          padding: const EdgeInsets.all(Constants.kHorizontalSpacing),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Login', style: TextStyle(fontWeight: FontWeight.bold)),
+              SizedBox(height: SizeConfig.screenHeight * 0.03),
+              SvgPicture.asset('assets/icons/signin.svg',
+                  height: SizeConfig.screenHeight * 0.35),
+              SizedBox(height: 20),
+              Column(
                 children: [
                   TextField(
                     decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          width: 1,
+                          color: Constants.kPrimaryColor,
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      ),
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(width: 2),
+                        borderSide: BorderSide(
+                          width: 1,
+                          color: Constants.kPrimaryColor,
+                        ),
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
                       ),
                       hintText: 'Email address',
@@ -48,8 +61,17 @@ class BodyState extends State<Body> {
                   SizedBox(height: 5.0),
                   TextField(
                     decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          width: 1,
+                          color: Constants.kPrimaryColor,
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      ),
+                      focusColor: Constants.kPrimaryColor,
+                      hoverColor: Constants.kPrimaryColor,
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(width: 2),
+                        borderSide: BorderSide(width: 1),
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
                       ),
                       hintText: 'Password',
@@ -63,36 +85,29 @@ class BodyState extends State<Body> {
                           });
                         },
                       ),
+                      iconColor: Constants.kPrimaryColor,
+                      suffixIconColor: Constants.kPrimaryColor,
+                      prefixIconColor: Constants.kPrimaryColor,
                     ),
                     keyboardType: TextInputType.visiblePassword,
                     obscureText: passVisible1,
                   ),
                 ],
               ),
-            ),
-            SizedBox(height: 20),
-            RaisedButton(
-              child: Text('Login', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-              onPressed: () {},
-              color: kPrimaryColor,
-              padding: EdgeInsets.fromLTRB(170, 15, 170, 15),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10)
+              SizedBox(
+                height: getProportionateScreenHeight(20),
               ),
-            ),
-            SizedBox(height: 30),
-            AlreadyHaveAnAccountCheck(
-              login: true,
-              press: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) {
-                    return SignupScreen();
-                  }),
-                );
-              },
-            ),
-          ],
+              DefaultButton(
+                onPressed: () {},
+                text: 'Login',
+              ),
+              SizedBox(height: 30),
+              AlreadyHaveAnAccountCheck(
+                login: true,
+                press: () {},
+              ),
+            ],
+          ),
         ),
       ),
     );

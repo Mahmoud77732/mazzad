@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-
-const kPrimaryColor = Colors.deepOrangeAccent;
 import 'size_config.dart';
-
 
 class Constants {
   // Colors
@@ -39,7 +36,7 @@ class Constants {
   static OutlineInputBorder outlineInputBorder() {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(getProportionateScreenWidth(15)),
-      borderSide: BorderSide(color: kTextColor),
+      borderSide: const BorderSide(color: kTextColor),
     );
   }
 }

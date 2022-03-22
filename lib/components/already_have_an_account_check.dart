@@ -6,7 +6,9 @@ class AlreadyHaveAnAccountCheck extends StatelessWidget {
   final bool login;
   final void Function() press;
   const AlreadyHaveAnAccountCheck({
-    Key? key, required this.login, required this.press,
+    Key? key,
+    required this.login,
+    required this.press,
   }) : super(key: key);
 
   @override
@@ -25,7 +27,7 @@ class AlreadyHaveAnAccountCheck extends StatelessWidget {
           child: Text(
             (login) ? 'Sign Up' : 'Sign In',
             style: const TextStyle(
-              color: kPrimaryColor,
+              color: Constants.kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),
           ),

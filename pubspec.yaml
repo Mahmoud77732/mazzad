@@ -28,6 +28,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   animated_bottom_navigation_bar: ^0.3.2
+  carousel_slider: ^4.0.0
   cupertino_icons: ^1.0.2
   curved_navigation_bar: ^1.0.3
   flutter:
@@ -54,6 +55,7 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/images/.
+    - assets/svg/.
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
