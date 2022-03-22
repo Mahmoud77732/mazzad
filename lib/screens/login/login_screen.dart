@@ -6,6 +6,7 @@ import 'package:mazzad/constants.dart';
 import 'components/body.dart';
 
 class LoginScreen extends StatelessWidget {
+  static const routeName = '/login_screen';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,5 +14,3 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
-
-

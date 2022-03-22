@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mazzad/constants.dart';
-import 'package:mazzad/size_config.dart';
+
+import './/constants.dart';
+import './/size_config.dart';
 
 class DefaultButton extends StatelessWidget {
   const DefaultButton({Key? key, this.text, this.onPressed}) : super(key: key);
