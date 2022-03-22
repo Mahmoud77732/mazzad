@@ -2,9 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:mazzad/components/already_have_an_account_check.dart';
 import 'package:mazzad/components/default_button.dart';
 import 'package:mazzad/screens/SignUp/components/background.dart';
+import 'package:mazzad/screens/login/login_screen.dart';
+import 'package:mazzad/screens/otb/otb_screen.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -115,12 +118,16 @@ class BodyState extends State<Body> {
             SizedBox(height: 5.0),
             DefaultButton(
               text: 'Create',
-              onPressed: () {},
+              onPressed: () {
+                Get.toNamed(OTPScreen.routeName);
+              },
             ),
             SizedBox(height: 8.0),
             AlreadyHaveAnAccountCheck(
               login: false,
-              press: () {},
+              press: () {
+                Get.offAllNamed(LoginScreen.routeName);
+              },
             ),
           ],
         ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mazzad/constants.dart';
+import 'package:mazzad/screens/login/login_screen.dart';
 import 'package:mazzad/size_config.dart';
 
 import 'clip_shadow_path.dart';
@@ -74,7 +76,9 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.offAllNamed(LoginScreen.routeName);
+                    },
                   ),
                 ),
                 Positioned(

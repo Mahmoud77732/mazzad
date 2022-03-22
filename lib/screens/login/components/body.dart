@@ -2,10 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:mazzad/components/default_button.dart';
 import 'package:mazzad/constants.dart';
 import 'package:mazzad/screens/SignUp/signup_screen.dart';
 import 'package:mazzad/screens/login/components/background.dart';
+import 'package:mazzad/screens/otb/otb_screen.dart';
 import 'package:mazzad/size_config.dart';
 import '../../../components/already_have_an_account_check.dart';
 
@@ -98,13 +100,17 @@ class BodyState extends State<Body> {
                 height: getProportionateScreenHeight(20),
               ),
               DefaultButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(OTPScreen.routeName);
+                },
                 text: 'Login',
               ),
               SizedBox(height: 30),
               AlreadyHaveAnAccountCheck(
                 login: true,
-                press: () {},
+                press: () {
+                  Get.toNamed(SignupScreen.routeName);
+                },
               ),
             ],
           ),
