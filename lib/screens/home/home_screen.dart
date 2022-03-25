@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
   List<Widget> navPages = [
     Body(),
-    Auctions(),
+    AuctionsScreen(),
     ShopScreen(),
     ProfileScreen(),
   ];

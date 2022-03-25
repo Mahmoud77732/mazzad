@@ -28,8 +28,8 @@ class Router {
         return SlideRoute(page: HomeScreen());
       case CategoriesScreen.routeName:
         return SlideRoute(page: CategoriesScreen());
-      case Auctions.routeName:
-        return SlideRoute(page: Auctions());
+      case AuctionsScreen.routeName:
+        return SlideRoute(page: AuctionsScreen());
       default:
         return SlideRoute(page: HomeScreen());
     }

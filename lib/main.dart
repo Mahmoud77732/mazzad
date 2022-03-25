@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import './screens/home/home_screen.dart';
 import './router.dart' as router;
+import 'screens/auctions/auctions.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

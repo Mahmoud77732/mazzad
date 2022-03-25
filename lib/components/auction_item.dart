@@ -17,6 +17,7 @@ class AuctionItem extends StatelessWidget {
   final Status status;
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return GestureDetector(
       onTap: () {},
       child: Container(
