@@ -4,8 +4,9 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:mazzad/screens/auctions/auctions.dart';
 import 'package:mazzad/screens/profile/profile_screen.dart';
-import 'package:mazzad/screens/shop/shop_screen.dart';
+// import 'package:mazzad/screens/shop/shop_screen.dart';
 
+import '../Shop/shop_screen.dart';
 import './/components/category_button.dart';
 import './/components/auction_item.dart';
 import '../../components/search_textfield.dart';

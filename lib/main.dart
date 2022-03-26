@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
+import 'package:mazzad/screens/onboard/on_board_screen.dart';
 import './screens/home/home_screen.dart';
 import './router.dart' as router;
 import 'screens/auctions/auctions.dart';
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: OnBoardScreen(),
       title: 'Mazzad',
       onGenerateRoute: router.Router.onGenerateRoute,
     );

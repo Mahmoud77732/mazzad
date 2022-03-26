@@ -24,6 +24,20 @@ class Constants {
   // size
   static const double kHorizontalSpacing = 15;
 
+  //padding and spacing
+  static const SizedBox kBigVertcialSpacing = SizedBox(
+    height: 30,
+  );
+  static const SizedBox kSmallVerticalSpacing = SizedBox(
+    height: 15,
+  );
+  static const SizedBox kSmallHorizontalSpacing = SizedBox(
+    width: 15,
+  );
+  static const SizedBox kBigHorizontalSpacing = SizedBox(
+    width: 30,
+  );
+
   //styles
   static final otpInputDecoration = InputDecoration(
     contentPadding:
@@ -32,6 +46,8 @@ class Constants {
     focusedBorder: outlineInputBorder(),
     enabledBorder: outlineInputBorder(),
   );
+
+  // static final appBarTextStyle =
 
   static OutlineInputBorder outlineInputBorder() {
     return OutlineInputBorder(

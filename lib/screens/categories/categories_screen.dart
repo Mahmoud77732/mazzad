@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mazzad/components/category_button.dart';
 import 'package:mazzad/components/search_textfield.dart';
+import 'package:mazzad/constants.dart';
 
 import '../../size_config.dart';
 
@@ -32,28 +33,26 @@ class CategoriesScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
+          Constants.kSmallVerticalSpacing,
           const SearchTextField(),
           SizedBox(
             height: getProportionateScreenHeight(20),
           ),
           Expanded(
             child: GridView(
-              children: List.generate(50, (index) {
-                return SizedBox(
-                  height: getProportionateScreenHeight(90),
-                  child: CategoryButton(
+                children: List.generate(50, (index) {
+                  return CategoryButton(
                     color: Colors.amber,
                     icon: Icons.category,
                     onPress: () {},
                     name: 'All',
-                  ),
-                );
-              }),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4,
-              ),
-              // shrinkWrap: true,
-            ),
+                  );
+                }),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4,
+                )
+                // shrinkWrap: true,
+                ),
           ),
         ],
       ),

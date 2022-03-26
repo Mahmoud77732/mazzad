@@ -1,0 +1,11 @@
+TODO: clean all import packages with .// 
+TODO: clean all SizedBox with Constants.kVertical/Horizontal Spacing
+TODO: make dummy data for different items, categories and profile tiles
+TODO: maybe mak dynamic defaultTextField generator
+TODO: make a const styles for the font , textfield and appbar
+TODO: look for FAB behavior when focusing on textfield
+TODO: iomplement item details for each product spearately and dynamically
+TODO: modify bidders screen 
+TODO: modify the Item Deatils Screen 
+TODO: should we make the blace bid button as FAB or as child in the widget tree !!!! we should test with longer descprtion and longer title 
+TODO: make all the text responsive and have maxlines for each container 

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:mazzad/screens/SignUp/signup_screen.dart';
+import 'package:mazzad/screens/auction%20details/auction_details_screen.dart';
 import 'package:mazzad/screens/auctions/auctions.dart';
 import 'package:mazzad/screens/categories/categories_screen.dart';
 import 'package:mazzad/screens/home/home_screen.dart';
@@ -30,6 +31,8 @@ class Router {
         return SlideRoute(page: CategoriesScreen());
       case AuctionsScreen.routeName:
         return SlideRoute(page: AuctionsScreen());
+      case AuctionDetailsScreen.routeName:
+        return SlideRoute(page: AuctionDetailsScreen());
       default:
         return SlideRoute(page: HomeScreen());
     }

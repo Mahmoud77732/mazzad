@@ -27,58 +27,60 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: _tabs.length,
-      child: Column(
-        children: [
-          SizedBox(
-            height: 30,
-          ),
-          SearchTextField(),
-          SizedBox(
-            height: 15,
-          ),
-          Container(
-            height: 40,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.16),
-                    offset: const Offset(1, 3),
-                    blurRadius: 5,
-                    spreadRadius: 1,
-                  ),
-                ]),
-            child: TabBar(
-              tabs: _tabs,
-              onTap: (index) {
-                setState(() {
-                  _selectedTabBar = index;
-                });
-              },
-              labelColor: Constants.kPrimaryColor,
-              indicator: BoxDecoration(
-                borderRadius: BorderRadius.circular(10), // Creates border
-                color: Constants.kPrimaryColor.withOpacity(0.2),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: Constants.kHorizontalSpacing,
+        ),
+        child: Column(
+          children: [
+            Constants.kSmallVerticalSpacing,
+            SearchTextField(),
+            Constants.kSmallVerticalSpacing,
+            Container(
+              height: 40,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.16),
+                      offset: const Offset(1, 3),
+                      blurRadius: 5,
+                      spreadRadius: 1,
+                    ),
+                  ]),
+              child: TabBar(
+                tabs: _tabs,
+                onTap: (index) {
+                  setState(() {
+                    _selectedTabBar = index;
+                  });
+                },
+                labelColor: Constants.kPrimaryColor,
+                indicator: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10), // Creates border
+                  color: Constants.kPrimaryColor.withOpacity(0.2),
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: Builder(
-              builder: (_) {
-                if (_selectedTabBar == 0) {
-                  return Live();
-                } else if (_selectedTabBar == 1) {
-                  return Scheduled();
-                } else if (_selectedTabBar == 2) {
-                  return UpComing();
-                } else {
-                  return Live();
-                }
-              },
+            Constants.kSmallVerticalSpacing,
+            Expanded(
+              child: Builder(
+                builder: (_) {
+                  if (_selectedTabBar == 0) {
+                    return Live();
+                  } else if (_selectedTabBar == 1) {
+                    return Scheduled();
+                  } else if (_selectedTabBar == 2) {
+                    return UpComing();
+                  } else {
+                    return Live();
+                  }
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -91,6 +93,8 @@ class Live extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisSpacing: Constants.kHorizontalSpacing,
+        mainAxisSpacing: Constants.kHorizontalSpacing / 2,
         crossAxisCount: 2,
       ),
       children: List.generate(
@@ -114,6 +118,8 @@ class Scheduled extends StatelessWidget {
     return GridView(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
+        crossAxisSpacing: Constants.kHorizontalSpacing,
+        mainAxisSpacing: Constants.kHorizontalSpacing / 2,
       ),
       children: List.generate(
         50,
@@ -136,6 +142,8 @@ class UpComing extends StatelessWidget {
     return GridView(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
+        crossAxisSpacing: Constants.kHorizontalSpacing,
+        mainAxisSpacing: Constants.kHorizontalSpacing / 2,
       ),
       children: List.generate(
         50,

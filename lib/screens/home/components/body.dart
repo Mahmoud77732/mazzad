@@ -53,16 +53,15 @@ class Body extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SearchTextField(),
-              const SizedBox(
-                height: 30,
-              ),
+              Constants.kSmallVerticalSpacing,
+              const SearchTextField(),
+              Constants.kBigVertcialSpacing,
               CarouselSlider(
                 items: List.generate(
                   3,
                   (index) => InkWell(
                     onTap: () {},
-                    child: Image.asset('assets/images/splash_1.png'),
+                    child: Image.asset('assets/images/product.jpeg'),
                   ),
                 ),
                 options: CarouselOptions(
@@ -74,9 +73,7 @@ class Body extends StatelessWidget {
                   },
                 ),
               ),
-              const SizedBox(
-                height: 30,
-              ),
+              Constants.kBigVertcialSpacing,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -99,38 +96,30 @@ class Body extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 15,
-              ),
+              Constants.kSmallVerticalSpacing,
               SizedBox(
                 height: getProportionateScreenHeight(90),
-                child: ListView(
+                child: ListView.separated(
                   scrollDirection: Axis.horizontal,
-                  children: List.generate(
-                    10,
-                    (_) {
-                      return CategoryButton(
-                        color: Colors.amber,
-                        icon: Icons.category,
-                        onPress: () {},
-                        name: 'All',
-                      );
-                    },
+                  itemBuilder: (context, index) => CategoryButton(
+                    color: Colors.amber,
+                    icon: Icons.category,
+                    onPress: () {},
+                    name: 'All',
                   ),
+                  itemCount: 10,
+                  separatorBuilder: (context, index) =>
+                      Constants.kSmallHorizontalSpacing,
                 ),
               ),
-              const SizedBox(
-                height: 30,
-              ),
+              Constants.kBigVertcialSpacing,
               Text(
                 'Recently Auctions Added',
                 style: TextStyle(
                   fontSize: getProportionateScreenHeight(18),
                 ),
               ),
-              const SizedBox(
-                height: 15,
-              ),
+              Constants.kSmallVerticalSpacing,
               SizedBox(
                 height: 175,
                 child: ListView(
@@ -138,7 +127,7 @@ class Body extends StatelessWidget {
                   children: List.generate(
                     10,
                     (index) => const AuctionItem(
-                      image: 'assets/images/splash_1.png',
+                      image: 'assets/images/product.jpeg',
                       name: 'Best controller ever',
                       currentBid: 500,
                       status: Status.soon,
