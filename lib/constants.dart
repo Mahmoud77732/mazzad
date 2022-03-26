@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mazzad/components/auction_item.dart';
+import 'components/category_button.dart';
 import 'size_config.dart';
 
 class Constants {
@@ -55,4 +57,556 @@ class Constants {
       borderSide: const BorderSide(color: kTextColor),
     );
   }
+
+  static List<CategoryButton> kDummyCategories = [
+    CategoryButton(
+      color: Colors.amber,
+      icon: Icons.category,
+      onPress: () {},
+      name: 'All',
+    ),
+    CategoryButton(
+      color: Colors.pinkAccent,
+      icon: Icons.ac_unit,
+      onPress: () {},
+      name: 'Snow',
+    ),
+    CategoryButton(
+      color: Colors.purpleAccent,
+      icon: Icons.chair,
+      onPress: () {},
+      name: 'Furniture',
+    ),
+    CategoryButton(
+      color: Colors.orange,
+      icon: Icons.laptop,
+      onPress: () {},
+      name: 'Technology',
+    ),
+    CategoryButton(
+      color: Colors.blueAccent,
+      icon: Icons.book,
+      onPress: () {},
+      name: 'Books',
+    ),
+    CategoryButton(
+      color: Colors.amber,
+      icon: Icons.category,
+      onPress: () {},
+      name: 'All',
+    ),
+    CategoryButton(
+      color: Colors.pinkAccent,
+      icon: Icons.ac_unit,
+      onPress: () {},
+      name: 'Snow',
+    ),
+    CategoryButton(
+      color: Colors.purpleAccent,
+      icon: Icons.chair,
+      onPress: () {},
+      name: 'Furniture',
+    ),
+    CategoryButton(
+      color: Colors.orange,
+      icon: Icons.laptop,
+      onPress: () {},
+      name: 'Technology',
+    ),
+    CategoryButton(
+      color: Colors.blueAccent,
+      icon: Icons.book,
+      onPress: () {},
+      name: 'Books',
+    ),
+    CategoryButton(
+      color: Colors.amber,
+      icon: Icons.category,
+      onPress: () {},
+      name: 'All',
+    ),
+    CategoryButton(
+      color: Colors.pinkAccent,
+      icon: Icons.ac_unit,
+      onPress: () {},
+      name: 'Snow',
+    ),
+    CategoryButton(
+      color: Colors.purpleAccent,
+      icon: Icons.chair,
+      onPress: () {},
+      name: 'Furniture',
+    ),
+    CategoryButton(
+      color: Colors.orange,
+      icon: Icons.laptop,
+      onPress: () {},
+      name: 'Technology',
+    ),
+    CategoryButton(
+      color: Colors.blueAccent,
+      icon: Icons.book,
+      onPress: () {},
+      name: 'Books',
+    ),
+    CategoryButton(
+      color: Colors.amber,
+      icon: Icons.category,
+      onPress: () {},
+      name: 'All',
+    ),
+    CategoryButton(
+      color: Colors.pinkAccent,
+      icon: Icons.ac_unit,
+      onPress: () {},
+      name: 'Snow',
+    ),
+    CategoryButton(
+      color: Colors.purpleAccent,
+      icon: Icons.chair,
+      onPress: () {},
+      name: 'Furniture',
+    ),
+    CategoryButton(
+      color: Colors.orange,
+      icon: Icons.laptop,
+      onPress: () {},
+      name: 'Technology',
+    ),
+    CategoryButton(
+      color: Colors.blueAccent,
+      icon: Icons.book,
+      onPress: () {},
+      name: 'Books',
+    ),
+  ];
+
+  static List<AuctionItem> kDummyLiveAuctionItems = [
+    AuctionItem(
+      image: 'assets/images/product.jpeg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.live,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider1.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.live,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider2.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.live,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider3.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.live,
+    ),
+    AuctionItem(
+      image: 'assets/images/product.jpeg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.live,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider1.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.live,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider2.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.live,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider3.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.live,
+    ),
+    AuctionItem(
+      image: 'assets/images/product.jpeg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.live,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider1.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.live,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider2.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.live,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider3.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.live,
+    ),
+    AuctionItem(
+      image: 'assets/images/product.jpeg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.live,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider1.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.live,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider2.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.live,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider3.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.live,
+    ),
+  ];
+  static List<AuctionItem> kDummyScheduledAuctionItems = [
+    AuctionItem(
+      image: 'assets/images/product.jpeg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.scheuled,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider1.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.scheuled,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider2.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.scheuled,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider3.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.scheuled,
+    ),
+    AuctionItem(
+      image: 'assets/images/product.jpeg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.scheuled,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider1.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.scheuled,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider2.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.scheuled,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider3.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.scheuled,
+    ),
+    AuctionItem(
+      image: 'assets/images/product.jpeg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.scheuled,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider1.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.scheuled,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider2.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.scheuled,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider3.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.scheuled,
+    ),
+    AuctionItem(
+      image: 'assets/images/product.jpeg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.scheuled,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider1.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.scheuled,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider2.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.scheuled,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider3.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.scheuled,
+    ),
+  ];
+  static List<AuctionItem> kDummyUpcomingAuctionItems = [
+    AuctionItem(
+      image: 'assets/images/product.jpeg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.soon,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider1.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.soon,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider2.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.soon,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider3.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.soon,
+    ),
+    AuctionItem(
+      image: 'assets/images/product.jpeg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.soon,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider1.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.soon,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider2.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.soon,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider3.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.soon,
+    ),
+    AuctionItem(
+      image: 'assets/images/product.jpeg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.soon,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider1.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.soon,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider2.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.soon,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider3.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.soon,
+    ),
+    AuctionItem(
+      image: 'assets/images/product.jpeg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.soon,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider1.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.soon,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider2.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.soon,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider3.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.soon,
+    ),
+    AuctionItem(
+      image: 'assets/images/product.jpeg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.soon,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider1.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.soon,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider2.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.soon,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider3.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.soon,
+    ),
+  ];
+  static List<AuctionItem> kDummyAuctionItems = [
+    AuctionItem(
+      image: 'assets/images/product.jpeg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.scheuled,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider1.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.soon,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider2.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.live,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider3.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.scheuled,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider1.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.live,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider2.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.live,
+    ),
+    AuctionItem(
+      image: 'assets/images/product.jpeg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.scheuled,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider1.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.soon,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider2.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.live,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider3.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.scheuled,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider1.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.live,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider2.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.live,
+    ),
+    AuctionItem(
+      image: 'assets/images/product.jpeg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.scheuled,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider1.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.soon,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider2.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.live,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider3.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.scheuled,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider1.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.live,
+    ),
+    AuctionItem(
+      image: 'assets/images/slider2.jpg',
+      name: 'Best controller ever',
+      currentBid: 500,
+      status: Status.live,
+    ),
+  ];
 }

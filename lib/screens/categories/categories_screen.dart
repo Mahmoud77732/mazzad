@@ -31,31 +31,32 @@ class CategoriesScreen extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          Constants.kSmallVerticalSpacing,
-          const SearchTextField(),
-          SizedBox(
-            height: getProportionateScreenHeight(20),
-          ),
-          Expanded(
-            child: GridView(
-                children: List.generate(50, (index) {
-                  return CategoryButton(
-                    color: Colors.amber,
-                    icon: Icons.category,
-                    onPress: () {},
-                    name: 'All',
-                  );
-                }),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4,
-                )
-                // shrinkWrap: true,
-                ),
-          ),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(Constants.kHorizontalSpacing),
+        child: Column(
+          children: [
+            Constants.kSmallVerticalSpacing,
+            const SearchTextField(),
+            SizedBox(
+              height: getProportionateScreenHeight(20),
+            ),
+            Expanded(
+              child: GridView(
+                  children:
+                      List.generate(Constants.kDummyCategories.length, (index) {
+                    return Constants.kDummyCategories[index];
+                  }),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                  )
+                  // shrinkWrap: true,
+                  ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
+//TODO: change the padding in categories item and dont remove the earch field padding
+

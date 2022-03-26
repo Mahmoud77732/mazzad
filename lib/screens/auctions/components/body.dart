@@ -98,13 +98,8 @@ class Live extends StatelessWidget {
         crossAxisCount: 2,
       ),
       children: List.generate(
-        50,
-        (index) => AuctionItem(
-          name: 'Bet Controller ever',
-          image: 'assets/images/slider1.jpg',
-          currentBid: 450,
-          status: Status.live,
-        ),
+        Constants.kDummyLiveAuctionItems.length,
+        (index) => Constants.kDummyLiveAuctionItems[index],
       ),
     );
   }
@@ -122,13 +117,8 @@ class Scheduled extends StatelessWidget {
         mainAxisSpacing: Constants.kHorizontalSpacing / 2,
       ),
       children: List.generate(
-        50,
-        (index) => AuctionItem(
-          name: 'Bet Controller ever',
-          image: 'assets/images/slider1.jpg',
-          currentBid: 450,
-          status: Status.scheuled,
-        ),
+        Constants.kDummyScheduledAuctionItems.length,
+        (index) => Constants.kDummyScheduledAuctionItems[index],
       ),
     );
   }
@@ -146,13 +136,8 @@ class UpComing extends StatelessWidget {
         mainAxisSpacing: Constants.kHorizontalSpacing / 2,
       ),
       children: List.generate(
-        50,
-        (index) => AuctionItem(
-          name: 'Bet Controller ever',
-          image: 'assets/images/slider1.jpg',
-          currentBid: 450,
-          status: Status.soon,
-        ),
+        Constants.kDummyUpcomingAuctionItems.length,
+        (index) => Constants.kDummyUpcomingAuctionItems[index],
       ),
     );
   }

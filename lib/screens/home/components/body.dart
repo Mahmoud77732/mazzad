@@ -101,13 +101,9 @@ class Body extends StatelessWidget {
                 height: getProportionateScreenHeight(90),
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => CategoryButton(
-                    color: Colors.amber,
-                    icon: Icons.category,
-                    onPress: () {},
-                    name: 'All',
-                  ),
-                  itemCount: 10,
+                  itemBuilder: (context, index) =>
+                      Constants.kDummyCategories[index],
+                  itemCount: Constants.kDummyCategories.length,
                   separatorBuilder: (context, index) =>
                       Constants.kSmallHorizontalSpacing,
                 ),
@@ -124,15 +120,8 @@ class Body extends StatelessWidget {
                 height: 175,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
-                  children: List.generate(
-                    10,
-                    (index) => const AuctionItem(
-                      image: 'assets/images/product.jpeg',
-                      name: 'Best controller ever',
-                      currentBid: 500,
-                      status: Status.soon,
-                    ),
-                  ),
+                  children: List.generate(Constants.kDummyAuctionItems.length,
+                      (index) => Constants.kDummyAuctionItems[index]),
                 ),
               ),
               SizedBox(
