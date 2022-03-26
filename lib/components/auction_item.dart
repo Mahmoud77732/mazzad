@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mazzad/screens/auction%20details/auction_details_screen.dart';
 
 import '../constants.dart';
 import '../size_config.dart';
@@ -17,8 +19,11 @@ class AuctionItem extends StatelessWidget {
   final Status status;
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Get.toNamed(AuctionDetailsScreen.routeName);
+      },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
         child: Column(

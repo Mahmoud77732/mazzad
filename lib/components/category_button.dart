@@ -16,36 +16,29 @@ class CategoryButton extends StatelessWidget {
   final Color color;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-        right: getProportionateScreenHeight(
-          10.0,
-        ),
-      ),
-      child: Column(
-        children: [
-          SizedBox(
-            height: getProportionateScreenHeight(70),
-            width: getProportionateScreenWidth(70),
-            child: TextButton(
-              onPressed: onPress,
-              child: Center(
-                child: Icon(
-                  icon,
-                  size: getProportionateScreenHeight(35),
-                  color: color,
-                ),
-              ),
-              style: TextButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
-                backgroundColor: color.withOpacity(.3),
+    return Column(
+      children: [
+        SizedBox(
+          height: 70,
+          width: 70,
+          child: TextButton(
+            onPressed: onPress,
+            child: Center(
+              child: Icon(
+                icon,
+                size: getProportionateScreenHeight(35),
+                color: color,
               ),
             ),
+            style: TextButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              backgroundColor: color.withOpacity(.3),
+            ),
           ),
-          Text(name),
-        ],
-      ),
+        ),
+        Text(name),
+      ],
     );
   }
 }

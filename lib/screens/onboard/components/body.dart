@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mazzad/components/default_button.dart';
+import 'package:mazzad/screens/SignUp/signup_screen.dart';
+import 'package:mazzad/screens/login/login_screen.dart';
 import './on_board_content.dart';
 import './/constants.dart';
 
@@ -68,7 +71,9 @@ class _BodyState extends State<Body> {
                     children: [
                       Expanded(
                         child: DefaultButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.offNamed(LoginScreen.routeName);
+                          },
                           text: "Login",
                         ),
                       ),
@@ -77,7 +82,9 @@ class _BodyState extends State<Body> {
                       ),
                       Expanded(
                         child: DefaultButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.offNamed(SignupScreen.routeName);
+                          },
                           text: "Sign Up",
                         ),
                       ),

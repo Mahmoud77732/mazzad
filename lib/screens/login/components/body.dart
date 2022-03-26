@@ -105,7 +105,7 @@ class BodyState extends State<Body> {
                 },
                 text: 'Login',
               ),
-              SizedBox(height: 30),
+              Constants.kBigVertcialSpacing,
               AlreadyHaveAnAccountCheck(
                 login: true,
                 press: () {
