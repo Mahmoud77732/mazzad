@@ -6,7 +6,7 @@ import 'package:mazzad/screens/Bidders/components/bottom_form.dart';
 
 class MainBidders extends StatefulWidget {
   const MainBidders({Key? key}) : super(key: key);
-
+  static const routeName = '/main_bidders';
   @override
   State<StatefulWidget> createState() {
     return MainBiddersState();

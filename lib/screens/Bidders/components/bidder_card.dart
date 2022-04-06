@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:mazzad/screens/Bidders/components/bidder.dart';
+import 'package:mazzad/models/bidder.dart';
 
 class BidderCard extends StatefulWidget {
   const BidderCard({Key? key}) : super(key: key);
@@ -38,22 +38,28 @@ class BidderCardState extends State<BidderCard> {
       margin: EdgeInsets.all(10.0),
       child: Column(
         children: [
-          ...bidderList.map((bidder) => 
-          Card(
-            // elevation: 0,
-            child: ListTile(
-              onTap: () {},
-              leading: CircleAvatar(
-                radius: 24,
-                backgroundColor: Colors.transparent,
-                child: Image.asset('assets/images/comvzhssmyverizon.png'),
-              ),
-              title: Text(bidder.name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-              // subtitle: Text(''),
-              trailing: Text('${bidder.price}\$', textScaleFactor: 1.2, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-            ),
-          )
-          ).toList(),
+          ...bidderList
+              .map((bidder) => Card(
+                    // elevation: 0,
+                    child: ListTile(
+                      onTap: () {},
+                      leading: CircleAvatar(
+                        radius: 24,
+                        backgroundColor: Colors.transparent,
+                        child:
+                            Image.asset('assets/images/comvzhssmyverizon.png'),
+                      ),
+                      title: Text(bidder.name ?? "",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20)),
+                      // subtitle: Text(''),
+                      trailing: Text('${bidder.price}\$',
+                          textScaleFactor: 1.2,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 15)),
+                    ),
+                  ))
+              .toList(),
         ],
       ),
     );

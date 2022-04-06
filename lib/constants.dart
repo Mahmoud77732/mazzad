@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mazzad/components/auction_item.dart';
 import 'components/category_button.dart';
+import 'models/bidder.dart';
 import 'size_config.dart';
 
 class Constants {
@@ -608,5 +609,32 @@ class Constants {
       currentBid: 500,
       status: Status.live,
     ),
+  ];
+  static List<Bidder> kDummyTopFiveBidders = [
+    Bidder(
+        name: 'Bidder Name',
+        price: '1080',
+        date: DateTime.now(),
+        image: 'assets/images/profile_pic.jpg'),
+    Bidder(
+        name: 'Bidder Name',
+        price: '1080',
+        date: DateTime.now(),
+        image: 'assets/images/profile_pic.jpg'),
+    Bidder(
+        name: 'Bidder Name',
+        price: '1080',
+        date: DateTime.now(),
+        image: 'assets/images/profile_pic.jpg'),
+    Bidder(
+        name: 'Bidder Name',
+        price: '1080',
+        date: DateTime.now(),
+        image: 'assets/images/profile_pic.jpg'),
+    Bidder(
+        name: 'Bidder Name',
+        price: '1080',
+        date: DateTime.now(),
+        image: 'assets/images/profile_pic.jpg'),
   ];
 }
