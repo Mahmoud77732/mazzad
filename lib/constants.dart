@@ -637,4 +637,22 @@ class Constants {
         date: DateTime.now(),
         image: 'assets/images/profile_pic.jpg'),
   ];
+  static List<Bidder> kDummyBiddersList = [
+    Bidder(name: 'Ahmed Hesham', price: '1080'),
+    Bidder(name: 'Ahmed Hesham', price: '1080'),
+    Bidder(name: 'Ahmed Hesham', price: '1080'),
+    Bidder(name: 'Ahmed Hesham', price: '1080'),
+    Bidder(name: 'Ahmed Hesham', price: '1080'),
+    Bidder(name: 'Ahmed Hesham', price: '1080'),
+    Bidder(name: 'Ahmed Hesham', price: '1080'),
+    Bidder(name: 'Ahmed Hesham', price: '1080'),
+    Bidder(name: 'Ahmed Hesham', price: '1080'),
+    Bidder(name: 'Ahmed Hesham', price: '1080'),
+    Bidder(name: 'Ahmed Hesham', price: '1080'),
+    Bidder(name: 'Ahmed Hesham', price: '1080'),
+    Bidder(name: 'Ahmed Hesham', price: '1080'),
+    Bidder(name: 'Ahmed Hesham', price: '1080'),
+    Bidder(name: 'Ahmed Hesham', price: '1080'),
+    Bidder(name: 'Ahmed Hesham', price: '1080'),
+  ];
 }

@@ -25,26 +25,8 @@ class MainBiddersState extends State<MainBidders> {
         foregroundColor: Colors.black,
         backgroundColor: Colors.white,
       ),
-      body: Container(
-        child: SingleChildScrollView(
-          child: Stack(
-            children: [
-              BidderCard(),
-            ],
-          ),
-        ),
-      ),
+      body: BidderCard(),
       bottomSheet: BottomForm(),
-      // bottomSheet: (showForm) ? BottomForm() : null,
-      // floatingActionButton: FloatingActionButton(
-      //   backgroundColor: Colors.deepOrange,
-      //   child: (showForm) ? Icon(Icons.arrow_drop_down, size: 40) : Text('Bid'),
-      //   onPressed: () {
-      //     setState(() {
-      //       showForm = !showForm;
-      //     });
-      //   },
-      // ),
     );
   }
 }

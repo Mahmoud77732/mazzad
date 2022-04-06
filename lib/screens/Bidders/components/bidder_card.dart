@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:mazzad/constants.dart';
 import 'package:mazzad/models/bidder.dart';
 
 class BidderCard extends StatefulWidget {
@@ -12,56 +13,44 @@ class BidderCard extends StatefulWidget {
   }
 }
 
-class BidderCardState extends State<BidderCard> {
-  List<Bidder> bidderList = [
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-  ];
+//TODO: maybe put it inside a refresh indicator for refreshing the page to gert the new highly pidders every time
 
+class BidderCardState extends State<BidderCard> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(10.0),
-      child: Column(
-        children: [
-          ...bidderList
-              .map((bidder) => Card(
-                    // elevation: 0,
-                    child: ListTile(
-                      onTap: () {},
-                      leading: CircleAvatar(
-                        radius: 24,
-                        backgroundColor: Colors.transparent,
-                        child:
-                            Image.asset('assets/images/comvzhssmyverizon.png'),
-                      ),
-                      title: Text(bidder.name ?? "",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20)),
-                      // subtitle: Text(''),
-                      trailing: Text('${bidder.price}\$',
-                          textScaleFactor: 1.2,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 15)),
-                    ),
-                  ))
-              .toList(),
-        ],
+    return ListView.builder(
+      padding: EdgeInsets.all(10),
+      itemBuilder: (context, index) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 5),
+        child: Card(
+          elevation: 4,
+          child: ListTile(
+            leading: CircleAvatar(
+              radius: 23,
+              backgroundColor: Colors.transparent,
+              backgroundImage: AssetImage(
+                  Constants.kDummyBiddersList[index].image ??
+                      "assets/images/profile_pic.jpg"),
+            ),
+            title: Text(
+              Constants.kDummyBiddersList[index].name ?? "unkwon",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15,
+                color: Colors.black,
+              ),
+            ),
+            trailing: Text(
+              '\$${Constants.kDummyBiddersList[index].price ?? 0.0}',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+          ),
+        ),
       ),
+      itemCount: Constants.kDummyBiddersList.length,
     );
   }
 }
