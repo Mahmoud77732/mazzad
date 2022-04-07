@@ -129,23 +129,14 @@ class Body extends StatelessWidget {
                     flex: 4,
                     child: ListView.separated(
                       itemBuilder: (ctx, index) {
-                        return ListTile(
-                          title: Text(
-                            'Terms of use',
-                            style: TextStyle(
-                              color: Colors.grey,
-                            ),
-                          ),
-                          trailing: Icon(Icons.arrow_forward_ios),
-                          onTap: () {},
-                        );
+                        return profileTiles[index];
                       },
                       separatorBuilder: (ctx, index) {
                         return const Divider(
                           height: 2,
                         );
                       },
-                      itemCount: 10,
+                      itemCount: profileTiles.length,
                     ),
                   ),
                 ],
@@ -156,4 +147,62 @@ class Body extends StatelessWidget {
       ],
     );
   }
+
+  static List<ListTile> profileTiles = [
+    ListTile(
+      title: Text(
+        'Terms of use',
+        style: TextStyle(
+          color: Colors.grey,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      trailing: Icon(Icons.arrow_forward_ios),
+      onTap: () {},
+    ),
+    ListTile(
+      title: Text(
+        'Privacy policy',
+        style: TextStyle(
+          color: Colors.grey,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      trailing: Icon(Icons.arrow_forward_ios),
+      onTap: () {},
+    ),
+    ListTile(
+      title: Text(
+        'Contact us',
+        style: TextStyle(
+          color: Colors.grey,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      trailing: Icon(Icons.arrow_forward_ios),
+      onTap: () {},
+    ),
+    ListTile(
+      title: Text(
+        'My auctions',
+        style: TextStyle(
+          color: Colors.grey,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      trailing: Icon(Icons.arrow_forward_ios),
+      onTap: () {},
+    ),
+    ListTile(
+      title: Text(
+        'Cahnge password',
+        style: TextStyle(
+          color: Colors.grey,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      trailing: Icon(Icons.arrow_forward_ios),
+      onTap: () {},
+    ),
+  ];
 }

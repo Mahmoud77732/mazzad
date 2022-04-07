@@ -58,6 +58,7 @@ class Constants {
       borderSide: const BorderSide(color: kTextColor),
     );
   }
+//DUMMY DATA
 
   static List<CategoryButton> kDummyCategories = [
     CategoryButton(
@@ -181,7 +182,6 @@ class Constants {
       name: 'Books',
     ),
   ];
-
   static List<AuctionItem> kDummyLiveAuctionItems = [
     AuctionItem(
       image: 'assets/images/product.jpeg',

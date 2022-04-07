@@ -57,10 +57,13 @@ class _HomeScreenState extends State<HomeScreen> {
         activeColor: Constants.kPrimaryColor,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Constants.kPrimaryColor,
-        onPressed: () {},
-        child: const Icon(Icons.add),
+      floatingActionButton: Visibility(
+        visible: true,
+        child: FloatingActionButton(
+          backgroundColor: Constants.kPrimaryColor,
+          onPressed: () {},
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }
