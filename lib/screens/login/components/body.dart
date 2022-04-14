@@ -9,6 +9,7 @@ import 'package:mazzad/screens/SignUp/signup_screen.dart';
 import 'package:mazzad/screens/login/components/background.dart';
 import 'package:mazzad/screens/otb/otb_screen.dart';
 import 'package:mazzad/size_config.dart';
+
 import '../../../components/already_have_an_account_check.dart';
 
 class Body extends StatefulWidget {
@@ -25,7 +26,6 @@ class BodyState extends State<Body> {
   bool passVisible2 = true;
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return Background(
       child: SingleChildScrollView(
         child: Padding(

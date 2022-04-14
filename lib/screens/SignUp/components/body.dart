@@ -1,5 +1,3 @@
-// ignore_for_file: sized_box_for_whitespace, prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_unnecessary_containers, use_key_in_widget_constructors
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -13,6 +11,8 @@ import 'package:mazzad/screens/otb/otb_screen.dart';
 import '../../../size_config.dart';
 
 class Body extends StatefulWidget {
+  const Body({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return BodyState();
@@ -28,7 +28,7 @@ class BodyState extends State<Body> {
     Size size = MediaQuery.of(context).size;
     return Background(
       child: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           horizontal: Constants.kHorizontalSpacing,
         ),
         child: Column(
@@ -37,10 +37,10 @@ class BodyState extends State<Body> {
             const Text('SignUp', style: TextStyle(fontWeight: FontWeight.bold)),
             SvgPicture.asset('assets/icons/singup.svg',
                 height: size.height * 0.35),
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
             Column(
               children: [
-                TextField(
+                const TextField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderSide: BorderSide(width: 2),
@@ -50,8 +50,8 @@ class BodyState extends State<Body> {
                   ),
                   keyboardType: TextInputType.text,
                 ),
-                SizedBox(height: 5.0),
-                TextField(
+                const SizedBox(height: 5.0),
+                const TextField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderSide: BorderSide(width: 2),
@@ -61,8 +61,8 @@ class BodyState extends State<Body> {
                   ),
                   keyboardType: TextInputType.emailAddress,
                 ),
-                SizedBox(height: 5.0),
-                TextField(
+                const SizedBox(height: 5.0),
+                const TextField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderSide: BorderSide(width: 2),
@@ -72,10 +72,10 @@ class BodyState extends State<Body> {
                   ),
                   keyboardType: TextInputType.number,
                 ),
-                SizedBox(height: 5.0),
+                const SizedBox(height: 5.0),
                 TextField(
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(
+                    border: const OutlineInputBorder(
                       borderSide: BorderSide(width: 2),
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     ),
@@ -94,10 +94,10 @@ class BodyState extends State<Body> {
                   keyboardType: TextInputType.visiblePassword,
                   obscureText: passVisible1,
                 ),
-                SizedBox(height: 5.0),
+                const SizedBox(height: 5.0),
                 TextField(
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(
+                    border: const OutlineInputBorder(
                       borderSide: BorderSide(width: 2),
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     ),

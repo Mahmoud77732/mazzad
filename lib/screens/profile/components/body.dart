@@ -15,7 +15,7 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return Column(
       children: [
         SizedBox(
           height: SizeConfig.screenHeight - 96,
@@ -103,7 +103,7 @@ class Body extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       backgroundImage:
-                          AssetImage('assets/images/profile_pic.jpg'),
+                          const AssetImage('assets/images/profile_pic.jpg'),
                       radius: getProportionateScreenHeight(50),
                     ),
                     SizedBox(
@@ -139,6 +139,10 @@ class Body extends StatelessWidget {
                       itemCount: profileTiles.length,
                     ),
                   ),
+                  // SizedBox(
+                  //   height: MediaQuery.of(context).padding.bottom -
+                  //       MediaQuery.of(context).padding.bottom,
+                  // )
                 ],
               ),
             ],
@@ -150,58 +154,58 @@ class Body extends StatelessWidget {
 
   static List<ListTile> profileTiles = [
     ListTile(
-      title: Text(
+      title: const Text(
         'Terms of use',
         style: TextStyle(
           color: Colors.grey,
           fontWeight: FontWeight.bold,
         ),
       ),
-      trailing: Icon(Icons.arrow_forward_ios),
+      trailing: const Icon(Icons.arrow_forward_ios),
       onTap: () {},
     ),
     ListTile(
-      title: Text(
+      title: const Text(
         'Privacy policy',
         style: TextStyle(
           color: Colors.grey,
           fontWeight: FontWeight.bold,
         ),
       ),
-      trailing: Icon(Icons.arrow_forward_ios),
+      trailing: const Icon(Icons.arrow_forward_ios),
       onTap: () {},
     ),
     ListTile(
-      title: Text(
+      title: const Text(
         'Contact us',
         style: TextStyle(
           color: Colors.grey,
           fontWeight: FontWeight.bold,
         ),
       ),
-      trailing: Icon(Icons.arrow_forward_ios),
+      trailing: const Icon(Icons.arrow_forward_ios),
       onTap: () {},
     ),
     ListTile(
-      title: Text(
+      title: const Text(
         'My auctions',
         style: TextStyle(
           color: Colors.grey,
           fontWeight: FontWeight.bold,
         ),
       ),
-      trailing: Icon(Icons.arrow_forward_ios),
+      trailing: const Icon(Icons.arrow_forward_ios),
       onTap: () {},
     ),
     ListTile(
-      title: Text(
+      title: const Text(
         'Cahnge password',
         style: TextStyle(
           color: Colors.grey,
           fontWeight: FontWeight.bold,
         ),
       ),
-      trailing: Icon(Icons.arrow_forward_ios),
+      trailing: const Icon(Icons.arrow_forward_ios),
       onTap: () {},
     ),
   ];

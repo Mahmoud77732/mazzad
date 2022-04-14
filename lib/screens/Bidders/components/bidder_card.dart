@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:mazzad/constants.dart';
-import 'package:mazzad/models/bidder.dart';
 
 class BidderCard extends StatefulWidget {
   const BidderCard({Key? key}) : super(key: key);
@@ -12,8 +11,6 @@ class BidderCard extends StatefulWidget {
     return BidderCardState();
   }
 }
-
-//TODO: maybe put it inside a refresh indicator for refreshing the page to gert the new highly pidders every time
 
 class BidderCardState extends State<BidderCard> {
   @override

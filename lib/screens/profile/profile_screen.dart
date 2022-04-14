@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:mazzad/size_config.dart';
-
 import 'components/body.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -9,7 +7,6 @@ class ProfileScreen extends StatelessWidget {
   static const routeName = 'profile_screen';
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -22,7 +19,7 @@ class ProfileScreen extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.white,
       ),
-      body: Body(),
+      body: const Body(),
     );
   }
 }

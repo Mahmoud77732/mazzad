@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mazzad/size_config.dart';
+
 import './components/body.dart';
+import '../../size_config.dart';
 
 class OnBoardScreen extends StatelessWidget {
   const OnBoardScreen({Key? key}) : super(key: key);
@@ -8,7 +9,7 @@ class OnBoardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return Scaffold(
+    return const Scaffold(
       body: Body(),
     );
   }

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import './/size_config.dart';
 import './/constants.dart';
-
+import './/size_config.dart';
 import './otp_form.dart';
 
 class Body extends StatelessWidget {

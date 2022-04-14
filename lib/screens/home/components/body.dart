@@ -1,8 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mazzad/components/auction_item.dart';
-import 'package:mazzad/components/category_button.dart';
 import 'package:mazzad/components/search_textfield.dart';
 import 'package:mazzad/screens/categories/categories_screen.dart';
 
@@ -69,7 +67,7 @@ class Body extends StatelessWidget {
                   viewportFraction: 1.0,
                   autoPlay: true,
                   onPageChanged: (i, reason) {
-                    print(i);
+                    // print(i);
                   },
                 ),
               ),

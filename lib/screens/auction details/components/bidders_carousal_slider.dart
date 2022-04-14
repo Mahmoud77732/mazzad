@@ -10,7 +10,7 @@ import '../../../constants.dart';
 
 class TopFiveBiddersCarousalSlider extends StatefulWidget {
   final List<Bidder>? bidders;
-  TopFiveBiddersCarousalSlider({this.bidders});
+  const TopFiveBiddersCarousalSlider({this.bidders});
   @override
   State<TopFiveBiddersCarousalSlider> createState() =>
       _TopFiveBiddersCarousalSliderState();

@@ -5,13 +5,14 @@ import 'package:mazzad/constants.dart';
 import 'package:mazzad/models/bidder.dart';
 import 'package:mazzad/screens/Bidders/main_bidders.dart';
 import 'package:mazzad/screens/auction details/components/bidders_carousal_slider.dart';
-import 'package:mazzad/screens/auction details/components/products_carousal_slider.dart';
 import 'package:mazzad/screens/auction details/components/product_info.dart';
-import 'package:mazzad/screens/auction%20details/auction_details_screen.dart';
+import 'package:mazzad/screens/auction details/components/products_carousal_slider.dart';
 
 import '../../../components/auction_item.dart';
 
 class Body extends StatefulWidget {
+  const Body({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return BodyState();

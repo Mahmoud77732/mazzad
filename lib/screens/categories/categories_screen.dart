@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mazzad/components/category_button.dart';
 import 'package:mazzad/components/search_textfield.dart';
 import 'package:mazzad/constants.dart';
 
@@ -11,7 +10,6 @@ class CategoriesScreen extends StatelessWidget {
   static const routeName = '/categories_screen';
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
