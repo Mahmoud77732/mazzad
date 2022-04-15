@@ -4,6 +4,7 @@ import 'package:mazzad/screens/SignUp/signup_screen.dart';
 import 'package:mazzad/screens/auction details/auction_details_screen.dart';
 import 'package:mazzad/screens/auctions/auctions.dart';
 import 'package:mazzad/screens/categories/categories_screen.dart';
+import 'package:mazzad/screens/contact_us/contact_us_screen.dart';
 import 'package:mazzad/screens/home/home_screen.dart';
 import 'package:mazzad/screens/login/login_screen.dart';
 import 'package:mazzad/screens/otb/otb_screen.dart';
@@ -35,8 +36,8 @@ class Router {
         return SlideRoute(page: const AuctionDetailsScreen());
       case MainBidders.routeName:
         return SlideRoute(page: const MainBidders());
-      // case ContactUsScreen.routeName:
-      //   return SlideRoute(page: const ContactUsScreen());
+      case ContactUsScreen.routeName:
+        return SlideRoute(page: const ContactUsScreen());
       default:
         return SlideRoute(page: const HomeScreen());
     }

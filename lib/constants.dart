@@ -59,8 +59,13 @@ class Constants {
       borderSide: const BorderSide(color: kTextColor),
     );
   }
-//DUMMY DATA
 
+//DUMMY DATA
+  static const List<String> kDummyImgs = [
+    'assets/images/home.jpg',
+    'assets/images/product.jpeg',
+    'assets/images/product1.png',
+  ];
   static List<CategoryButton> kDummyCategories = [
     CategoryButton(
       color: Colors.amber,

@@ -50,10 +50,10 @@ class Body extends StatelessWidget {
               Constants.kBigVertcialSpacing,
               CarouselSlider(
                 items: List.generate(
-                  3,
+                  Constants.kDummyImgs.length,
                   (index) => InkWell(
                     onTap: () {},
-                    child: Image.asset('assets/images/product.jpeg'),
+                    child: Image.asset(Constants.kDummyImgs[index]),
                   ),
                 ),
                 options: CarouselOptions(

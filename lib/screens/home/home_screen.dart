@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Visibility(
-        visible: true,
+        visible: MediaQuery.of(context).viewInsets.bottom == 0 ? true : false,
         child: FloatingActionButton(
           backgroundColor: Constants.kPrimaryColor,
           onPressed: () {},

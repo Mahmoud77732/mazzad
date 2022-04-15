@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mazzad/screens/contact_us/contact_us_screen.dart';
 import 'package:mazzad/screens/profile/components/small_clipper.dart';
 
 import '../../../constants.dart';
@@ -15,118 +16,114 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: SizeConfig.screenHeight - 96,
-          width: SizeConfig.screenWidth,
-          child: Stack(
-            children: [
-              ClipShadowPath(
-                shadow: const BoxShadow(
-                  color: Colors.black,
-                  offset: Offset(4, 4),
-                  blurRadius: 4,
-                  spreadRadius: 4,
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          SizedBox(
+            height: SizeConfig.screenHeight - 96,
+            width: SizeConfig.screenWidth,
+            child: Stack(
+              children: [
+                ClipShadowPath(
+                  shadow: const BoxShadow(
+                    color: Colors.black,
+                    offset: Offset(4, 4),
+                    blurRadius: 4,
+                    spreadRadius: 4,
+                  ),
+                  clipper: BigClipper(),
+                  child: Container(
+                    color: Constants.kPrimaryColor,
+                  ),
                 ),
-                clipper: BigClipper(),
-                child: Container(
-                  color: Constants.kPrimaryColor,
+                ClipShadowPath(
+                  shadow: const BoxShadow(
+                    color: Colors.black,
+                    offset: Offset(4, 4),
+                    blurRadius: 4,
+                    spreadRadius: 4,
+                  ),
+                  clipper: SmallClipper(),
+                  child: Container(
+                    color: Constants.kPrimaryColor,
+                  ),
                 ),
-              ),
-              ClipShadowPath(
-                shadow: const BoxShadow(
-                  color: Colors.black,
-                  offset: Offset(4, 4),
-                  blurRadius: 4,
-                  spreadRadius: 4,
-                ),
-                clipper: SmallClipper(),
-                child: Container(
-                  color: Constants.kPrimaryColor,
-                ),
-              ),
-              Positioned(
-                right: getProportionateScreenWidth(40),
-                top: getProportionateScreenHeight(180),
-                child: TextButton(
-                  child: Row(
-                    children: [
-                      const Text(
-                        'Logout',
-                        style: TextStyle(
+                Positioned(
+                  right: getProportionateScreenWidth(40),
+                  top: getProportionateScreenHeight(180),
+                  child: TextButton(
+                    child: Row(
+                      children: [
+                        const Text(
+                          'Logout',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(
+                          width: getProportionateScreenWidth(5),
+                        ),
+                        const Icon(
+                          Icons.login,
                           color: Colors.white,
                         ),
-                      ),
-                      SizedBox(
-                        width: getProportionateScreenWidth(5),
-                      ),
-                      const Icon(
-                        Icons.login,
-                        color: Colors.white,
-                      ),
-                    ],
+                      ],
+                    ),
+                    onPressed: () {
+                      Get.offAllNamed(LoginScreen.routeName);
+                    },
                   ),
-                  onPressed: () {
-                    Get.offAllNamed(LoginScreen.routeName);
-                  },
                 ),
-              ),
-              Positioned(
-                left: 0,
-                top: getProportionateScreenHeight(230),
-                child: TextButton(
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.edit_outlined,
-                        color: Colors.white,
-                      ),
-                      SizedBox(
-                        width: getProportionateScreenWidth(5),
-                      ),
-                      const Text(
-                        'Edit Profile',
-                        style: TextStyle(
+                Positioned(
+                  left: 0,
+                  top: getProportionateScreenHeight(230),
+                  child: TextButton(
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.edit_outlined,
                           color: Colors.white,
                         ),
+                        SizedBox(
+                          width: getProportionateScreenWidth(5),
+                        ),
+                        const Text(
+                          'Edit Profile',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                    onPressed: () {},
+                  ),
+                ),
+                Positioned(
+                  top: getProportionateScreenHeight(20),
+                  left: SizeConfig.screenWidth / 2 - 50,
+                  child: Column(
+                    children: [
+                      CircleAvatar(
+                        backgroundImage:
+                            const AssetImage('assets/images/profile_pic.jpg'),
+                        radius: getProportionateScreenHeight(50),
                       ),
+                      SizedBox(
+                        height: getProportionateScreenHeight(15),
+                      ),
+                      Text(
+                        'Malia Renult',
+                        style: TextStyle(
+                          fontSize: getProportionateScreenHeight(20),
+                          color: Colors.white,
+                        ),
+                      )
                     ],
                   ),
-                  onPressed: () {},
                 ),
-              ),
-              Positioned(
-                top: getProportionateScreenHeight(20),
-                left: SizeConfig.screenWidth / 2 - 50,
-                child: Column(
-                  children: [
-                    CircleAvatar(
-                      backgroundImage:
-                          const AssetImage('assets/images/profile_pic.jpg'),
-                      radius: getProportionateScreenHeight(50),
-                    ),
-                    SizedBox(
-                      height: getProportionateScreenHeight(15),
-                    ),
-                    Text(
-                      'Malia Renult',
-                      style: TextStyle(
-                        fontSize: getProportionateScreenHeight(20),
-                        color: Colors.white,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              Column(
-                children: [
-                  Expanded(
-                    child: Container(),
-                    flex: 3,
-                  ),
-                  Expanded(
-                    flex: 4,
+                Positioned(
+                  child: SizedBox(
+                    height: SizeConfig.screenHeight / 2,
                     child: ListView.separated(
                       itemBuilder: (ctx, index) {
                         return profileTiles[index];
@@ -139,16 +136,16 @@ class Body extends StatelessWidget {
                       itemCount: profileTiles.length,
                     ),
                   ),
-                  // SizedBox(
-                  //   height: MediaQuery.of(context).padding.bottom -
-                  //       MediaQuery.of(context).padding.bottom,
-                  // )
-                ],
-              ),
-            ],
+                  top: getProportionateScreenHeight(300),
+                  left: 0,
+                  width: SizeConfig.screenWidth,
+                )
+              ],
+            ),
           ),
-        ),
-      ],
+          //    Container(height: SizeConfig.screenHeight / 4),
+        ],
+      ),
     );
   }
 
@@ -184,7 +181,9 @@ class Body extends StatelessWidget {
         ),
       ),
       trailing: const Icon(Icons.arrow_forward_ios),
-      onTap: () {},
+      onTap: () {
+        Get.toNamed(ContactUsScreen.routeName);
+      },
     ),
     ListTile(
       title: const Text(
@@ -199,7 +198,7 @@ class Body extends StatelessWidget {
     ),
     ListTile(
       title: const Text(
-        'Cahnge password',
+        'Change password',
         style: TextStyle(
           color: Colors.grey,
           fontWeight: FontWeight.bold,
