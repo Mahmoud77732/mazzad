@@ -19,11 +19,9 @@ class MainBiddersState extends State<MainBidders> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bidders',
-            style: TextStyle(color: Colors.black, fontSize: 25)),
-        centerTitle: true,
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.white,
+        title: const Text(
+          'Bidders',
+        ),
       ),
       body: BidderCard(),
       bottomSheet: BottomForm(),

@@ -13,13 +13,7 @@ class ShopScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Shop',
-          style: TextStyle(
-            color: Colors.black,
-          ),
         ),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        elevation: 0,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(

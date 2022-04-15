@@ -34,7 +34,10 @@ class BodyState extends State<Body> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('SignUp', style: TextStyle(fontWeight: FontWeight.bold)),
+            Text(
+              'SignUp',
+              style: Theme.of(context).appBarTheme.titleTextStyle,
+            ),
             SvgPicture.asset('assets/icons/singup.svg',
                 height: size.height * 0.35),
             const SizedBox(height: 8.0),

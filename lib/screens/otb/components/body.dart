@@ -19,12 +19,11 @@ class Body extends StatelessWidget {
             ),
             Text(
               'OTP Verfication',
-              style: TextStyle(
-                fontSize: getProportionateScreenHeight(28),
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-                height: 1.5,
-              ),
+              style: Theme.of(context).appBarTheme.titleTextStyle!.copyWith(
+                    fontSize: getProportionateScreenHeight(
+                      28,
+                    ),
+                  ),
             ),
             const Text(
               'we sent your code to +1 898 860 ***',

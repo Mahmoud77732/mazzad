@@ -17,14 +17,7 @@ class AuctionDetailsScreenState extends State<AuctionDetailsScreen> {
       appBar: AppBar(
         title: const Text(
           'Details',
-          style: TextStyle(
-            fontSize: 25,
-            color: Colors.black,
-          ),
         ),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        elevation: 0,
       ),
       body: const Body(),
     );

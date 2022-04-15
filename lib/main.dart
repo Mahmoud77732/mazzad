@@ -3,6 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mazzad/firebase_options.dart';
 import 'package:mazzad/screens/onboard/on_board_screen.dart';
 
@@ -60,7 +61,21 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: const OnBoardScreen(),
-      theme: ThemeData(textTheme: const TextTheme()),
+      theme: ThemeData(
+        appBarTheme: AppBarTheme(
+          centerTitle: true,
+          titleTextStyle: GoogleFonts.abhayaLibre(
+            color: Colors.black,
+            fontWeight: FontWeight.w900,
+            fontSize: 24.0,
+          ),
+          iconTheme: const IconThemeData(
+            color: Colors.black,
+          ),
+          backgroundColor: Colors.white,
+          elevation: 0,
+        ),
+      ),
       title: 'Mazzad',
       onGenerateRoute: router.Router.onGenerateRoute,
     );

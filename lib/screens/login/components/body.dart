@@ -33,7 +33,10 @@ class BodyState extends State<Body> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Login', style: TextStyle(fontWeight: FontWeight.bold)),
+              Text(
+                'Login',
+                style: Theme.of(context).appBarTheme.titleTextStyle,
+              ),
               SizedBox(height: SizeConfig.screenHeight * 0.03),
               SvgPicture.asset('assets/icons/signin.svg',
                   height: SizeConfig.screenHeight * 0.35),

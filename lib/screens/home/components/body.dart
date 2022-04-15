@@ -14,8 +14,6 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
         actions: [
           IconButton(
             onPressed: () {},
@@ -36,12 +34,8 @@ class Body extends StatelessWidget {
           ),
         ],
         centerTitle: false,
-        title: Text(
+        title: const Text(
           'Home',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: getProportionateScreenHeight(24),
-          ),
         ),
       ),
       body: SingleChildScrollView(
