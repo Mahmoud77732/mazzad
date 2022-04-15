@@ -75,6 +75,32 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.white,
           elevation: 0,
         ),
+        textTheme: TextTheme(
+          // thats for just a backup for the regular styling
+          bodyText1: GoogleFonts.abhayaLibre(
+            color: Colors.black,
+            fontWeight: FontWeight.w700,
+            fontSize: 14,
+          ),
+          // thats for regulra styling
+          bodyText2: GoogleFonts.abel(
+            color: Colors.black,
+            fontWeight: FontWeight.w700,
+            fontSize: 14,
+          ),
+          // thats for button styling
+          button: GoogleFonts.abel(
+            color: Colors.black,
+            fontWeight: FontWeight.w700,
+            fontSize: 14,
+          ),
+          // its for list tiles text
+          subtitle1: GoogleFonts.abel(
+            color: Colors.black,
+            fontWeight: FontWeight.w900,
+            // fontSize: 16,
+          ),
+        ),
       ),
       title: 'Mazzad',
       onGenerateRoute: router.Router.onGenerateRoute,
