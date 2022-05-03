@@ -1,18 +1,20 @@
-// ignore_for_file: sized_box_for_whitespace, prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_unnecessary_containers, use_key_in_widget_constructors
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:mazzad/components/already_have_an_account_check.dart';
 import 'package:mazzad/components/default_button.dart';
+import 'package:mazzad/components/default_text_field.dart';
 import 'package:mazzad/constants.dart';
 import 'package:mazzad/screens/SignUp/components/background.dart';
 import 'package:mazzad/screens/login/login_screen.dart';
 import 'package:mazzad/screens/otb/otb_screen.dart';
+import 'package:mazzad/services/validator.dart';
 
 import '../../../size_config.dart';
 
 class Body extends StatefulWidget {
+  const Body({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return BodyState();
@@ -20,121 +22,86 @@ class Body extends StatefulWidget {
 }
 
 class BodyState extends State<Body> {
+  final _passwordFieldKey = GlobalKey<FormFieldState<String>>();
   bool passVisible1 = true;
   bool passVisible2 = true;
-
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Background(
       child: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           horizontal: Constants.kHorizontalSpacing,
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('SignUp', style: TextStyle(fontWeight: FontWeight.bold)),
-            SvgPicture.asset('assets/icons/singup.svg',
-                height: size.height * 0.35),
-            SizedBox(height: 8.0),
-            Column(
-              children: [
-                TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(width: 2),
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    ),
-                    hintText: 'Name',
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'SignUp',
+                style: Theme.of(context).appBarTheme.titleTextStyle,
+              ),
+              SvgPicture.asset('assets/icons/singup.svg',
+                  height: size.height * 0.35),
+              const SizedBox(height: 8.0),
+              Column(
+                children: [
+                  const DefaultTextField(
+                    title: 'Name',
+                    validate: Validator.validateName,
                   ),
-                  keyboardType: TextInputType.text,
-                ),
-                SizedBox(height: 5.0),
-                TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(width: 2),
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    ),
-                    hintText: 'Your Email',
+                  const SizedBox(height: 5.0),
+                  const DefaultTextField(
+                    title: 'Your Email',
+                    validate: Validator.validateEmail,
                   ),
-                  keyboardType: TextInputType.emailAddress,
-                ),
-                SizedBox(height: 5.0),
-                TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(width: 2),
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    ),
-                    hintText: 'Phone',
+                  const SizedBox(height: 5.0),
+                  const DefaultTextField(
+                    title: 'Phone',
+                    validate: Validator.validatePhone,
                   ),
-                  keyboardType: TextInputType.number,
-                ),
-                SizedBox(height: 5.0),
-                TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(width: 2),
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    ),
-                    hintText: 'Password',
-                    suffixIcon: IconButton(
-                      icon: Icon((passVisible1)
-                          ? Icons.visibility
-                          : Icons.visibility_off),
-                      onPressed: () {
-                        setState(() {
-                          passVisible1 = !passVisible1;
-                        });
-                      },
-                    ),
+                  const SizedBox(height: 5.0),
+                  DefaultTextField(
+                    title: 'Password',
+                    isSecure: true,
+                    validate: Validator.validatePassword,
+                    passwordFieldKey: _passwordFieldKey,
                   ),
-                  keyboardType: TextInputType.visiblePassword,
-                  obscureText: passVisible1,
-                ),
-                SizedBox(height: 5.0),
-                TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(width: 2),
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    ),
-                    hintText: 'Confirm Password',
-                    suffixIcon: IconButton(
-                      icon: Icon((passVisible2)
-                          ? Icons.visibility
-                          : Icons.visibility_off),
-                      onPressed: () {
-                        setState(() {
-                          passVisible2 = !passVisible2;
-                        });
-                      },
-                    ),
+                  const SizedBox(height: 5.0),
+                  DefaultTextField(
+                    title: 'Confirm Password',
+                    isSecure: true,
+                    validate: Validator.validatePassword,
+                    passwordFieldKey: _passwordFieldKey,
                   ),
-                  keyboardType: TextInputType.visiblePassword,
-                  obscureText: passVisible2,
-                ),
-              ],
-            ),
-            SizedBox(
-              height: getProportionateScreenHeight(20),
-            ),
-            DefaultButton(
-              text: 'Create',
-              onPressed: () {
-                Get.toNamed(OTPScreen.routeName);
-              },
-            ),
-            Constants.kBigVertcialSpacing,
-            AlreadyHaveAnAccountCheck(
-              login: false,
-              press: () {
-                Get.offAllNamed(LoginScreen.routeName);
-              },
-            ),
-          ],
+                  const SizedBox(height: 5.0),
+                ],
+              ),
+              SizedBox(
+                height: getProportionateScreenHeight(20),
+              ),
+              DefaultButton(
+                text: 'Create',
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    Get.toNamed(OTPScreen.routeName);
+                  }
+                },
+              ),
+              Constants.kBigVertcialSpacing,
+              AlreadyHaveAnAccountCheck(
+                login: false,
+                press: () {
+                  Get.offAllNamed(LoginScreen.routeName);
+                },
+              ),
+              SizedBox(
+                height: getProportionateScreenHeight(20),
+              ),
+            ],
+          ),
         ),
       ),
     );

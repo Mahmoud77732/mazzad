@@ -1,10 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mazzad/components/auction_item.dart';
-import 'package:mazzad/components/category_button.dart';
 import 'package:mazzad/components/search_textfield.dart';
 import 'package:mazzad/screens/categories/categories_screen.dart';
+import 'package:mazzad/screens/notifications/notifications_screen.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -16,11 +15,11 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed(NotificationsScreen.routeName);
+            },
             icon: Icon(
               Icons.notifications_outlined,
               color: Colors.black,
@@ -38,12 +37,8 @@ class Body extends StatelessWidget {
           ),
         ],
         centerTitle: false,
-        title: Text(
+        title: const Text(
           'Home',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: getProportionateScreenHeight(24),
-          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -58,10 +53,10 @@ class Body extends StatelessWidget {
               Constants.kBigVertcialSpacing,
               CarouselSlider(
                 items: List.generate(
-                  3,
+                  Constants.kDummyImgs.length,
                   (index) => InkWell(
                     onTap: () {},
-                    child: Image.asset('assets/images/product.jpeg'),
+                    child: Image.asset(Constants.kDummyImgs[index]),
                   ),
                 ),
                 options: CarouselOptions(
@@ -69,7 +64,7 @@ class Body extends StatelessWidget {
                   viewportFraction: 1.0,
                   autoPlay: true,
                   onPageChanged: (i, reason) {
-                    print(i);
+                    // print(i);
                   },
                 ),
               ),
@@ -105,7 +100,7 @@ class Body extends StatelessWidget {
                       Constants.kDummyCategories[index],
                   itemCount: Constants.kDummyCategories.length,
                   separatorBuilder: (context, index) =>
-                      Constants.kSmallHorizontalSpacing,
+                      Constants.kTinyHorizontalSpacing,
                 ),
               ),
               Constants.kBigVertcialSpacing,

@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "284203501080",
+    "project_id": "fmct-6151b",
+    "storage_bucket": "fmct-6151b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:284203501080:android:490873ce78ea915367656d",
+        "android_client_info": {
+          "package_name": "com.example.mazzad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "284203501080-ohth772pv02v333j1oafulq1p9g3kco4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBw0rNAG1rbjdPF8lgDu0KYss1gavAi0s0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "284203501080-ohth772pv02v333j1oafulq1p9g3kco4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "284203501080-lkp2p8rc1r9abud5rvgto8fkhqrul93l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mazzad"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

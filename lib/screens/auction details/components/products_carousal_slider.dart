@@ -26,26 +26,30 @@ class _ProductsCarousalSliderState extends State<ProductsCarousalSlider> {
                 Image.asset(linkIndex.toString(), fit: BoxFit.cover),
                 Positioned.fill(
                   top: 130,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Text("1080\$",
+                  child: Container(
+                    decoration: BoxDecoration(boxShadow: [
+                      BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          blurRadius: 5,
+                          spreadRadius: 1),
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        blurRadius: 5,
+                        spreadRadius: 10,
+                        // offset: Offset(1, 15),
+                      ),
+                    ]),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "1080\$",
+                        textAlign: TextAlign.center,
                         style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            shadows: <Shadow>[
-                            Shadow(
-                              offset: Offset(0.0, 0.0),
-                              blurRadius: 7.0,
-                              color: Color.fromARGB(255, 0, 0, 0),
-                            ),
-                            Shadow(
-                              offset: Offset(0.0, 0.0),
-                              blurRadius: 8.0,
-                              color: Colors.black,
-                            ),
-                          ],
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
                         ),
+                      ),
                     ),
                   ),
                 )

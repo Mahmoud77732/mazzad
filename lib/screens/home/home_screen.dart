@@ -1,17 +1,14 @@
-import 'package:flutter/material.dart';
-
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:mazzad/screens/auctions/auctions.dart';
-import 'package:mazzad/screens/profile/profile_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import './/constants.dart';
+import './/screens/add_product/add_product_screen.dart';
+import './/screens/auctions/auctions.dart';
+import './/screens/profile/profile_screen.dart';
 // import 'package:mazzad/screens/shop/shop_screen.dart';
 
 import '../Shop/shop_screen.dart';
-import './/components/category_button.dart';
-import './/components/auction_item.dart';
-import '../../components/search_textfield.dart';
-import './/constants.dart';
-import './/size_config.dart';
 import 'components/body.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -26,19 +23,18 @@ class _HomeScreenState extends State<HomeScreen> {
   var _bottomNavIndex = 0;
   List<IconData> navIcons = [
     Icons.home,
-    Icons.speaker,
+    Icons.space_dashboard_rounded,
     Icons.shopping_cart,
     Icons.person,
   ];
   List<Widget> navPages = [
-    Body(),
-    AuctionsScreen(),
-    ShopScreen(),
-    ProfileScreen(),
+    const Body(),
+    const AuctionsScreen(),
+    const ShopScreen(),
+    const ProfileScreen(),
   ];
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return Scaffold(
       extendBody: true,
       body: navPages[_bottomNavIndex],
@@ -57,10 +53,15 @@ class _HomeScreenState extends State<HomeScreen> {
         activeColor: Constants.kPrimaryColor,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Constants.kPrimaryColor,
-        onPressed: () {},
-        child: const Icon(Icons.add),
+      floatingActionButton: Visibility(
+        visible: MediaQuery.of(context).viewInsets.bottom == 0 ? true : false,
+        child: FloatingActionButton(
+          backgroundColor: Constants.kPrimaryColor,
+          onPressed: () {
+            Get.toNamed(AddProductScreen.routeName);
+          },
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }

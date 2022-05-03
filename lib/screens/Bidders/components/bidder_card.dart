@@ -1,7 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:mazzad/screens/Bidders/components/bidder.dart';
+import 'package:mazzad/constants.dart';
+import 'package:mazzad/size_config.dart';
 
 class BidderCard extends StatefulWidget {
   const BidderCard({Key? key}) : super(key: key);
@@ -13,49 +14,50 @@ class BidderCard extends StatefulWidget {
 }
 
 class BidderCardState extends State<BidderCard> {
-  List<Bidder> bidderList = [
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(10.0),
-      child: Column(
-        children: [
-          ...bidderList.map((bidder) => 
-          Card(
-            // elevation: 0,
-            child: ListTile(
-              onTap: () {},
-              leading: CircleAvatar(
-                radius: 24,
-                backgroundColor: Colors.transparent,
-                child: Image.asset('assets/images/comvzhssmyverizon.png'),
+    return Column(
+      children: [
+        Expanded(
+          child: ListView.builder(
+            padding: EdgeInsets.all(10),
+            itemBuilder: (context, index) => Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 5),
+              child: Card(
+                elevation: 4,
+                child: ListTile(
+                  leading: CircleAvatar(
+                    radius: 23,
+                    backgroundColor: Colors.transparent,
+                    backgroundImage: AssetImage(
+                        Constants.kDummyBiddersList[index].image ??
+                            "assets/images/profile_pic.jpg"),
+                  ),
+                  title: Text(
+                    Constants.kDummyBiddersList[index].name ?? "unkwon",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                      color: Colors.black,
+                    ),
+                  ),
+                  trailing: Text(
+                    '\$${Constants.kDummyBiddersList[index].price ?? 0.0}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
               ),
-              title: Text(bidder.name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-              // subtitle: Text(''),
-              trailing: Text('${bidder.price}\$', textScaleFactor: 1.2, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
             ),
-          )
-          ).toList(),
-        ],
-      ),
+            itemCount: Constants.kDummyBiddersList.length,
+          ),
+        ),
+        SizedBox(
+          height: getProportionateScreenHeight(53 + 80),
+        )
+      ],
     );
   }
 }

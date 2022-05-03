@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.mazzad">
+    package="com.example.mazzad"> 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
    <application
         android:label="mazzad"
         android:name="${applicationName}"
@@ -19,7 +21,12 @@
             <meta-data
               android:name="io.flutter.embedding.android.NormalTheme"
               android:resource="@style/NormalTheme"
-              />
+              /> 
+              <!-- for headups notification -->
+              <!-- <meta-data
+              android:name="com.google.firebase.messaging.default_notification_channel_id"
+              android:resource="mazzad"
+              />  -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

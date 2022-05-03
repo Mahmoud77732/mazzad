@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mazzad/components/auction_item.dart';
 import 'package:mazzad/components/search_textfield.dart';
 import 'package:mazzad/constants.dart';
 
@@ -34,7 +33,7 @@ class _BodyState extends State<Body> {
         child: Column(
           children: [
             Constants.kSmallVerticalSpacing,
-            SearchTextField(),
+            const SearchTextField(),
             Constants.kSmallVerticalSpacing,
             Container(
               height: 40,
@@ -68,13 +67,13 @@ class _BodyState extends State<Body> {
               child: Builder(
                 builder: (_) {
                   if (_selectedTabBar == 0) {
-                    return Live();
+                    return const Live();
                   } else if (_selectedTabBar == 1) {
-                    return Scheduled();
+                    return const Scheduled();
                   } else if (_selectedTabBar == 2) {
-                    return UpComing();
+                    return const UpComing();
                   } else {
-                    return Live();
+                    return const Live();
                   }
                 },
               ),
@@ -92,7 +91,7 @@ class Live extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisSpacing: Constants.kHorizontalSpacing,
         mainAxisSpacing: Constants.kHorizontalSpacing / 2,
         crossAxisCount: 2,
@@ -111,7 +110,7 @@ class Scheduled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: Constants.kHorizontalSpacing,
         mainAxisSpacing: Constants.kHorizontalSpacing / 2,
@@ -130,7 +129,7 @@ class UpComing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: Constants.kHorizontalSpacing,
         mainAxisSpacing: Constants.kHorizontalSpacing / 2,

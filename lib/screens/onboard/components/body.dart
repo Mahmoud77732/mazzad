@@ -2,17 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mazzad/components/default_button.dart';
 import 'package:mazzad/screens/SignUp/signup_screen.dart';
-import 'package:mazzad/screens/login/login_screen.dart';
-import './on_board_content.dart';
+
 import './/constants.dart';
+import './on_board_content.dart';
+import '../../login/login_screen.dart';
 
 class Body extends StatefulWidget {
+  const Body({Key? key}) : super(key: key);
+
   @override
   State<Body> createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
+  // final _controller = PageController();
   int currentPage = 0;
+  // change the content of each onboard view in the PageView by the index of the PageView
   List<Map<String, String>> splashData = [
     {
       "text": "Welcome to Mazzad, Lets bid!",
@@ -37,12 +42,14 @@ class _BodyState extends State<Body> {
           Expanded(
             flex: 3,
             child: PageView.builder(
+              //        controller: _controller,
               itemCount: splashData.length,
               itemBuilder: (_, index) => OnBoardContent(
                 image: splashData[index]['image'],
                 text: splashData[index]['text'],
               ),
               onPageChanged: (index) {
+                // to update the animated container :D
                 setState(() {
                   currentPage = index;
                 });
@@ -57,6 +64,15 @@ class _BodyState extends State<Body> {
               child: Column(
                 children: [
                   const Spacer(),
+                  // SmoothPageIndicator(
+                  //   controller: _controller,
+                  //   count: splashData.length,
+                  //   effect: const ExpandingDotsEffect(
+                  //     dotHeight: 6,
+                  //     dotWidth: 10,
+                  //     activeDotColor: Constants.kPrimaryColor,
+                  //   ),
+                  // ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: List.generate(
@@ -90,7 +106,7 @@ class _BodyState extends State<Body> {
                       ),
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                 ],
               ),
             ),
@@ -100,6 +116,7 @@ class _BodyState extends State<Body> {
     );
   }
 
+//TODO: we can use the smooth_page_indicator package instead of this :D "donno weather is better in performance"
   AnimatedContainer buildDot({int? index}) {
     return AnimatedContainer(
       duration: Constants.kAnimationDuration,

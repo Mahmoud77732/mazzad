@@ -10,15 +10,9 @@ class AuctionsScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Auctions',
-          style: TextStyle(
-            color: Colors.black,
-          ),
         ),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        elevation: 0,
       ),
-      body: Body(),
+      body: const Body(),
     );
   }
 }

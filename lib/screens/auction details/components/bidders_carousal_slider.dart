@@ -2,84 +2,107 @@
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:mazzad/screens/Bidders/components/bidder.dart';
+import 'package:intl/intl.dart';
+import 'package:mazzad/models/bidder.dart';
+import 'package:mazzad/size_config.dart';
 
-class BiddersCarousalSlider extends StatefulWidget {
+import '../../../constants.dart';
+
+class TopFiveBiddersCarousalSlider extends StatefulWidget {
+  final List<Bidder>? bidders;
+  const TopFiveBiddersCarousalSlider({this.bidders});
   @override
-  State<BiddersCarousalSlider> createState() => _BiddersCarousalSliderState();
+  State<TopFiveBiddersCarousalSlider> createState() =>
+      _TopFiveBiddersCarousalSliderState();
 }
 
-class _BiddersCarousalSliderState extends State<BiddersCarousalSlider> {
-  List<Bidder> bidderList = [
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-    Bidder(name: 'Bidder Name', price: '1080'),
-  ];
-
+class _TopFiveBiddersCarousalSliderState
+    extends State<TopFiveBiddersCarousalSlider> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // color: Colors.orangeAccent,
-      margin: EdgeInsets.only(bottom: 70),
-      child: Column(
-        children: [
-          Container(
-            alignment: Alignment.centerLeft,
-            margin: EdgeInsets.only(left: 30),
-            child: Text('Top 5 Bidders', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: Constants.kHorizontalSpacing,
           ),
-          CarouselSlider(
-            items: bidderList.map((bidder) => 
-              Card(
-                elevation: 10,
-                child: ListTile(
-                  onTap: () {},
-                  leading: CircleAvatar(
-                    radius: 23,
-                    backgroundColor: Colors.transparent,
-                    child: Image.asset('assets/images/comvzhssmyverizon.png')
-                  ),
-                  title: Container(
-                    alignment: Alignment.centerLeft,
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    // width: 150,
-                    // color: Colors.grey,
-                    child: Column(
+          child: Text(
+            'Top 5 Bidders',
+            textAlign: TextAlign.start,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: getProportionateScreenWidth(18),
+            ),
+          ),
+        ),
+        CarouselSlider(
+          items: widget.bidders!
+              .map(
+                (bidder) => Card(
+                  elevation: 10,
+                  child: ListTile(
+                    onTap: () {},
+                    leading: CircleAvatar(
+                      radius: 23,
+                      backgroundColor: Colors.transparent,
+                      backgroundImage: AssetImage(
+                          bidder.image ?? "assets/images/profile_pic.jpg"),
+                    ),
+                    title: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          children: [
-                            Text(bidder.name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-                          ],
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'Bid By ',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              TextSpan(
+                                text: bidder.name ?? "unkwon",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        Row(
-                          children: [
-                            Text('11d 15h', style: TextStyle(fontSize: 11, color: Color.fromARGB(255, 41, 40, 40))),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text('Monday, March 21, 2022', style: TextStyle(fontSize: 11, color: Color.fromARGB(255, 41, 40, 40))),
-                          ],
+                        Text(
+                          DateFormat('yMMMMd')
+                              .format(bidder.date ?? DateTime.now())
+                              .toString(),
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 14,
+                          ),
                         ),
                       ],
                     ),
+                    trailing: Text(
+                      '\$${bidder.price ?? 0.0}',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
                   ),
-                  trailing: Text('${bidder.price}\$', textScaleFactor: 1.3, style: TextStyle(fontWeight: FontWeight.bold)),
                 ),
               )
-              ).toList(),
-            options: CarouselOptions(
-              autoPlay: false,
-              enableInfiniteScroll: false,
-              enlargeCenterPage: true,
-              height: 64,
-            ),
+              .toList(),
+          options: CarouselOptions(
+            autoPlay: false,
+            enableInfiniteScroll: false,
+            enlargeCenterPage: true,
+            height: 64,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
