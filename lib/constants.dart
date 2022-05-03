@@ -39,6 +39,9 @@ class Constants {
   static const SizedBox kSmallHorizontalSpacing = SizedBox(
     width: 15,
   );
+  static const SizedBox kTinyHorizontalSpacing = SizedBox(
+    width: 5,
+  );
   static const SizedBox kBigHorizontalSpacing = SizedBox(
     width: 30,
   );

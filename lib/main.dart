@@ -22,7 +22,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 void main() async {
-  Logger.level = Level.info;
+  Logger.level = Level.error;
 
 // firebase intilaization
   WidgetsFlutterBinding.ensureInitialized();

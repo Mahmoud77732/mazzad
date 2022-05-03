@@ -100,7 +100,7 @@ class Body extends StatelessWidget {
                       Constants.kDummyCategories[index],
                   itemCount: Constants.kDummyCategories.length,
                   separatorBuilder: (context, index) =>
-                      Constants.kSmallHorizontalSpacing,
+                      Constants.kTinyHorizontalSpacing,
                 ),
               ),
               Constants.kBigVertcialSpacing,

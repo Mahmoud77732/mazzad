@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mazzad/utils/logger.dart';
 
 import './screens/SignUp/signup_screen.dart';
 import './screens/add_product/add_product_screen.dart';
@@ -18,14 +19,13 @@ import './screens/privacy_and_policy/privacy_and_policy_screen.dart';
 import './screens/profile/profile_screen.dart';
 import './screens/terms_of_use/terms_of_use_screen.dart';
 
-// // take the settings from onGenerateRoute in GetMaterialApp
-// final log = getLogger('Router');
+// take the settings from onGenerateRoute in GetMaterialApp
+final log = getLogger('Router');
 
 class Router {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     // // emoji class name - my info :D
-    // log.i(
-    //     'onGenerateRoute | name:${settings.name} ');
+    log.i('onGenerateRoute | name:${settings.name} ');
     switch (settings.name) {
       case OnBoardScreen.rountName:
         return SlideRoute(page: const OnBoardScreen());
