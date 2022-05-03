@@ -70,10 +70,11 @@ class ContactUsScreen extends StatelessWidget {
                 const DefaultTextField(
                     title: 'your email', validate: Validator.validateEmail),
                 Constants.kSmallVerticalSpacing,
-                // const DefaultTextField(
-                //   title: 'Type your message .. ',
-                //   isLargeText: true,
-                // ),
+                const DefaultTextField(
+                  title: 'Type your message .. ',
+                  isLargeText: true,
+                  validate: null,
+                ),
                 Constants.kSmallVerticalSpacing,
                 DefaultButton(
                   text: 'Submit',

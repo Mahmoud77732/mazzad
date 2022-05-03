@@ -14,7 +14,7 @@ class DefaultTextField extends StatefulWidget {
   final String? title;
   final bool? isSecure;
   final bool? isLargeText;
-  final String? Function(String?) validate;
+  final String? Function(String?)? validate;
   final GlobalKey<FormFieldState<String>>? passwordFieldKey;
   @override
   State<DefaultTextField> createState() => _DefaultTextFieldState();

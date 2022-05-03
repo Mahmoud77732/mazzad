@@ -6,8 +6,9 @@ import '../../components/default_button.dart';
 import '../../services/validator.dart';
 
 class EditProfileScreen extends StatelessWidget {
-  const EditProfileScreen({Key? key}) : super(key: key);
+  EditProfileScreen({Key? key}) : super(key: key);
   static const routeName = '/edit_profile';
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,33 +17,38 @@ class EditProfileScreen extends StatelessWidget {
           'Edit Profile',
         ),
       ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(
-          horizontal: Constants.kHorizontalSpacing,
+      body: Form(
+        key: _formKey,
+        child: ListView(
+          padding: const EdgeInsets.symmetric(
+            horizontal: Constants.kHorizontalSpacing,
+          ),
+          children: [
+            Constants.kBigVertcialSpacing,
+            const DefaultTextField(
+              title: 'Change your name',
+              validate: Validator.validateName,
+            ),
+            Constants.kSmallVerticalSpacing,
+            // const DefaultTextField(
+            //   isLargeText: true,
+            //   title: "product description ..",
+            // ),
+            // Constants.kSmallVerticalSpacing,
+            // const DefaultTextField(
+            //   title: "start bid price",
+            // ),
+            // Constants.kSmallVerticalSpacing,
+            // const DefaultTextField(),
+            Constants.kSmallVerticalSpacing,
+            DefaultButton(
+              onPressed: () {
+                _formKey.currentState!.validate();
+              },
+              text: 'Place Changes',
+            ),
+          ],
         ),
-        children: [
-          Constants.kBigVertcialSpacing,
-          const DefaultTextField(
-            title: 'Product name',
-            validate: Validator.validateName,
-          ),
-          Constants.kSmallVerticalSpacing,
-          // const DefaultTextField(
-          //   isLargeText: true,
-          //   title: "product description ..",
-          // ),
-          // Constants.kSmallVerticalSpacing,
-          // const DefaultTextField(
-          //   title: "start bid price",
-          // ),
-          // Constants.kSmallVerticalSpacing,
-          // const DefaultTextField(),
-          Constants.kSmallVerticalSpacing,
-          DefaultButton(
-            onPressed: () {},
-            text: 'place product',
-          ),
-        ],
       ),
     );
   }
