@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mazzad/screens/contact_us/contact_us_screen.dart';
+import 'package:mazzad/screens/edit_profile/edit_profile_screen.dart';
+import 'package:mazzad/screens/my_auctions/my_auctions_screen.dart';
+import 'package:mazzad/screens/privacy_and_policy/privacy_and_policy_screen.dart';
 import 'package:mazzad/screens/profile/components/small_clipper.dart';
+import 'package:mazzad/screens/terms_of_use/terms_of_use_screen.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -26,7 +30,7 @@ class Body extends StatelessWidget {
               children: [
                 ClipShadowPath(
                   shadow: const BoxShadow(
-                    color: Colors.black,
+                    color: Color.fromARGB(255, 170, 61, 22),
                     offset: Offset(4, 4),
                     blurRadius: 4,
                     spreadRadius: 4,
@@ -38,7 +42,7 @@ class Body extends StatelessWidget {
                 ),
                 ClipShadowPath(
                   shadow: const BoxShadow(
-                    color: Colors.black,
+                    color: Color.fromARGB(255, 170, 61, 22),
                     offset: Offset(4, 4),
                     blurRadius: 4,
                     spreadRadius: 4,
@@ -95,7 +99,9 @@ class Body extends StatelessWidget {
                         ),
                       ],
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed(EditProfileScreen.routeName);
+                    },
                   ),
                 ),
                 Positioned(
@@ -159,7 +165,9 @@ class Body extends StatelessWidget {
         ),
       ),
       trailing: const Icon(Icons.arrow_forward_ios),
-      onTap: () {},
+      onTap: () {
+        Get.toNamed(TermsOfUseScreen.routeName);
+      },
     ),
     ListTile(
       title: const Text(
@@ -170,7 +178,9 @@ class Body extends StatelessWidget {
         ),
       ),
       trailing: const Icon(Icons.arrow_forward_ios),
-      onTap: () {},
+      onTap: () {
+        Get.toNamed(PrivacyAndPolicy.routeName);
+      },
     ),
     ListTile(
       title: const Text(
@@ -194,18 +204,20 @@ class Body extends StatelessWidget {
         ),
       ),
       trailing: const Icon(Icons.arrow_forward_ios),
-      onTap: () {},
+      onTap: () {
+        Get.toNamed(MyAuctionsScreen.routeName);
+      },
     ),
-    ListTile(
-      title: const Text(
-        'Change password',
-        style: TextStyle(
-          color: Colors.grey,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      trailing: const Icon(Icons.arrow_forward_ios),
-      onTap: () {},
-    ),
+    // ListTile(
+    //   title: const Text(
+    //     'Change password',
+    //     style: TextStyle(
+    //       color: Colors.grey,
+    //       fontWeight: FontWeight.bold,
+    //     ),
+    //   ),
+    //   trailing: const Icon(Icons.arrow_forward_ios),
+    //   onTap: () {},
+    // ),
   ];
 }

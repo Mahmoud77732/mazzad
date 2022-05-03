@@ -5,8 +5,9 @@ import '../constants.dart';
 class SearchTextField extends StatelessWidget {
   const SearchTextField({
     Key? key,
+    this.onConfirmed,
   }) : super(key: key);
-
+  final VoidCallback? onConfirmed;
   @override
   Widget build(BuildContext context) {
     return TextField(
@@ -33,6 +34,9 @@ class SearchTextField extends StatelessWidget {
         hoverColor: Constants.kPrimaryColor,
         fillColor: Constants.kPrimaryColor,
       ),
+      onSubmitted: (_) {
+        onConfirmed;
+      },
     );
   }
 }

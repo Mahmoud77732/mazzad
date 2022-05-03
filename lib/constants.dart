@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mazzad/components/auction_item.dart';
 
 import 'components/category_button.dart';
@@ -52,13 +53,55 @@ class Constants {
   );
 
   // static final appBarTextStyle =
-
   static OutlineInputBorder outlineInputBorder() {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(getProportionateScreenWidth(15)),
       borderSide: const BorderSide(color: kTextColor),
     );
   }
+
+// App Theme
+  static ThemeData kMazzadTheme = ThemeData(
+    appBarTheme: AppBarTheme(
+      centerTitle: true,
+      titleTextStyle: GoogleFonts.abhayaLibre(
+        color: Colors.black,
+        fontWeight: FontWeight.w900,
+        fontSize: 24.0,
+      ),
+      iconTheme: const IconThemeData(
+        color: Colors.black,
+      ),
+      backgroundColor: Colors.white,
+      elevation: 0,
+    ),
+    textTheme: TextTheme(
+      // thats for just a backup for the regular styling
+      bodyText1: GoogleFonts.abhayaLibre(
+        color: Colors.black,
+        fontWeight: FontWeight.w700,
+        fontSize: 14,
+      ),
+      // thats for regulra styling
+      bodyText2: GoogleFonts.abel(
+        color: Colors.black,
+        fontWeight: FontWeight.w700,
+        fontSize: 14,
+      ),
+      // thats for button styling
+      button: GoogleFonts.abel(
+        color: Colors.black,
+        fontWeight: FontWeight.w700,
+        fontSize: 14,
+      ),
+      // its for list tiles text
+      subtitle1: GoogleFonts.abel(
+        color: Colors.black,
+        fontWeight: FontWeight.w900,
+        // fontSize: 16,
+      ),
+    ),
+  );
 
 //DUMMY DATA
   static const List<String> kDummyImgs = [

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mazzad/components/default_button.dart';
 import 'package:mazzad/screens/SignUp/signup_screen.dart';
-import 'package:mazzad/screens/theme_test_screen.dart';
 
 import './/constants.dart';
 import './on_board_content.dart';
+import '../../login/login_screen.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -88,8 +88,7 @@ class _BodyState extends State<Body> {
                       Expanded(
                         child: DefaultButton(
                           onPressed: () {
-                            Get.to(const ThemeTestScreen());
-                            //   Get.offNamed(LoginScreen.routeName);
+                            Get.offNamed(LoginScreen.routeName);
                           },
                           text: "Login",
                         ),

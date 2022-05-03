@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mazzad/components/search_textfield.dart';
 import 'package:mazzad/screens/categories/categories_screen.dart';
+import 'package:mazzad/screens/notifications/notifications_screen.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -16,7 +17,9 @@ class Body extends StatelessWidget {
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed(NotificationsScreen.routeName);
+            },
             icon: Icon(
               Icons.notifications_outlined,
               color: Colors.black,

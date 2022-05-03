@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import 'package:mazzad/components/default_button.dart';
 import 'package:mazzad/constants.dart';
 import 'package:mazzad/models/bidder.dart';
-import 'package:mazzad/screens/Bidders/main_bidders.dart';
 import 'package:mazzad/screens/auction details/components/bidders_carousal_slider.dart';
 import 'package:mazzad/screens/auction details/components/product_info.dart';
 import 'package:mazzad/screens/auction details/components/products_carousal_slider.dart';
+import 'package:mazzad/screens/bidders/main_bidders.dart';
 
 import '../../../components/auction_item.dart';
 

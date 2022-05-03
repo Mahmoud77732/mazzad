@@ -8,6 +8,7 @@ import 'package:mazzad/constants.dart';
 import 'package:mazzad/screens/SignUp/components/background.dart';
 import 'package:mazzad/screens/login/login_screen.dart';
 import 'package:mazzad/screens/otb/otb_screen.dart';
+import 'package:mazzad/services/validator.dart';
 
 import '../../../size_config.dart';
 
@@ -21,9 +22,10 @@ class Body extends StatefulWidget {
 }
 
 class BodyState extends State<Body> {
+  final _passwordFieldKey = GlobalKey<FormFieldState<String>>();
   bool passVisible1 = true;
   bool passVisible2 = true;
-
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -32,59 +34,74 @@ class BodyState extends State<Body> {
         padding: const EdgeInsets.symmetric(
           horizontal: Constants.kHorizontalSpacing,
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'SignUp',
-              style: Theme.of(context).appBarTheme.titleTextStyle,
-            ),
-            SvgPicture.asset('assets/icons/singup.svg',
-                height: size.height * 0.35),
-            const SizedBox(height: 8.0),
-            Column(
-              children: const [
-                DefaultTextField(
-                  title: 'Name',
-                ),
-                SizedBox(height: 5.0),
-                DefaultTextField(
-                  title: 'Your Email',
-                ),
-                SizedBox(height: 5.0),
-                DefaultTextField(
-                  title: 'Phone',
-                ),
-                SizedBox(height: 5.0),
-                DefaultTextField(
-                  title: 'Password',
-                  isSecure: true,
-                ),
-                SizedBox(height: 5.0),
-                DefaultTextField(
-                  title: 'Confirm Password',
-                  isSecure: true,
-                ),
-                SizedBox(height: 5.0),
-              ],
-            ),
-            SizedBox(
-              height: getProportionateScreenHeight(20),
-            ),
-            DefaultButton(
-              text: 'Create',
-              onPressed: () {
-                Get.toNamed(OTPScreen.routeName);
-              },
-            ),
-            Constants.kBigVertcialSpacing,
-            AlreadyHaveAnAccountCheck(
-              login: false,
-              press: () {
-                Get.offAllNamed(LoginScreen.routeName);
-              },
-            ),
-          ],
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'SignUp',
+                style: Theme.of(context).appBarTheme.titleTextStyle,
+              ),
+              SvgPicture.asset('assets/icons/singup.svg',
+                  height: size.height * 0.35),
+              const SizedBox(height: 8.0),
+              Column(
+                children: [
+                  const DefaultTextField(
+                    title: 'Name',
+                    validate: Validator.validateName,
+                  ),
+                  const SizedBox(height: 5.0),
+                  const DefaultTextField(
+                    title: 'Your Email',
+                    validate: Validator.validateEmail,
+                  ),
+                  const SizedBox(height: 5.0),
+                  const DefaultTextField(
+                    title: 'Phone',
+                    validate: Validator.validatePhone,
+                  ),
+                  const SizedBox(height: 5.0),
+                  DefaultTextField(
+                    title: 'Password',
+                    isSecure: true,
+                    validate: Validator.validatePassword,
+                    passwordFieldKey: _passwordFieldKey,
+                  ),
+                  const SizedBox(height: 5.0),
+                  DefaultTextField(
+                    title: 'Confirm Password',
+                    isSecure: true,
+                    validate: Validator.validatePassword,
+                    passwordFieldKey: _passwordFieldKey,
+                  ),
+                  const SizedBox(height: 5.0),
+                ],
+              ),
+              SizedBox(
+                height: getProportionateScreenHeight(20),
+              ),
+              DefaultButton(
+                text: 'Create',
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    Get.toNamed(OTPScreen.routeName);
+                  }
+                },
+              ),
+              Constants.kBigVertcialSpacing,
+              AlreadyHaveAnAccountCheck(
+                login: false,
+                press: () {
+                  Get.offAllNamed(LoginScreen.routeName);
+                },
+              ),
+              SizedBox(
+                height: getProportionateScreenHeight(20),
+              ),
+            ],
+          ),
         ),
       ),
     );

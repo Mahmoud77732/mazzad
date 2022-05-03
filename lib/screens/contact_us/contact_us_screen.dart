@@ -3,6 +3,7 @@ import 'package:lottie/lottie.dart';
 import 'package:mazzad/components/default_button.dart';
 import 'package:mazzad/components/default_text_field.dart';
 import 'package:mazzad/constants.dart';
+import 'package:mazzad/services/validator.dart';
 
 import '../../size_config.dart';
 // importm => flutter material
@@ -66,12 +67,13 @@ class ContactUsScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                const DefaultTextField(title: 'your email'),
-                Constants.kSmallVerticalSpacing,
                 const DefaultTextField(
-                  title: 'Type your message .. ',
-                  isLargeText: true,
-                ),
+                    title: 'your email', validate: Validator.validateEmail),
+                Constants.kSmallVerticalSpacing,
+                // const DefaultTextField(
+                //   title: 'Type your message .. ',
+                //   isLargeText: true,
+                // ),
                 Constants.kSmallVerticalSpacing,
                 DefaultButton(
                   text: 'Submit',

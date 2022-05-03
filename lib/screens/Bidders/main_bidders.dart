@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'package:mazzad/screens/Bidders/components/bidder_card.dart';
-import 'package:mazzad/screens/Bidders/components/bottom_form.dart';
+import 'package:mazzad/screens/bidders/components/bidder_card.dart';
+import 'package:mazzad/screens/bidders/components/bottom_form.dart';
 
 class MainBidders extends StatefulWidget {
   const MainBidders({Key? key}) : super(key: key);
