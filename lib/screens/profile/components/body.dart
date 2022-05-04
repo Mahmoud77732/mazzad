@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mazzad/controllers/layout_controller.dart';
 import 'package:mazzad/screens/contact_us/contact_us_screen.dart';
 import 'package:mazzad/screens/edit_profile/edit_profile_screen.dart';
 import 'package:mazzad/screens/my_auctions/my_auctions_screen.dart';
@@ -14,9 +15,9 @@ import '../clip_shadow_path.dart';
 import 'big_clipper.dart';
 
 class Body extends StatelessWidget {
-  const Body({
-    Key? key,
-  }) : super(key: key);
+  LayoutController layoutController;
+
+  Body(this.layoutController);
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +75,8 @@ class Body extends StatelessWidget {
                       ],
                     ),
                     onPressed: () {
-                      Get.offAllNamed(LoginScreen.routeName);
+                      // Get.offAllNamed(LoginScreen.routeName);
+                      signOut(layoutController);
                     },
                   ),
                 ),

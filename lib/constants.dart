@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mazzad/components/auction_item.dart';
+import 'package:mazzad/controllers/layout_controller.dart';
+import 'package:mazzad/shared/network/local/cache_helper.dart';
 
 import 'components/category_button.dart';
 import 'models/bidder.dart';
@@ -708,3 +711,41 @@ class Constants {
     Bidder(name: 'Malia Renault', price: '1080'),
   ];
 }
+
+// --------------------------------------------------------
+// apicrud
+
+// when we will get token, we will save it here
+String? accessToken = '';
+String? refreshToken = '';
+int intExpiresDate = 0;
+DateTime? expiresDate = null;
+
+List<Map> tasks = [];
+
+void signOut(LayoutController? shopLayoutController) {
+  print('---->currentIndex= ${shopLayoutController!.currentIndex}');
+  shopLayoutController.currentIndex = 0;
+  print('---->currentIndex= ${shopLayoutController.currentIndex}');
+  // CacheHelper.sharedPreferences.clear();
+  // accessToken = '';
+  // refreshToken = '';
+  // intExpiresDate = 0;
+  // expiresDate = null;
+  CacheHelper.removeData(key: 'access_token');
+  CacheHelper.removeData(key: 'expires_in');
+  CacheHelper.removeData(key: 'expiresDate');
+  CacheHelper.removeData(key: 'refresh_token').then((value) {
+    Get.offAllNamed('/loginscreen');
+  });
+}
+
+// to print full text
+void printFullText(String text) {
+  final pattern = RegExp('.{1,800}');
+  pattern.allMatches(text).forEach((match) {
+    print(match.group(0));
+  });
+}
+
+

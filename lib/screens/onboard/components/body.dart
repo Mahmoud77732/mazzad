@@ -88,7 +88,8 @@ class _BodyState extends State<Body> {
                       Expanded(
                         child: DefaultButton(
                           onPressed: () {
-                            Get.offNamed(LoginScreen.routeName);
+                            // Get.offNamed(LoginScreen.routeName);
+                            Get.offNamed('/loginscreen');
                           },
                           text: "Login",
                         ),
@@ -99,7 +100,8 @@ class _BodyState extends State<Body> {
                       Expanded(
                         child: DefaultButton(
                           onPressed: () {
-                            Get.offNamed(SignupScreen.routeName);
+                            // Get.offNamed(SignupScreen.routeName);
+                            Get.off(SignupScreen());
                           },
                           text: "Sign Up",
                         ),
