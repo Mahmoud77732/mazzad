@@ -51,6 +51,9 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
 
 dev_dependencies:
+  freezed: ^2.0.2
+  build_runner: ^2.1.10
+  json_serializable: ^6.2.0
   flutter_lints: ^1.0.0
   flutter_test:
     sdk: flutter
