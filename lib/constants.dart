@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mazzad/components/auction_item.dart';
 
 import 'components/category_button.dart';
-import 'models/bidder.dart';
+import 'models/bidder/bidder.dart';
 import 'size_config.dart';
 
 class Constants {
@@ -690,21 +690,21 @@ class Constants {
         image: 'assets/images/profile_pic.jpg'),
   ];
   static List<Bidder> kDummyBiddersList = [
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
   ];
 }
