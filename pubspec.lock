@@ -423,7 +423,7 @@ packages:
     source: hosted
     version: "2.0.2"
   freezed_annotation:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: freezed_annotation
       url: "https://pub.dartlang.org"

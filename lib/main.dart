@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+// This file is "main.dart"
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:mazzad/constants.dart';
