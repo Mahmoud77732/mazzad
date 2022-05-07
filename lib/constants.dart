@@ -1,12 +1,37 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mazzad/components/auction_item.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
-import 'components/category_button.dart';
 import 'models/bidder/bidder.dart';
 import 'size_config.dart';
 
 class Constants {
+  static String get api => _api;
+  static String get clientSecret => _clientSecret;
+  static String get clientId => _clientId;
+
+  static const String _api = 'https://mazzad.unidevs.co/api';
+  static const String _clientSecret =
+      '331ONKkzjiVKT52ZeReYYN9xCjsQo4iCTPmNICvU';
+  static const String _clientId = '95f97367-73a9-475a-b817-16c0d567d697';
+  static Map<String, String> get authHeaders => {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      };
+
+  static Future<Map<String, String>> get headers async => {
+        "Authorization":
+            "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NWY5NzM2Ny03M2E5LTQ3NWEtYjgxNy0xNmMwZDU2N2Q2OTciLCJqdGkiOiJiMTYyOTUyZTEzNTYzY2JkODUxYWU3YzMzY2Q2YWM3Yzc0NzAzOTMyNjRhODBhNDMyOGM1ZmUwZWFiMzlhYzBmNzBkYWZmOWI0Y2VlOWMxMSIsImlhdCI6MTY1MTgyOTcyMy42NDc1MTYsIm5iZiI6MTY1MTgyOTcyMy42NDc1MjEsImV4cCI6MTY4MzM2NTcyMy42MzI0NjksInN1YiI6IjEiLCJzY29wZXMiOlsiKiJdfQ.qUOayE95CVUzUgVN3d7euCXaBvBGRvfSSguBzjtpII2OqMQPYFtsZ6JL8Ln_g2tzxbW_eNJT53GR0cyLfOb4gXBrH8wnotZiLMndLQBE8B84a_C6j49yG4edwmNXtdNgNMFp11W7ZhTCNaqteFKK2Zy2WRtHgExAZXhCRkAbQmSwU5E1qZfyTfCwe2k_Wis4nKbO2IY5F0lnvhPi0cOkkneb8JXLp2WaeZ0t1E4SJezLkQ1dUHV7HbqH_cCSzppMjOQOYfWd-d-R6kQLNit2FkwhxYvalzIm_4YZLgkPXzvdJAi-T6_ClzelGld5AbKTnReBH6reKUGNelyAPcbWemta9hB5z3LsYP4m5Epvvy_GKU6oR8F4IPONC4mCWO5O72VDrzAwA3rn5QJkiG3NVP0G7bTLB2cG_N1W7_Ir6G1Jxu4E58bKSila-vIw_Sk5yvpRcO-qBigm0NQTN_4S00gq6NrsMkY-MSpLxQTBDRtwFUNmq36SZOcnd6XDqfAZhGfwK6Js1AHlzmIrjbOsRt6AcFmzrC10dyoDeuigsYHRf-9xASrWmm0WQvTlwxmln-DHVG4np_IwR5QKCGYMtQGyRcOdSOyYX4Tq2uXt4Mtuit9skyCENylOBwSMKzJyYg6vKixxpYzPAmNfentJD17rByfsaVzAaU4cK9BBTWk",
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "OS_Name": Platform.operatingSystem,
+        "OS_Version": Platform.operatingSystemVersion,
+        "App_Version":
+            await PackageInfo.fromPlatform().then((value) => value.version),
+      };
   // Colors
   static const kPrimaryColor = Color(0xFFFF7643);
   static const kSecondaryColor = Color(0xFFFF7643);
@@ -112,128 +137,7 @@ class Constants {
     'assets/images/product.jpeg',
     'assets/images/product1.png',
   ];
-  static List<CategoryButton> kDummyCategories = [
-    CategoryButton(
-      color: Colors.amber,
-      icon: Icons.category,
-      onPress: () {},
-      name: 'All',
-    ),
-    CategoryButton(
-      color: Colors.pinkAccent,
-      icon: Icons.ac_unit,
-      onPress: () {},
-      name: 'Snow',
-    ),
-    CategoryButton(
-      color: Colors.purpleAccent,
-      icon: Icons.chair,
-      onPress: () {},
-      name: 'Furniture',
-    ),
-    CategoryButton(
-      color: Colors.orange,
-      icon: Icons.laptop,
-      onPress: () {},
-      name: 'Technology',
-    ),
-    CategoryButton(
-      color: Colors.blueAccent,
-      icon: Icons.book,
-      onPress: () {},
-      name: 'Books',
-    ),
-    CategoryButton(
-      color: Colors.amber,
-      icon: Icons.category,
-      onPress: () {},
-      name: 'All',
-    ),
-    CategoryButton(
-      color: Colors.pinkAccent,
-      icon: Icons.ac_unit,
-      onPress: () {},
-      name: 'Snow',
-    ),
-    CategoryButton(
-      color: Colors.purpleAccent,
-      icon: Icons.chair,
-      onPress: () {},
-      name: 'Furniture',
-    ),
-    CategoryButton(
-      color: Colors.orange,
-      icon: Icons.laptop,
-      onPress: () {},
-      name: 'Technology',
-    ),
-    CategoryButton(
-      color: Colors.blueAccent,
-      icon: Icons.book,
-      onPress: () {},
-      name: 'Books',
-    ),
-    CategoryButton(
-      color: Colors.amber,
-      icon: Icons.category,
-      onPress: () {},
-      name: 'All',
-    ),
-    CategoryButton(
-      color: Colors.pinkAccent,
-      icon: Icons.ac_unit,
-      onPress: () {},
-      name: 'Snow',
-    ),
-    CategoryButton(
-      color: Colors.purpleAccent,
-      icon: Icons.chair,
-      onPress: () {},
-      name: 'Furniture',
-    ),
-    CategoryButton(
-      color: Colors.orange,
-      icon: Icons.laptop,
-      onPress: () {},
-      name: 'Technology',
-    ),
-    CategoryButton(
-      color: Colors.blueAccent,
-      icon: Icons.book,
-      onPress: () {},
-      name: 'Books',
-    ),
-    CategoryButton(
-      color: Colors.amber,
-      icon: Icons.category,
-      onPress: () {},
-      name: 'All',
-    ),
-    CategoryButton(
-      color: Colors.pinkAccent,
-      icon: Icons.ac_unit,
-      onPress: () {},
-      name: 'Snow',
-    ),
-    CategoryButton(
-      color: Colors.purpleAccent,
-      icon: Icons.chair,
-      onPress: () {},
-      name: 'Furniture',
-    ),
-    CategoryButton(
-      color: Colors.orange,
-      icon: Icons.laptop,
-      onPress: () {},
-      name: 'Technology',
-    ),
-    CategoryButton(
-      color: Colors.blueAccent,
-      icon: Icons.book,
-      onPress: () {},
-      name: 'Books',
-    ),
-  ];
+
   static List<AuctionItem> kDummyLiveAuctionItems = [
     const AuctionItem(
       image: 'assets/images/product.jpeg',

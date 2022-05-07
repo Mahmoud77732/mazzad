@@ -21,8 +21,8 @@ Categories _$CategoriesFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Categories {
   int? get id => throw _privateConstructorUsedError;
-  String? get title => throw _privateConstructorUsedError;
-  String? get icon_name => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  String? get icon => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +35,7 @@ abstract class $CategoriesCopyWith<$Res> {
   factory $CategoriesCopyWith(
           Categories value, $Res Function(Categories) then) =
       _$CategoriesCopyWithImpl<$Res>;
-  $Res call({int? id, String? title, String? icon_name});
+  $Res call({int? id, String? name, String? icon});
 }
 
 /// @nodoc
@@ -49,21 +49,21 @@ class _$CategoriesCopyWithImpl<$Res> implements $CategoriesCopyWith<$Res> {
   @override
   $Res call({
     Object? id = freezed,
-    Object? title = freezed,
-    Object? icon_name = freezed,
+    Object? name = freezed,
+    Object? icon = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      title: title == freezed
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      icon_name: icon_name == freezed
-          ? _value.icon_name
-          : icon_name // ignore: cast_nullable_to_non_nullable
+      icon: icon == freezed
+          ? _value.icon
+          : icon // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -75,7 +75,7 @@ abstract class _$CategoriesCopyWith<$Res> implements $CategoriesCopyWith<$Res> {
           _Categories value, $Res Function(_Categories) then) =
       __$CategoriesCopyWithImpl<$Res>;
   @override
-  $Res call({int? id, String? title, String? icon_name});
+  $Res call({int? id, String? name, String? icon});
 }
 
 /// @nodoc
@@ -91,21 +91,21 @@ class __$CategoriesCopyWithImpl<$Res> extends _$CategoriesCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? title = freezed,
-    Object? icon_name = freezed,
+    Object? name = freezed,
+    Object? icon = freezed,
   }) {
     return _then(_Categories(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      title: title == freezed
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      icon_name: icon_name == freezed
-          ? _value.icon_name
-          : icon_name // ignore: cast_nullable_to_non_nullable
+      icon: icon == freezed
+          ? _value.icon
+          : icon // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -114,7 +114,7 @@ class __$CategoriesCopyWithImpl<$Res> extends _$CategoriesCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Categories implements _Categories {
-  const _$_Categories({this.id, this.title, this.icon_name});
+  const _$_Categories({this.id, this.name, this.icon});
 
   factory _$_Categories.fromJson(Map<String, dynamic> json) =>
       _$$_CategoriesFromJson(json);
@@ -122,13 +122,13 @@ class _$_Categories implements _Categories {
   @override
   final int? id;
   @override
-  final String? title;
+  final String? name;
   @override
-  final String? icon_name;
+  final String? icon;
 
   @override
   String toString() {
-    return 'Categories(id: $id, title: $title, icon_name: $icon_name)';
+    return 'Categories(id: $id, name: $name, icon: $icon)';
   }
 
   @override
@@ -137,8 +137,8 @@ class _$_Categories implements _Categories {
         (other.runtimeType == runtimeType &&
             other is _Categories &&
             const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.title, title) &&
-            const DeepCollectionEquality().equals(other.icon_name, icon_name));
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.icon, icon));
   }
 
   @JsonKey(ignore: true)
@@ -146,8 +146,8 @@ class _$_Categories implements _Categories {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(title),
-      const DeepCollectionEquality().hash(icon_name));
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(icon));
 
   @JsonKey(ignore: true)
   @override
@@ -162,9 +162,7 @@ class _$_Categories implements _Categories {
 
 abstract class _Categories implements Categories {
   const factory _Categories(
-      {final int? id,
-      final String? title,
-      final String? icon_name}) = _$_Categories;
+      {final int? id, final String? name, final String? icon}) = _$_Categories;
 
   factory _Categories.fromJson(Map<String, dynamic> json) =
       _$_Categories.fromJson;
@@ -172,9 +170,9 @@ abstract class _Categories implements Categories {
   @override
   int? get id => throw _privateConstructorUsedError;
   @override
-  String? get title => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
   @override
-  String? get icon_name => throw _privateConstructorUsedError;
+  String? get icon => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CategoriesCopyWith<_Categories> get copyWith =>

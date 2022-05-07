@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cron/cron.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -7,10 +8,12 @@ import 'package:flutter/services.dart';
 // This file is "main.dart"
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
+import 'package:mazzad/components/auction_item.dart';
 import 'package:mazzad/constants.dart';
 import 'package:mazzad/firebase_options.dart';
 import 'package:mazzad/models/push_notification.dart';
 import 'package:mazzad/screens/onboard/on_board_screen.dart';
+import 'package:mazzad/services/auth_service.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 import './router.dart' as router;
@@ -59,6 +62,20 @@ void main() async {
     );
   };
 
+  var cron = Cron();
+
+// to update the user token always while he is using the app
+// every 20 min
+  cron.schedule(
+    Schedule.parse('*/1 * * * *'),
+    () async {
+      if (await AuthService.isLoggedIn) {
+        AuthService.updateToken(refreshToken: await AuthService.refreshToken);
+        print('every 1 minutes');
+      }
+    },
+  );
+
   // set the preferred orientations for our app , we make only portrait
   SystemChrome.setPreferredOrientations(
     [
@@ -76,6 +93,7 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    print(Status.scheuled.name);
     return OverlaySupport(
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
@@ -128,14 +146,6 @@ void registerNotifications() async {
               body: message.notification!.body,
               title: message.notification!.title,
             );
-            // from the overlay_support, give styling to the notification
-            // showSimpleNotification(
-            //   Text(pushNotification.title!),
-            //   leading: const Icon(Icons.book),
-            //   subtitle: Text(pushNotification.body!),
-            //   duration: const Duration(seconds: 2),
-            // );
-
           } else {
             print('the message have no body ${message.notification}');
           }

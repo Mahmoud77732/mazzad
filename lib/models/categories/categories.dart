@@ -7,8 +7,8 @@ part 'categories.g.dart';
 class Categories with _$Categories {
   const factory Categories({
     final int? id,
-    final String? title,
-    final String? icon_name,
+    final String? name,
+    final String? icon,
   }) = _Categories;
   factory Categories.fromJson(Map<String, dynamic> json) =>
       _$CategoriesFromJson(json);

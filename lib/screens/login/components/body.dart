@@ -8,10 +8,10 @@ import 'package:mazzad/components/default_text_field.dart';
 import 'package:mazzad/constants.dart';
 import 'package:mazzad/screens/SignUp/signup_screen.dart';
 import 'package:mazzad/screens/login/components/background.dart';
-import 'package:mazzad/screens/otb/otb_screen.dart';
 import 'package:mazzad/size_config.dart';
 
 import '../../../components/already_have_an_account_check.dart';
+import '../../../services/auth_service.dart';
 import '../../../services/validator.dart';
 
 class Body extends StatefulWidget {
@@ -64,10 +64,15 @@ class BodyState extends State<Body> {
                   height: getProportionateScreenHeight(20),
                 ),
                 DefaultButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      Get.toNamed(OTPScreen.routeName);
-                    }
+                  onPressed: () async {
+                    bool check = await AuthService.signin(
+                      email: 'ahmed@gmail.com',
+                      password: '12341234',
+                    );
+                    print(check);
+                    // if (_formKey.currentState!.validate()) {
+                    //   Get.toNamed(OTPScreen.routeName);
+                    // }
                   },
                   text: 'Login',
                 ),

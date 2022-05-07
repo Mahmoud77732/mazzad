@@ -7,7 +7,7 @@ import 'package:mazzad/components/default_text_field.dart';
 import 'package:mazzad/constants.dart';
 import 'package:mazzad/screens/SignUp/components/background.dart';
 import 'package:mazzad/screens/login/login_screen.dart';
-import 'package:mazzad/screens/otb/otb_screen.dart';
+import 'package:mazzad/services/auth_service.dart';
 import 'package:mazzad/services/validator.dart';
 
 import '../../../size_config.dart';
@@ -84,10 +84,16 @@ class BodyState extends State<Body> {
               ),
               DefaultButton(
                 text: 'Create',
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    Get.toNamed(OTPScreen.routeName);
-                  }
+                onPressed: () async {
+                  bool check = await AuthService.signUp(
+                      name: 'Ahmed',
+                      email: 'ahmed@gmail.com',
+                      password: '12341234',
+                      phoneNumber: '01024996193');
+                  print(check);
+                  // if (_formKey.currentState!.validate()) {
+                  //   Get.toNamed(OTPScreen.routeName);
+                  // }
                 },
               ),
               Constants.kBigVertcialSpacing,

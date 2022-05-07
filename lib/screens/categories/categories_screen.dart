@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mazzad/components/search_textfield.dart';
 import 'package:mazzad/constants.dart';
+import 'package:mazzad/controller/categories_c.dart';
 
+import '../../components/category_button.dart';
 import '../../size_config.dart';
 
 class CategoriesScreen extends StatelessWidget {
@@ -25,16 +28,30 @@ class CategoriesScreen extends StatelessWidget {
               height: getProportionateScreenHeight(20),
             ),
             Expanded(
-              child: GridView(
-                  children:
-                      List.generate(Constants.kDummyCategories.length, (index) {
-                    return Constants.kDummyCategories[index];
+              child: GetBuilder<CategoriesController>(
+                  init: CategoriesController(),
+                  builder: (categoryController) {
+                    return GridView(
+                        children: List.generate(
+                          categoryController.categories.length,
+                          (index) {
+                            return CategoryButton(
+                              color: categoryController.randomColor,
+                              icon: categoryController.categories[index].icon ??
+                                  "",
+                              onPress: () {},
+                              name: categoryController.categories[index].name ??
+                                  "",
+                            );
+                          },
+                        ),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 4,
+                        )
+                        // shrinkWrap: true,
+                        );
                   }),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4,
-                  )
-                  // shrinkWrap: true,
-                  ),
             ),
           ],
         ),

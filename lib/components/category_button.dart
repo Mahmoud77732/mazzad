@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../size_config.dart';
 
@@ -12,7 +13,7 @@ class CategoryButton extends StatelessWidget {
   }) : super(key: key);
   final String name;
   final VoidCallback onPress;
-  final IconData icon;
+  final String icon;
   final Color color;
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class CategoryButton extends StatelessWidget {
               onPressed: onPress,
               child: Center(
                 child: Icon(
-                  icon,
+                  MdiIcons.fromString(icon),
                   size: getProportionateScreenHeight(35),
                   color: color,
                 ),
