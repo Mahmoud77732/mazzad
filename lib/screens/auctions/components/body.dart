@@ -91,6 +91,7 @@ class Live extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView(
+      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisSpacing: Constants.kHorizontalSpacing,
         mainAxisSpacing: Constants.kHorizontalSpacing / 2,
@@ -110,6 +111,7 @@ class Scheduled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView(
+      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: Constants.kHorizontalSpacing,
@@ -129,6 +131,7 @@ class UpComing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView(
+      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: Constants.kHorizontalSpacing,

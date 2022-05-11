@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mazzad/services/categories_service.dart';
@@ -28,7 +29,9 @@ class CategoriesController extends GetxController {
           .then((value) => _categories = value);
       update();
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 }

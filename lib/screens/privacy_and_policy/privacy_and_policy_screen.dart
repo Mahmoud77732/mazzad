@@ -11,7 +11,9 @@ class PrivacyAndPolicy extends StatelessWidget {
           'Privacy and policy',
         ),
       ),
-      body: ListView(),
+      body: ListView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+      ),
     );
   }
 }

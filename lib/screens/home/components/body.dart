@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mazzad/components/search_textfield.dart';
@@ -66,7 +67,9 @@ class Body extends StatelessWidget {
                   viewportFraction: 1.0,
                   autoPlay: true,
                   onPageChanged: (i, reason) {
-                    // print(i);
+                    if (kDebugMode) {
+                      print(i);
+                    }
                   },
                 ),
               ),
@@ -100,6 +103,8 @@ class Body extends StatelessWidget {
                   init: CategoriesController(),
                   builder: (categoryController) {
                     return ListView.separated(
+                      keyboardDismissBehavior:
+                          ScrollViewKeyboardDismissBehavior.onDrag,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) => CategoryButton(
                         color: categoryController.randomColor,

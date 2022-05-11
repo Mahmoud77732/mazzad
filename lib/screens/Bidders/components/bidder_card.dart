@@ -20,6 +20,7 @@ class BidderCardState extends State<BidderCard> {
       children: [
         Expanded(
           child: ListView.builder(
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             padding: EdgeInsets.all(10),
             itemBuilder: (context, index) => Padding(
               padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 5),

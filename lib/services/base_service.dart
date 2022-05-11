@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 import '../constants.dart';
@@ -20,10 +21,14 @@ class BaseService {
       if (res.statusCode == 200 || res.statusCode == 201) {
         return dataFromBody(res.body);
       } else {
-        print("$functionName:: statusCode:  ${res.statusCode}");
+        if (kDebugMode) {
+          print("$functionName:: statusCode:  ${res.statusCode}");
+        }
       }
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:mazzad/models/categories/categories.dart';
 
@@ -22,13 +23,19 @@ class CategoriesService {
           myCategories =
               (resBody as Iterable).map((e) => Categories.fromJson(e)).toList();
         } else {
-          print('the resBody in getAllCategories endpoint is Empty');
+          if (kDebugMode) {
+            print('the resBody in getAllCategories endpoint is Empty');
+          }
         }
       }
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
-    print(myCategories);
+    if (kDebugMode) {
+      print(myCategories);
+    }
     return myCategories;
   }
 }

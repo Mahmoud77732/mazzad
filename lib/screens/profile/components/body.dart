@@ -131,6 +131,8 @@ class Body extends StatelessWidget {
                   child: SizedBox(
                     height: SizeConfig.screenHeight / 2,
                     child: ListView.separated(
+                      keyboardDismissBehavior:
+                          ScrollViewKeyboardDismissBehavior.onDrag,
                       itemBuilder: (ctx, index) {
                         return profileTiles[index];
                       },

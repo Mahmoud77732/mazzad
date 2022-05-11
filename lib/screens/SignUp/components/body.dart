@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -90,7 +91,9 @@ class BodyState extends State<Body> {
                       email: 'ahmed@gmail.com',
                       password: '12341234',
                       phoneNumber: '01024996193');
-                  print(check);
+                  if (kDebugMode) {
+                    print(check);
+                  }
                   // if (_formKey.currentState!.validate()) {
                   //   Get.toNamed(OTPScreen.routeName);
                   // }

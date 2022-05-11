@@ -32,6 +32,8 @@ class CategoriesScreen extends StatelessWidget {
                   init: CategoriesController(),
                   builder: (categoryController) {
                     return GridView(
+                        keyboardDismissBehavior:
+                            ScrollViewKeyboardDismissBehavior.onDrag,
                         children: List.generate(
                           categoryController.categories.length,
                           (index) {

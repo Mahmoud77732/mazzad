@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cron/cron.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 // This file is "main.dart"
@@ -22,7 +23,9 @@ import './router.dart' as router;
 // receive message when its on bckg
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
-  print('A Background message just showed up :  ${message.messageId}');
+  if (kDebugMode) {
+    print('A Background message just showed up :  ${message.messageId}');
+  }
 }
 
 void main() async {
@@ -71,7 +74,9 @@ void main() async {
     () async {
       if (await AuthService.isLoggedIn) {
         AuthService.updateToken(refreshToken: await AuthService.refreshToken);
-        print('every 1 minutes');
+        if (kDebugMode) {
+          print('every 1 minutes');
+        }
       }
     },
   );
@@ -93,9 +98,12 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    print(Status.scheuled.name);
+    if (kDebugMode) {
+      print(Status.scheuled.name);
+    }
     return OverlaySupport(
       child: GetMaterialApp(
+        //     showPerformanceOverlay: true,
         debugShowCheckedModeBanner: false,
         home: const OnBoardScreen(),
         theme: Constants.kMazzadTheme,
@@ -123,6 +131,7 @@ void registerNotifications() async {
     );
   }
 
+  // what this do ?
   await FirebaseMessaging.instance.subscribeToTopic(
     Platform.isAndroid
         ? "android"
@@ -147,13 +156,17 @@ void registerNotifications() async {
               title: message.notification!.title,
             );
           } else {
-            print('the message have no body ${message.notification}');
+            if (kDebugMode) {
+              print('the message have no body ${message.notification}');
+            }
           }
         }
       },
     );
   } else {
-    print(status.authorizationStatus.toString());
-    print('User declined or has not accepted permission');
+    if (kDebugMode) {
+      print(status.authorizationStatus.toString());
+      print('User declined or has not accepted permission');
+    }
   }
 }

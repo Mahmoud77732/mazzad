@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mazzad/services/validator.dart';
 
@@ -32,7 +33,9 @@ class MyAuctionsScreen extends StatelessWidget {
                   if (value == null || value.isEmpty || !value.isValidEmail) {
                     return "Full Name field is required";
                   }
-                  print(value.isValidEmail);
+                  if (kDebugMode) {
+                    print(value.isValidEmail);
+                  }
                   return null;
                 },
               ),
@@ -45,7 +48,9 @@ class MyAuctionsScreen extends StatelessWidget {
                   if (value == null || value.isEmpty || !value.isValidName) {
                     return "Full Name field is required";
                   }
-                  print(value.isValidEmail);
+                  if (kDebugMode) {
+                    print(value.isValidEmail);
+                  }
                   return null;
                 },
               ),
@@ -59,9 +64,13 @@ class MyAuctionsScreen extends StatelessWidget {
               TextButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      print('all valid');
+                      if (kDebugMode) {
+                        print('all valid');
+                      }
                     } else {
-                      print('its not valid');
+                      if (kDebugMode) {
+                        print('its not valid');
+                      }
                     }
                   },
                   child: const Text('press here')),

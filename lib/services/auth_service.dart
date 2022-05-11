@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:mazzad/constants.dart';
@@ -36,12 +37,18 @@ class AuthService {
         headers: await Constants.headers,
       );
       if (res.statusCode == 200 || res.statusCode == 201) {
-        print(res.body);
+        if (kDebugMode) {
+          print(res.body);
+        }
       } else if (res.statusCode == 400) {
-        print(res.body);
-        print('Invalid Data');
+        if (kDebugMode) {
+          print(res.body);
+          print('Invalid Data');
+        }
       } else {
-        print(res.body);
+        if (kDebugMode) {
+          print(res.body);
+        }
       }
       final resBody = jsonDecode(res.body);
       if (resBody != null) {
@@ -91,11 +98,15 @@ class AuthService {
       } else {
         String e = jsonDecode(response.body)['message'];
         SimpleLogPrinter('AuthService');
-        print(e);
+        if (kDebugMode) {
+          print(e);
+        }
         return false;
       }
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       SimpleLogPrinter('AuthService');
       return false;
     }
@@ -126,7 +137,9 @@ class AuthService {
       await _box.write("duration", expiredIn);
     } else {
       String e = jsonDecode(response.body)['message'];
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 }
