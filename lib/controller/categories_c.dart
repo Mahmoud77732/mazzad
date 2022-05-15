@@ -20,9 +20,11 @@ class CategoriesController extends GetxController {
     Colors.redAccent,
   ];
   Color get randomColor => myColors[Random().nextInt(myColors.length)];
+
   CategoriesController() {
     getCategories();
   }
+
   getCategories() async {
     try {
       await CategoriesService.getAllCategories()

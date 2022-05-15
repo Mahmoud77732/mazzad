@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mazzad/constants.dart';
 
+import '../../size_config.dart';
 import 'components/body.dart';
 
 class LoginScreen extends StatelessWidget {
   static const routeName = '/login_screen';
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       body: Body(),
     );

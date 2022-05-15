@@ -70,23 +70,24 @@ class _$CategoriesCopyWithImpl<$Res> implements $CategoriesCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$CategoriesCopyWith<$Res> implements $CategoriesCopyWith<$Res> {
-  factory _$CategoriesCopyWith(
-          _Categories value, $Res Function(_Categories) then) =
-      __$CategoriesCopyWithImpl<$Res>;
+abstract class _$$_CategoriesCopyWith<$Res>
+    implements $CategoriesCopyWith<$Res> {
+  factory _$$_CategoriesCopyWith(
+          _$_Categories value, $Res Function(_$_Categories) then) =
+      __$$_CategoriesCopyWithImpl<$Res>;
   @override
   $Res call({int? id, String? name, String? icon});
 }
 
 /// @nodoc
-class __$CategoriesCopyWithImpl<$Res> extends _$CategoriesCopyWithImpl<$Res>
-    implements _$CategoriesCopyWith<$Res> {
-  __$CategoriesCopyWithImpl(
-      _Categories _value, $Res Function(_Categories) _then)
-      : super(_value, (v) => _then(v as _Categories));
+class __$$_CategoriesCopyWithImpl<$Res> extends _$CategoriesCopyWithImpl<$Res>
+    implements _$$_CategoriesCopyWith<$Res> {
+  __$$_CategoriesCopyWithImpl(
+      _$_Categories _value, $Res Function(_$_Categories) _then)
+      : super(_value, (v) => _then(v as _$_Categories));
 
   @override
-  _Categories get _value => super._value as _Categories;
+  _$_Categories get _value => super._value as _$_Categories;
 
   @override
   $Res call({
@@ -94,7 +95,7 @@ class __$CategoriesCopyWithImpl<$Res> extends _$CategoriesCopyWithImpl<$Res>
     Object? name = freezed,
     Object? icon = freezed,
   }) {
-    return _then(_Categories(
+    return _then(_$_Categories(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -135,7 +136,7 @@ class _$_Categories implements _Categories {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Categories &&
+            other is _$_Categories &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.icon, icon));
@@ -151,8 +152,8 @@ class _$_Categories implements _Categories {
 
   @JsonKey(ignore: true)
   @override
-  _$CategoriesCopyWith<_Categories> get copyWith =>
-      __$CategoriesCopyWithImpl<_Categories>(this, _$identity);
+  _$$_CategoriesCopyWith<_$_Categories> get copyWith =>
+      __$$_CategoriesCopyWithImpl<_$_Categories>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -175,6 +176,6 @@ abstract class _Categories implements Categories {
   String? get icon => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$CategoriesCopyWith<_Categories> get copyWith =>
+  _$$_CategoriesCopyWith<_$_Categories> get copyWith =>
       throw _privateConstructorUsedError;
 }

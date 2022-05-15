@@ -92,9 +92,10 @@ class _$AuctionCopyWithImpl<$Res> implements $AuctionCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$AuctionCopyWith<$Res> implements $AuctionCopyWith<$Res> {
-  factory _$AuctionCopyWith(_Auction value, $Res Function(_Auction) then) =
-      __$AuctionCopyWithImpl<$Res>;
+abstract class _$$_AuctionCopyWith<$Res> implements $AuctionCopyWith<$Res> {
+  factory _$$_AuctionCopyWith(
+          _$_Auction value, $Res Function(_$_Auction) then) =
+      __$$_AuctionCopyWithImpl<$Res>;
   @override
   $Res call(
       {int category_id,
@@ -106,13 +107,13 @@ abstract class _$AuctionCopyWith<$Res> implements $AuctionCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$AuctionCopyWithImpl<$Res> extends _$AuctionCopyWithImpl<$Res>
-    implements _$AuctionCopyWith<$Res> {
-  __$AuctionCopyWithImpl(_Auction _value, $Res Function(_Auction) _then)
-      : super(_value, (v) => _then(v as _Auction));
+class __$$_AuctionCopyWithImpl<$Res> extends _$AuctionCopyWithImpl<$Res>
+    implements _$$_AuctionCopyWith<$Res> {
+  __$$_AuctionCopyWithImpl(_$_Auction _value, $Res Function(_$_Auction) _then)
+      : super(_value, (v) => _then(v as _$_Auction));
 
   @override
-  _Auction get _value => super._value as _Auction;
+  _$_Auction get _value => super._value as _$_Auction;
 
   @override
   $Res call({
@@ -123,7 +124,7 @@ class __$AuctionCopyWithImpl<$Res> extends _$AuctionCopyWithImpl<$Res>
     Object? start_date = freezed,
     Object? type = freezed,
   }) {
-    return _then(_Auction(
+    return _then(_$_Auction(
       category_id: category_id == freezed
           ? _value.category_id
           : category_id // ignore: cast_nullable_to_non_nullable
@@ -189,7 +190,7 @@ class _$_Auction extends _Auction {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Auction &&
+            other is _$_Auction &&
             const DeepCollectionEquality()
                 .equals(other.category_id, category_id) &&
             const DeepCollectionEquality().equals(other.name, name) &&
@@ -215,8 +216,8 @@ class _$_Auction extends _Auction {
 
   @JsonKey(ignore: true)
   @override
-  _$AuctionCopyWith<_Auction> get copyWith =>
-      __$AuctionCopyWithImpl<_Auction>(this, _$identity);
+  _$$_AuctionCopyWith<_$_Auction> get copyWith =>
+      __$$_AuctionCopyWithImpl<_$_Auction>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -250,6 +251,6 @@ abstract class _Auction extends Auction {
   Status get type => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$AuctionCopyWith<_Auction> get copyWith =>
+  _$$_AuctionCopyWith<_$_Auction> get copyWith =>
       throw _privateConstructorUsedError;
 }

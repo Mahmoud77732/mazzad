@@ -7,15 +7,17 @@ import 'package:mazzad/constants.dart';
 import 'package:mazzad/utils/logger.dart';
 
 class AuthService {
-  static final GetStorage _box = GetStorage('AuthService');
+  static final GetStorage box = GetStorage('AuthService');
 
-  static Future<String> get token async => await _box.read('access_token');
+  static Future<String> get token async =>
+      await box.read('access_token') ?? "empty access_token";
   static Future<String> get refreshToken async =>
-      await _box.read('refresh_token');
+      await box.read('refresh_token') ?? "empty refresh_token";
+
   static Future<bool> get isLoggedIn async =>
-      await _box.read('access_token') == null ||
-              await _box.read('refresh_token') == null ||
-              await _box.read('duration') == null
+      await box.read('access_token') == null ||
+              await box.read('refresh_token') == null ||
+              await box.read('duration') == null
           ? false
           : true;
 
@@ -70,6 +72,8 @@ class AuthService {
   static Future<bool> signin(
       {required String email, required String password}) async {
     try {
+      print(email);
+      print(password);
       final response = await http.post(
         Uri.parse('${Constants.api}/oauth/token'),
         body: jsonEncode({
@@ -82,18 +86,19 @@ class AuthService {
         }),
         headers: await Constants.headers,
       );
-
+      print("ddd");
+      print("$response ddd");
       if (response.statusCode == 200) {
         final _josonData = jsonDecode(response.body);
 
-        await _box.write("access_token", _josonData['data']["access_token"]);
-        await _box.write("refresh_token", _josonData['data']["refresh_token"]);
+        await box.write("access_token", _josonData['data']["access_token"]);
+        await box.write("refresh_token", _josonData['data']["refresh_token"]);
         double expiredDurationTemp = _josonData['data']["expires_in"] / 60;
         int expiredDuration = expiredDurationTemp.toInt();
         int expiredIn = DateTime.now()
             .add(Duration(minutes: expiredDuration))
             .millisecondsSinceEpoch;
-        await _box.write("duration", expiredIn);
+        await box.write("duration", expiredIn);
         return true;
       } else {
         String e = jsonDecode(response.body)['message'];
@@ -127,14 +132,14 @@ class AuthService {
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
       final _josonData = jsonDecode(response.body);
-      await _box.write("access_token", _josonData['data']["access_token"]);
-      await _box.write("refresh_token", _josonData['data']["refresh_token"]);
+      await box.write("access_token", _josonData['data']["access_token"]);
+      await box.write("refresh_token", _josonData['data']["refresh_token"]);
       double expiredDurationTemp = _josonData['data']["expires_in"] / 60;
       int expiredDuration = expiredDurationTemp.toInt();
       int expiredIn = DateTime.now()
           .add(Duration(minutes: expiredDuration))
           .millisecondsSinceEpoch;
-      await _box.write("duration", expiredIn);
+      await box.write("duration", expiredIn);
     } else {
       String e = jsonDecode(response.body)['message'];
       if (kDebugMode) {

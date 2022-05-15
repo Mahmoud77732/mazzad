@@ -74,21 +74,21 @@ class _$BidderCopyWithImpl<$Res> implements $BidderCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$BidderCopyWith<$Res> implements $BidderCopyWith<$Res> {
-  factory _$BidderCopyWith(_Bidder value, $Res Function(_Bidder) then) =
-      __$BidderCopyWithImpl<$Res>;
+abstract class _$$_BidderCopyWith<$Res> implements $BidderCopyWith<$Res> {
+  factory _$$_BidderCopyWith(_$_Bidder value, $Res Function(_$_Bidder) then) =
+      __$$_BidderCopyWithImpl<$Res>;
   @override
   $Res call({String? name, String? price, DateTime? date, String? image});
 }
 
 /// @nodoc
-class __$BidderCopyWithImpl<$Res> extends _$BidderCopyWithImpl<$Res>
-    implements _$BidderCopyWith<$Res> {
-  __$BidderCopyWithImpl(_Bidder _value, $Res Function(_Bidder) _then)
-      : super(_value, (v) => _then(v as _Bidder));
+class __$$_BidderCopyWithImpl<$Res> extends _$BidderCopyWithImpl<$Res>
+    implements _$$_BidderCopyWith<$Res> {
+  __$$_BidderCopyWithImpl(_$_Bidder _value, $Res Function(_$_Bidder) _then)
+      : super(_value, (v) => _then(v as _$_Bidder));
 
   @override
-  _Bidder get _value => super._value as _Bidder;
+  _$_Bidder get _value => super._value as _$_Bidder;
 
   @override
   $Res call({
@@ -97,7 +97,7 @@ class __$BidderCopyWithImpl<$Res> extends _$BidderCopyWithImpl<$Res>
     Object? date = freezed,
     Object? image = freezed,
   }) {
-    return _then(_Bidder(
+    return _then(_$_Bidder(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -144,7 +144,7 @@ class _$_Bidder implements _Bidder {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Bidder &&
+            other is _$_Bidder &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.price, price) &&
             const DeepCollectionEquality().equals(other.date, date) &&
@@ -162,8 +162,8 @@ class _$_Bidder implements _Bidder {
 
   @JsonKey(ignore: true)
   @override
-  _$BidderCopyWith<_Bidder> get copyWith =>
-      __$BidderCopyWithImpl<_Bidder>(this, _$identity);
+  _$$_BidderCopyWith<_$_Bidder> get copyWith =>
+      __$$_BidderCopyWithImpl<_$_Bidder>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -190,5 +190,6 @@ abstract class _Bidder implements Bidder {
   String? get image => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$BidderCopyWith<_Bidder> get copyWith => throw _privateConstructorUsedError;
+  _$$_BidderCopyWith<_$_Bidder> get copyWith =>
+      throw _privateConstructorUsedError;
 }

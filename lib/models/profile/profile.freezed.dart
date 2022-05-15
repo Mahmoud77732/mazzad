@@ -20,10 +20,10 @@ Profile _$ProfileFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Profile {
-  int get id => throw _privateConstructorUsedError;
-  String get email => throw _privateConstructorUsedError;
-  String get password => throw _privateConstructorUsedError;
-  String get phone_number => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
+  String? get email => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  String? get phone_number => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +34,7 @@ mixin _$Profile {
 abstract class $ProfileCopyWith<$Res> {
   factory $ProfileCopyWith(Profile value, $Res Function(Profile) then) =
       _$ProfileCopyWithImpl<$Res>;
-  $Res call({int id, String email, String password, String phone_number});
+  $Res call({int? id, String? email, String? name, String? phone_number});
 }
 
 /// @nodoc
@@ -49,71 +49,72 @@ class _$ProfileCopyWithImpl<$Res> implements $ProfileCopyWith<$Res> {
   $Res call({
     Object? id = freezed,
     Object? email = freezed,
-    Object? password = freezed,
+    Object? name = freezed,
     Object? phone_number = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       email: email == freezed
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      password: password == freezed
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
       phone_number: phone_number == freezed
           ? _value.phone_number
           : phone_number // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
 
 /// @nodoc
-abstract class _$ProfileCopyWith<$Res> implements $ProfileCopyWith<$Res> {
-  factory _$ProfileCopyWith(_Profile value, $Res Function(_Profile) then) =
-      __$ProfileCopyWithImpl<$Res>;
+abstract class _$$_ProfileCopyWith<$Res> implements $ProfileCopyWith<$Res> {
+  factory _$$_ProfileCopyWith(
+          _$_Profile value, $Res Function(_$_Profile) then) =
+      __$$_ProfileCopyWithImpl<$Res>;
   @override
-  $Res call({int id, String email, String password, String phone_number});
+  $Res call({int? id, String? email, String? name, String? phone_number});
 }
 
 /// @nodoc
-class __$ProfileCopyWithImpl<$Res> extends _$ProfileCopyWithImpl<$Res>
-    implements _$ProfileCopyWith<$Res> {
-  __$ProfileCopyWithImpl(_Profile _value, $Res Function(_Profile) _then)
-      : super(_value, (v) => _then(v as _Profile));
+class __$$_ProfileCopyWithImpl<$Res> extends _$ProfileCopyWithImpl<$Res>
+    implements _$$_ProfileCopyWith<$Res> {
+  __$$_ProfileCopyWithImpl(_$_Profile _value, $Res Function(_$_Profile) _then)
+      : super(_value, (v) => _then(v as _$_Profile));
 
   @override
-  _Profile get _value => super._value as _Profile;
+  _$_Profile get _value => super._value as _$_Profile;
 
   @override
   $Res call({
     Object? id = freezed,
     Object? email = freezed,
-    Object? password = freezed,
+    Object? name = freezed,
     Object? phone_number = freezed,
   }) {
-    return _then(_Profile(
+    return _then(_$_Profile(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       email: email == freezed
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      password: password == freezed
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
       phone_number: phone_number == freezed
           ? _value.phone_number
           : phone_number // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -121,38 +122,34 @@ class __$ProfileCopyWithImpl<$Res> extends _$ProfileCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Profile extends _Profile {
-  const _$_Profile(
-      {required this.id,
-      required this.email,
-      required this.password,
-      required this.phone_number})
+  const _$_Profile({this.id, this.email, this.name, this.phone_number})
       : super._();
 
   factory _$_Profile.fromJson(Map<String, dynamic> json) =>
       _$$_ProfileFromJson(json);
 
   @override
-  final int id;
+  final int? id;
   @override
-  final String email;
+  final String? email;
   @override
-  final String password;
+  final String? name;
   @override
-  final String phone_number;
+  final String? phone_number;
 
   @override
   String toString() {
-    return 'Profile(id: $id, email: $email, password: $password, phone_number: $phone_number)';
+    return 'Profile(id: $id, email: $email, name: $name, phone_number: $phone_number)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Profile &&
+            other is _$_Profile &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.email, email) &&
-            const DeepCollectionEquality().equals(other.password, password) &&
+            const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
                 .equals(other.phone_number, phone_number));
   }
@@ -163,13 +160,13 @@ class _$_Profile extends _Profile {
       runtimeType,
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(email),
-      const DeepCollectionEquality().hash(password),
+      const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(phone_number));
 
   @JsonKey(ignore: true)
   @override
-  _$ProfileCopyWith<_Profile> get copyWith =>
-      __$ProfileCopyWithImpl<_Profile>(this, _$identity);
+  _$$_ProfileCopyWith<_$_Profile> get copyWith =>
+      __$$_ProfileCopyWithImpl<_$_Profile>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -179,24 +176,24 @@ class _$_Profile extends _Profile {
 
 abstract class _Profile extends Profile {
   const factory _Profile(
-      {required final int id,
-      required final String email,
-      required final String password,
-      required final String phone_number}) = _$_Profile;
+      {final int? id,
+      final String? email,
+      final String? name,
+      final String? phone_number}) = _$_Profile;
   const _Profile._() : super._();
 
   factory _Profile.fromJson(Map<String, dynamic> json) = _$_Profile.fromJson;
 
   @override
-  int get id => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
   @override
-  String get email => throw _privateConstructorUsedError;
+  String? get email => throw _privateConstructorUsedError;
   @override
-  String get password => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
   @override
-  String get phone_number => throw _privateConstructorUsedError;
+  String? get phone_number => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$ProfileCopyWith<_Profile> get copyWith =>
+  _$$_ProfileCopyWith<_$_Profile> get copyWith =>
       throw _privateConstructorUsedError;
 }
