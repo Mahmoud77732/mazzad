@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mazzad/controller/auth_text_field_controller.dart';
 
 import '../constants.dart';
 
@@ -22,7 +24,9 @@ class DefaultTextField extends StatefulWidget {
 
 class _DefaultTextFieldState extends State<DefaultTextField> {
   bool isVisible = true;
-
+  //TODO make binding and delete the put from here and make it .find<>
+  final controller =
+      Get.put<AuthTextFieldController>(AuthTextFieldController());
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -39,6 +43,32 @@ class _DefaultTextFieldState extends State<DefaultTextField> {
             }
           : widget.validate,
       maxLines: widget.isLargeText! ? 6 : 1,
+      onChanged: (value) {
+        switch (widget.title) {
+          case 'Email Address':
+          case 'Your Email':
+          case 'Email':
+            {
+              controller.updateEmail(newEmail: value);
+            }
+            break;
+          case 'Password':
+            {
+              controller.updatePassword(newPassword: value);
+            }
+            break;
+          case "Name":
+            {
+              controller.updateUserName(newName: value);
+            }
+            break;
+          case "Phone":
+            {
+              controller.updatePhoneNumber(newPhoneNumber: value);
+            }
+            break;
+        }
+      },
       // onFieldSubmitted: (_) {
       //   FocusScope.of(context).nextFocus();
       // },

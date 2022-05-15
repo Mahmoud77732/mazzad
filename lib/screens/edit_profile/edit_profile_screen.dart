@@ -20,6 +20,7 @@ class EditProfileScreen extends StatelessWidget {
       body: Form(
         key: _formKey,
         child: ListView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           padding: const EdgeInsets.symmetric(
             horizontal: Constants.kHorizontalSpacing,
           ),

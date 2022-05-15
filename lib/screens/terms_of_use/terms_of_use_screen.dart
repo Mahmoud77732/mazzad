@@ -11,7 +11,9 @@ class TermsOfUseScreen extends StatelessWidget {
           'Terms of use',
         ),
       ),
-      body: ListView(),
+      body: ListView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+      ),
     );
   }
 }

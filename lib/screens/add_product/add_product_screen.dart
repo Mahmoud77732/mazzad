@@ -11,6 +11,7 @@ class AddProductScreen extends StatelessWidget {
         title: const Text('Add Product'),
       ),
       body: ListView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         children: [
           const TextField(
             decoration: InputDecoration(

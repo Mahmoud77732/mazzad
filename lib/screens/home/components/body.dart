@@ -1,10 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mazzad/components/search_textfield.dart';
+import 'package:mazzad/controller/categories_c.dart';
 import 'package:mazzad/screens/categories/categories_screen.dart';
 import 'package:mazzad/screens/notifications/notifications_screen.dart';
 
+import '../../../components/category_button.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
@@ -64,7 +67,9 @@ class Body extends StatelessWidget {
                   viewportFraction: 1.0,
                   autoPlay: true,
                   onPageChanged: (i, reason) {
-                    // print(i);
+                    if (kDebugMode) {
+                      print(i);
+                    }
                   },
                 ),
               ),
@@ -94,13 +99,26 @@ class Body extends StatelessWidget {
               Constants.kSmallVerticalSpacing,
               SizedBox(
                 height: getProportionateScreenHeight(90),
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) =>
-                      Constants.kDummyCategories[index],
-                  itemCount: Constants.kDummyCategories.length,
-                  separatorBuilder: (context, index) =>
-                      Constants.kTinyHorizontalSpacing,
+                child: GetBuilder<CategoriesController>(
+                  init: CategoriesController(),
+                  builder: (categoryController) {
+                    return ListView.separated(
+                      keyboardDismissBehavior:
+                          ScrollViewKeyboardDismissBehavior.onDrag,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) => CategoryButton(
+                        color: categoryController.randomColor,
+                        icon: categoryController.categories[index].icon ?? "",
+                        onPress: () {},
+                        name: categoryController.categories[index].name ?? "",
+                      ),
+                      itemCount: categoryController.categories.length > 10
+                          ? 10
+                          : categoryController.categories.length,
+                      separatorBuilder: (context, index) =>
+                          Constants.kTinyHorizontalSpacing,
+                    );
+                  },
                 ),
               ),
               Constants.kBigVertcialSpacing,

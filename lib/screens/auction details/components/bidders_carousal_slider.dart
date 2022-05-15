@@ -3,10 +3,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:mazzad/models/bidder.dart';
 import 'package:mazzad/size_config.dart';
 
 import '../../../constants.dart';
+import '../../../models/bidder/bidder.dart';
 
 class TopFiveBiddersCarousalSlider extends StatefulWidget {
   final List<Bidder>? bidders;

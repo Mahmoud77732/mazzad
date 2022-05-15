@@ -1,12 +1,39 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mazzad/components/auction_item.dart';
+import 'package:mazzad/services/auth_service.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
-import 'components/category_button.dart';
-import 'models/bidder.dart';
+import 'models/bidder/bidder.dart';
 import 'size_config.dart';
 
 class Constants {
+  static String get api => _api;
+  static String get clientSecret => _clientSecret;
+  static String get clientId => _clientId;
+
+  static const String _api = 'https://mazzad.unidevs.co/api';
+  static const String _clientSecret =
+      '331ONKkzjiVKT52ZeReYYN9xCjsQo4iCTPmNICvU';
+  static const String _clientId = '95f97367-73a9-475a-b817-16c0d567d697';
+  static Map<String, String> get authHeaders => {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      };
+  static Future<Map<String, String>> get profileHeader async => {
+        "Authorization": "Bearer ${await AuthService.token}",
+      };
+  static Future<Map<String, String>> get headers async => {
+        "Authorization": "Bearer ${await AuthService.token}",
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "OS_Name": Platform.operatingSystem,
+        "OS_Version": Platform.operatingSystemVersion,
+        "App_Version":
+            await PackageInfo.fromPlatform().then((value) => value.version),
+      };
   // Colors
   static const kPrimaryColor = Color(0xFFFF7643);
   static const kSecondaryColor = Color(0xFFFF7643);
@@ -112,128 +139,7 @@ class Constants {
     'assets/images/product.jpeg',
     'assets/images/product1.png',
   ];
-  static List<CategoryButton> kDummyCategories = [
-    CategoryButton(
-      color: Colors.amber,
-      icon: Icons.category,
-      onPress: () {},
-      name: 'All',
-    ),
-    CategoryButton(
-      color: Colors.pinkAccent,
-      icon: Icons.ac_unit,
-      onPress: () {},
-      name: 'Snow',
-    ),
-    CategoryButton(
-      color: Colors.purpleAccent,
-      icon: Icons.chair,
-      onPress: () {},
-      name: 'Furniture',
-    ),
-    CategoryButton(
-      color: Colors.orange,
-      icon: Icons.laptop,
-      onPress: () {},
-      name: 'Technology',
-    ),
-    CategoryButton(
-      color: Colors.blueAccent,
-      icon: Icons.book,
-      onPress: () {},
-      name: 'Books',
-    ),
-    CategoryButton(
-      color: Colors.amber,
-      icon: Icons.category,
-      onPress: () {},
-      name: 'All',
-    ),
-    CategoryButton(
-      color: Colors.pinkAccent,
-      icon: Icons.ac_unit,
-      onPress: () {},
-      name: 'Snow',
-    ),
-    CategoryButton(
-      color: Colors.purpleAccent,
-      icon: Icons.chair,
-      onPress: () {},
-      name: 'Furniture',
-    ),
-    CategoryButton(
-      color: Colors.orange,
-      icon: Icons.laptop,
-      onPress: () {},
-      name: 'Technology',
-    ),
-    CategoryButton(
-      color: Colors.blueAccent,
-      icon: Icons.book,
-      onPress: () {},
-      name: 'Books',
-    ),
-    CategoryButton(
-      color: Colors.amber,
-      icon: Icons.category,
-      onPress: () {},
-      name: 'All',
-    ),
-    CategoryButton(
-      color: Colors.pinkAccent,
-      icon: Icons.ac_unit,
-      onPress: () {},
-      name: 'Snow',
-    ),
-    CategoryButton(
-      color: Colors.purpleAccent,
-      icon: Icons.chair,
-      onPress: () {},
-      name: 'Furniture',
-    ),
-    CategoryButton(
-      color: Colors.orange,
-      icon: Icons.laptop,
-      onPress: () {},
-      name: 'Technology',
-    ),
-    CategoryButton(
-      color: Colors.blueAccent,
-      icon: Icons.book,
-      onPress: () {},
-      name: 'Books',
-    ),
-    CategoryButton(
-      color: Colors.amber,
-      icon: Icons.category,
-      onPress: () {},
-      name: 'All',
-    ),
-    CategoryButton(
-      color: Colors.pinkAccent,
-      icon: Icons.ac_unit,
-      onPress: () {},
-      name: 'Snow',
-    ),
-    CategoryButton(
-      color: Colors.purpleAccent,
-      icon: Icons.chair,
-      onPress: () {},
-      name: 'Furniture',
-    ),
-    CategoryButton(
-      color: Colors.orange,
-      icon: Icons.laptop,
-      onPress: () {},
-      name: 'Technology',
-    ),
-    CategoryButton(
-      color: Colors.blueAccent,
-      icon: Icons.book,
-      onPress: () {},
-      name: 'Books',
-    ),
-  ];
+
   static List<AuctionItem> kDummyLiveAuctionItems = [
     const AuctionItem(
       image: 'assets/images/product.jpeg',
@@ -690,21 +596,21 @@ class Constants {
         image: 'assets/images/profile_pic.jpg'),
   ];
   static List<Bidder> kDummyBiddersList = [
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
   ];
 }
