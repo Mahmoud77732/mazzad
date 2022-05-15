@@ -2,11 +2,11 @@ import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mazzad/components/auction_item.dart';
-import 'package:mazzad/services/auth_service.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-import 'models/bidder/bidder.dart';
+import './components/auction_item.dart';
+import './models/bidder/bidder.dart';
+import './services/auth_service.dart';
 import 'size_config.dart';
 
 class Constants {

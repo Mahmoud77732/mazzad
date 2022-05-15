@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mazzad/components/default_button.dart';
+
+import '../../components/default_button.dart';
 
 class AddProductScreen extends StatelessWidget {
   const AddProductScreen({Key? key}) : super(key: key);

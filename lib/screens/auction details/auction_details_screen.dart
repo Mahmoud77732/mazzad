@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mazzad/screens/auction details/components/body.dart';
+
+import '../../screens/auction details/components/body.dart';
 
 class AuctionDetailsScreen extends StatefulWidget {
   const AuctionDetailsScreen({Key? key}) : super(key: key);

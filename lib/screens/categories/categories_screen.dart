@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mazzad/components/search_textfield.dart';
-import 'package:mazzad/constants.dart';
-import 'package:mazzad/controller/categories_c.dart';
 
 import '../../components/category_button.dart';
+import '../../components/search_textfield.dart';
+import '../../constants.dart';
+import '../../controller/categories_c.dart';
 import '../../size_config.dart';
 
 class CategoriesScreen extends StatelessWidget {
@@ -61,5 +61,3 @@ class CategoriesScreen extends StatelessWidget {
     );
   }
 }
-//TODO: change the padding in categories item and dont remove the earch field padding
-

@@ -6,19 +6,18 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// This file is "main.dart"
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:logger/logger.dart';
-import 'package:mazzad/constants.dart';
-import 'package:mazzad/firebase_options.dart';
-import 'package:mazzad/models/push_notification.dart';
-import 'package:mazzad/screens/home/home_screen.dart';
-import 'package:mazzad/screens/login/login_screen.dart';
-import 'package:mazzad/services/auth_service.dart';
 
+import './/constants.dart';
+import './/firebase_options.dart';
+import './/models/push_notification.dart';
+import './/screens/home/home_screen.dart';
+import './/screens/login/login_screen.dart';
+import './/services/auth_service.dart';
 import './router.dart' as router;
-import 'screens/onboard/on_board_screen.dart';
+import './screens/onboard/on_board_screen.dart';
 
 // the handler of Bckg message its work on its isloate ' on its own thread '
 // receive message when its on bckg
@@ -139,9 +138,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-//TODO: see some proejects that contains the FCM
-// TODO: put the registerNotifications in a separeate class and call it in the right places
 
 void registerNotifications() async {
   FirebaseMessaging messaging = FirebaseMessaging.instance;

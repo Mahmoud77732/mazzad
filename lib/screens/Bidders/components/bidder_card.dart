@@ -1,8 +1,7 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
-import 'package:mazzad/constants.dart';
-import 'package:mazzad/size_config.dart';
+
+import '../../../constants.dart';
+import '../../../size_config.dart';
 
 class BidderCard extends StatefulWidget {
   const BidderCard({Key? key}) : super(key: key);
@@ -21,7 +20,7 @@ class BidderCardState extends State<BidderCard> {
         Expanded(
           child: ListView.builder(
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             itemBuilder: (context, index) => Padding(
               padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 5),
               child: Card(
@@ -36,7 +35,7 @@ class BidderCardState extends State<BidderCard> {
                   ),
                   title: Text(
                     Constants.kDummyBiddersList[index].name ?? "unkwon",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 15,
                       color: Colors.black,
@@ -44,7 +43,7 @@ class BidderCardState extends State<BidderCard> {
                   ),
                   trailing: Text(
                     '\$${Constants.kDummyBiddersList[index].price ?? 0.0}',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),

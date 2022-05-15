@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, avoid_unnecessary_containers, deprecated_member_use
-
 import 'package:flutter/material.dart';
 import 'package:mazzad/components/default_button.dart';
 import 'package:mazzad/constants.dart';
@@ -19,17 +17,17 @@ class BottomForm extends StatelessWidget {
       children: [
         Container(
           alignment: Alignment.centerLeft,
-          padding: EdgeInsets.only(left: 25),
+          padding: const EdgeInsets.only(left: 25),
           height: getProportionateScreenHeight(53),
           width: double.infinity,
           // color: Color.fromARGB(255, 230, 227, 227),
           color: Colors.white,
-          child: Text('Can you bid more?',
+          child: const Text('Can you bid more?',
               style: TextStyle(color: Colors.black, fontSize: 21)),
         ),
         Container(
-          padding: EdgeInsets.all(10),
-          color: Color(0xFFC4C4C4),
+          padding: const EdgeInsets.all(10),
+          color: const Color(0xFFC4C4C4),
           height: getProportionateScreenHeight(80),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -45,13 +43,14 @@ class BottomForm extends StatelessWidget {
                 child: TextFormField(
                   decoration: InputDecoration(
                     hintText: 'Enter your bid',
-                    hintStyle:
-                        TextStyle(color: Color.fromARGB(255, 102, 98, 98)),
+                    hintStyle: const TextStyle(
+                        color: Color.fromARGB(255, 102, 98, 98)),
                     contentPadding:
                         EdgeInsets.all(getProportionateScreenHeight(18)),
                     isDense: true,
                   ),
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
                 ),
               ),
               Constants.kSmallHorizontalSpacing,

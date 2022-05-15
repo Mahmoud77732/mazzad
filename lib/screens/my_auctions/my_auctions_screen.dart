@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:mazzad/services/validator.dart';
 
-import 'custom_image_form_field.dart';
+import './custom_image_form_field.dart';
+import '../../services/validator.dart';
 
 class MyAuctionsScreen extends StatelessWidget {
   MyAuctionsScreen({Key? key}) : super(key: key);

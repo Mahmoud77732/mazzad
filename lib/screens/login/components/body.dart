@@ -3,18 +3,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:mazzad/components/default_button.dart';
-import 'package:mazzad/components/default_text_field.dart';
-import 'package:mazzad/constants.dart';
-import 'package:mazzad/controller/auth_text_field_controller.dart';
-import 'package:mazzad/screens/SignUp/signup_screen.dart';
-import 'package:mazzad/screens/home/home_screen.dart';
-import 'package:mazzad/screens/login/components/background.dart';
-import 'package:mazzad/size_config.dart';
 
 import '../../../components/already_have_an_account_check.dart';
+import '../../../components/default_button.dart';
+import '../../../components/default_text_field.dart';
+import '../../../constants.dart';
+import '../../../controller/auth_text_field_controller.dart';
+import '../../../screens/SignUp/signup_screen.dart';
+import '../../../screens/home/home_screen.dart';
+import '../../../screens/login/components/background.dart';
 import '../../../services/auth_service.dart';
 import '../../../services/validator.dart';
+import '../../../size_config.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);

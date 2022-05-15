@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:mazzad/models/categories/categories.dart';
 
+import '../../models/categories/categories.dart';
 import '../constants.dart';
 
 class CategoriesService {

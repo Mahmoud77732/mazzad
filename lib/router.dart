@@ -24,7 +24,7 @@ final log = getLogger('Router');
 
 class Router {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
-    // // emoji class name - my info :D
+    //  emoji class name - my info :D
     log.i('onGenerateRoute | name:${settings.name} ');
     switch (settings.name) {
       case OnBoardScreen.rountName:

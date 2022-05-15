@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mazzad/components/default_text_field.dart';
-import 'package:mazzad/constants.dart';
 
 import '../../components/default_button.dart';
+import '../../components/default_text_field.dart';
+import '../../constants.dart';
 import '../../services/validator.dart';
 
 class EditProfileScreen extends StatelessWidget {

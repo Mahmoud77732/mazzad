@@ -3,8 +3,9 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:mazzad/constants.dart';
-import 'package:mazzad/utils/logger.dart';
+
+import '../constants.dart';
+import '../utils/logger.dart';
 
 class AuthService {
   static final GetStorage box = GetStorage('AuthService');
@@ -72,8 +73,6 @@ class AuthService {
   static Future<bool> signin(
       {required String email, required String password}) async {
     try {
-      print(email);
-      print(password);
       final response = await http.post(
         Uri.parse('${Constants.api}/oauth/token'),
         body: jsonEncode({
@@ -86,8 +85,6 @@ class AuthService {
         }),
         headers: await Constants.headers,
       );
-      print("ddd");
-      print("$response ddd");
       if (response.statusCode == 200) {
         final _josonData = jsonDecode(response.body);
 

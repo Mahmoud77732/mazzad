@@ -2,13 +2,13 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mazzad/components/search_textfield.dart';
-import 'package:mazzad/controller/categories_c.dart';
-import 'package:mazzad/screens/categories/categories_screen.dart';
-import 'package:mazzad/screens/notifications/notifications_screen.dart';
 
 import '../../../components/category_button.dart';
+import '../../../components/search_textfield.dart';
 import '../../../constants.dart';
+import '../../../controller/categories_c.dart';
+import '../../../screens/categories/categories_screen.dart';
+import '../../../screens/notifications/notifications_screen.dart';
 import '../../../size_config.dart';
 
 class Body extends StatelessWidget {

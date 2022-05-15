@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mazzad/components/search_textfield.dart';
-import 'package:mazzad/constants.dart';
+
+import '../../../components/search_textfield.dart';
+import '../../../constants.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);

@@ -2,10 +2,10 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import './/constants.dart';
-import './/screens/add_product/add_product_screen.dart';
-import './/screens/auctions/auctions.dart';
-import './/screens/profile/profile_screen.dart';
+import '../../constants.dart';
+import '../../screens/add_product/add_product_screen.dart';
+import '../../screens/auctions/auctions.dart';
+import '../../screens/profile/profile_screen.dart';
 import '../../size_config.dart';
 // import 'package:mazzad/screens/shop/shop_screen.dart';
 

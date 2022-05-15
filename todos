@@ -1,23 +1,13 @@
-TODO: clean all import packages with .// 
-TODO: clean all SizedBox with Constants.kVertical/Horizontal Spacing
-TODO: make dummy data for different items, categories and profile tiles
-TODO: maybe mak dynamic defaultTextField generator
-TODO: make a const styles for the font , textfield and appbar
-TODO: look for FAB behavior when focusing on textfield
-TODO: iomplement item details for each product spearately and dynamically
+TODO: implement item details for each product spearately and dynamically
+
 TODO: modify bidders screen 
 TODO: modify the Item Deatils Screen 
+
 TODO: should we make the blace bid button as FAB or as child in the widget tree !!!! we should test with longer descprtion and longer title 
 TODO: make all the text responsive and have maxlines for each container 
-TODO: del all the SizeConfig.intialize  " DONE "
 TODO: change the themedata inside the whole app , for app bar , font family and font size  " DONE "
-TODO: make all font responsive   " DONE "
-TODO: make textfiled component  " DONE "
-TODO: implement the contact us screen :D " Done "
-TODO: make a controller for the FAB for visibility "  DONE with out controller by chking the viewInsets.badding == 0 ?"
 TODO: change the bidders screen placing bid " DONE 
 TODO: change the size of the profile screen listview " KINDA DONE substract the bottom navigation 
-TODO: auto generate textfield as components " still thinking about 
 TODO: make validation for all textfields inputs "  "
 TODO: add serach interaction when seraching for an item "lottie files :D " 
 TODO: put the stful widgets inside the stful builder and change the whole stful widget into stless for better performace
@@ -69,3 +59,5 @@ TODO use MaterialIcons thorugh out the app
 TODO: amke garud cauases in if else statements :if(!condition){return;}
 TODO: change the whole UI
 TODO put the onboard screen at the top and getstorage weather he opened the app before or not
+//TODO: see some proejects that contains the FCM
+// TODO: put the registerNotifications in a separeate class and call it in the right places

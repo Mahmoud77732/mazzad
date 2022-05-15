@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mazzad/components/default_button.dart';
-import 'package:mazzad/constants.dart';
-import 'package:mazzad/screens/auction details/components/bidders_carousal_slider.dart';
-import 'package:mazzad/screens/auction details/components/product_info.dart';
-import 'package:mazzad/screens/auction details/components/products_carousal_slider.dart';
-import 'package:mazzad/screens/bidders/main_bidders.dart';
 
 import '../../../components/auction_item.dart';
+import '../../../components/default_button.dart';
+import '../../../constants.dart';
 import '../../../models/bidder/bidder.dart';
+import '../../../screens/auction details/components/bidders_carousal_slider.dart';
+import '../../../screens/auction details/components/product_info.dart';
+import '../../../screens/auction details/components/products_carousal_slider.dart';
+import '../../../screens/bidders/main_bidders.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);

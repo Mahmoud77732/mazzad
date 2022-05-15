@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mazzad/components/default_button.dart';
-import 'package:mazzad/screens/SignUp/signup_screen.dart';
 
-import './/constants.dart';
 import './on_board_content.dart';
+import '../../../components/default_button.dart';
+import '../../../constants.dart';
+import '../../../screens/SignUp/signup_screen.dart';
 import '../../login/login_screen.dart';
 
 class Body extends StatefulWidget {
@@ -117,7 +117,6 @@ class _BodyState extends State<Body> {
     );
   }
 
-//TODO: we can use the smooth_page_indicator package instead of this :D "donno weather is better in performance"
   AnimatedContainer buildDot({int? index}) {
     return AnimatedContainer(
       duration: Constants.kAnimationDuration,

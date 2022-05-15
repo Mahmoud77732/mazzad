@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mazzad/controller/profile_controller.dart';
-import 'package:mazzad/screens/contact_us/contact_us_screen.dart';
-import 'package:mazzad/screens/edit_profile/edit_profile_screen.dart';
-import 'package:mazzad/screens/my_auctions/my_auctions_screen.dart';
-import 'package:mazzad/screens/privacy_and_policy/privacy_and_policy_screen.dart';
-import 'package:mazzad/screens/profile/components/small_clipper.dart';
-import 'package:mazzad/screens/terms_of_use/terms_of_use_screen.dart';
 
+import './big_clipper.dart';
 import '../../../constants.dart';
+import '../../../controller/profile_controller.dart';
+import '../../../screens/contact_us/contact_us_screen.dart';
+import '../../../screens/edit_profile/edit_profile_screen.dart';
+import '../../../screens/my_auctions/my_auctions_screen.dart';
+import '../../../screens/privacy_and_policy/privacy_and_policy_screen.dart';
+import '../../../screens/profile/components/small_clipper.dart';
+import '../../../screens/terms_of_use/terms_of_use_screen.dart';
 import '../../../size_config.dart';
 import '../../login/login_screen.dart';
 import '../clip_shadow_path.dart';
-import 'big_clipper.dart';
 
 class Body extends StatelessWidget {
   const Body({
