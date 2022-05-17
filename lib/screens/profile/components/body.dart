@@ -104,6 +104,7 @@ class Body extends StatelessWidget {
                             ],
                           ),
                           onPressed: () {
+                            // Get.to('/edit_profile');
                             Get.toNamed(EditProfileScreen.routeName);
                           },
                         ),

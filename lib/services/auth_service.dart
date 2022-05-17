@@ -85,6 +85,7 @@ class AuthService {
         }),
         headers: await Constants.headers,
       );
+
       if (response.statusCode == 200) {
         final _josonData = jsonDecode(response.body);
 

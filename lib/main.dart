@@ -9,6 +9,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:logger/logger.dart';
+import 'package:mazzad/screens/edit_profile/edit_profile_screen.dart';
+import 'package:mazzad/utils/main_bindings.dart';
 
 import './/constants.dart';
 import './/firebase_options.dart';
@@ -33,6 +35,7 @@ void main() async {
   Logger.level = Level.error;
   await GetStorage.init();
 
+  HttpOverrides.global = MyHttpOverrides();
   // firebase intilaization
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -120,6 +123,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      // initialBinding: MainBindings(),
       home: FutureBuilder(
         future: getUser(),
         builder: (context, snapshot) => !snapshot.hasData
@@ -193,5 +197,14 @@ void registerNotifications() async {
       print(status.authorizationStatus.toString());
       print('User declined or has not accepted permission');
     }
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }
