@@ -17,7 +17,6 @@ import './/screens/home/home_screen.dart';
 import './/screens/login/login_screen.dart';
 import './/services/auth_service.dart';
 import './router.dart' as router;
-import './screens/onboard/on_board_screen.dart';
 
 // the handler of Bckg message its work on its isloate ' on its own thread '
 // receive message when its on bckg
@@ -100,7 +99,7 @@ class MyApp extends StatelessWidget {
 
   Future<Widget> getUser() async {
     if (initScreen == null || initScreen == false) {
-      return const OnBoardScreen();
+      return const HomeScreen();
     }
 
     if (await AuthService.isLoggedIn) {

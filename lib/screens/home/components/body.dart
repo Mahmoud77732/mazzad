@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mazzad/controller/auction_c.dart';
 
 import '../../../components/category_button.dart';
 import '../../../components/search_textfield.dart';
@@ -131,11 +132,15 @@ class Body extends StatelessWidget {
               Constants.kSmallVerticalSpacing,
               SizedBox(
                 height: 175,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: List.generate(Constants.kDummyAuctionItems.length,
-                      (index) => Constants.kDummyAuctionItems[index]),
-                ),
+                child: GetBuilder<AuctionController>(
+                    init: AuctionController(),
+                    builder: (controller) {
+                      return ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: List.generate(controller.length,
+                            (index) => controller.auctions[index]),
+                      );
+                    }),
               ),
               SizedBox(
                 height: getProportionateScreenHeight(90),
