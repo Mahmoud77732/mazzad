@@ -194,10 +194,3 @@ void registerNotifications() async {
     }
   }
 }
-
-extension Uris on Uri {
-  Uri withQueryParameters(Map<String, dynamic> queryParameters) {
-    return Uri.parse(
-        "$this/?${queryParameters.keys.map<String>((k) => "$k=${queryParameters[k]}").join("&")}");
-  }
-}

@@ -13,7 +13,7 @@ class AuctionItem extends StatelessWidget {
     required this.currentBid,
     required this.status,
   }) : super(key: key);
-  final String image;
+  final List<String> image;
   final String name;
   final double currentBid;
   final Status status;
@@ -31,8 +31,8 @@ class AuctionItem extends StatelessWidget {
             Expanded(
               flex: 10,
               child: Center(
-                child: Image.asset(
-                  image,
+                child: Image.network(
+                  image[0],
                   fit: BoxFit.fitWidth,
                 ),
               ),
@@ -58,6 +58,8 @@ class AuctionItem extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       fontSize: getProportionateScreenHeight(14),
                     ),
+                    maxLines: 1,
+                    overflow: TextOverflow.clip,
                   ),
                   const Spacer(
                     flex: 2,
@@ -101,7 +103,7 @@ class AuctionItem extends StatelessWidget {
   }
 }
 
-enum Status { live, scheuled, soon }
+enum Status { live, scheduled, soon }
 
 class AuctionStatus extends StatelessWidget {
   const AuctionStatus({
@@ -117,7 +119,7 @@ class AuctionStatus extends StatelessWidget {
         borderRadius: BorderRadius.circular(5),
         color: status == Status.live
             ? Colors.red.withOpacity(0.2)
-            : status == Status.scheuled
+            : status == Status.scheduled
                 ? Colors.green.withOpacity(0.2)
                 : Constants.kPrimaryColor.withOpacity(0.2),
       ),
@@ -138,13 +140,13 @@ class AuctionStatus extends StatelessWidget {
           Text(
             status == Status.live
                 ? 'Live'
-                : status == Status.scheuled
+                : status == Status.scheduled
                     ? "12h : 32m : 12s"
                     : "Soon",
             style: TextStyle(
               color: status == Status.live
                   ? Colors.red
-                  : status == Status.scheuled
+                  : status == Status.scheduled
                       ? Colors.green
                       : Constants.kPrimaryColor,
               fontSize: getProportionateScreenHeight(14),

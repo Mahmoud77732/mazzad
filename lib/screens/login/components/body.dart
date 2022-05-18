@@ -12,7 +12,6 @@ import '../../../controller/text_field_controller.dart';
 import '../../../screens/SignUp/signup_screen.dart';
 import '../../../screens/home/home_screen.dart';
 import '../../../screens/login/components/background.dart';
-import '../../../services/auction_service.dart';
 import '../../../services/auth_service.dart';
 import '../../../services/validator.dart';
 import '../../../size_config.dart';
@@ -71,12 +70,10 @@ class BodyState extends State<Body> {
                     ),
                     DefaultButton(
                       onPressed: () async {
-                        await AuctionService.getAuctions();
                         bool check = await AuthService.signin(
                           email: controller.email,
                           password: controller.password,
                         );
-                        print(check);
                         if (_formKey.currentState!.validate() && check) {
                           controller.resetFields();
                           Get.offAllNamed(HomeScreen.routeName);

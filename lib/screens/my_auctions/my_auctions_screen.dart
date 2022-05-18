@@ -116,12 +116,7 @@ class InputTextWidget extends StatelessWidget {
                   ),
                 ),
                 child: TextField(
-                  // new line
-                  // validator: validator, // use validator in [TextFormField]
-                  // Notify the FormField State of Changes
                   onChanged: (String value) {
-                    //update the formfield stae with my input value
-
                     formFieldState.didChange(value);
                   },
                   controller: inputController,

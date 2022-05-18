@@ -147,8 +147,9 @@ class Body extends StatelessWidget {
                     builder: (controller) {
                       return ListView(
                         scrollDirection: Axis.horizontal,
-                        children: List.generate(controller.length,
-                            (index) => controller.auctions[index]),
+                        children: List.generate(
+                            controller.recommendedAuctionsLength,
+                            (index) => controller.recommendedAuctions[index]),
                       );
                     }),
               ),

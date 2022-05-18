@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
+import '../components/auction_item.dart';
 import '../constants.dart';
 import '../models/auction/auction.dart';
 
@@ -28,16 +29,29 @@ class AuctionService {
     }
   }
 
-  static Future<List<Auction>> getAuctions() async {
+  static Future<List<Auction>> getAuctions(
+      {Status? type, String? limit}) async {
     try {
+      print(type);
+      final queryParameters = {
+        if (type != null) "type": type.name,
+        if (limit != null) "limit": limit,
+      };
       final response = await http.get(
-        Uri.parse('${Constants.api}/auction/'),
+        Uri.parse('${Constants.api}/auction')
+            .withQueryParameters(queryParameters),
         headers: await Constants.profileHeader,
       );
+      final resbody = json.decode(response.body);
+      // print((resbody['data'] as Iterable)
+      // .map((e) => Auction.fromJson(e))
+      // .toList());
       print(response.statusCode);
       if (response.statusCode == 200) {
-        final resbody = json.decode(response.body);
-        return (resbody['data'] as Iterable)
+        print((resbody['data']['data'] as Iterable)
+            .map((e) => Auction.fromJson(e))
+            .toList());
+        return (resbody['data']['data'] as Iterable)
             .map((e) => Auction.fromJson(e))
             .toList();
       } else {
@@ -46,5 +60,12 @@ class AuctionService {
     } catch (e) {
       rethrow;
     }
+  }
+}
+
+extension Uris on Uri {
+  Uri withQueryParameters(Map<String, dynamic> queryParameters) {
+    return Uri.parse(
+        "$this/?${queryParameters.keys.map<String>((k) => "$k=${queryParameters[k]}").join("&")}");
   }
 }
