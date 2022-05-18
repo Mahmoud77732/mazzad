@@ -109,7 +109,7 @@ class Body extends StatelessWidget {
               ),
               Constants.kSmallVerticalSpacing,
               SizedBox(
-                height: getProportionateScreenHeight(90),
+                height: getProportionateScreenHeight(110),
                 child: GetBuilder<CategoriesController>(
                   init: CategoriesController(),
                   builder: (categoryController) {

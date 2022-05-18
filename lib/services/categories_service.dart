@@ -20,9 +20,11 @@ class CategoriesService {
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final resBody = jsonDecode(response.body)["data"];
+        print('printing now th ecategoires');
+        print(
+            (resBody as Iterable).map((e) => Categories.fromJson(e)).toList());
         if (resBody != null) {
-          myCategories =
-              (resBody as Iterable).map((e) => Categories.fromJson(e)).toList();
+          myCategories = (resBody).map((e) => Categories.fromJson(e)).toList();
         } else {
           if (kDebugMode) {
             print('the resBody in getAllCategories endpoint is Empty');

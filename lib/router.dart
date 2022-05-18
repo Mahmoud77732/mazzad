@@ -5,7 +5,6 @@ import './screens/SignUp/signup_screen.dart';
 import './screens/add_product/add_product_screen.dart';
 import './screens/auction details/auction_details_screen.dart';
 import './screens/auctions/auctions.dart';
-import './screens/bidders/main_bidders.dart';
 import './screens/categories/categories_screen.dart';
 import './screens/contact_us/contact_us_screen.dart';
 import './screens/edit_profile/edit_profile_screen.dart';
@@ -18,6 +17,7 @@ import './screens/otb/otb_screen.dart';
 import './screens/privacy_and_policy/privacy_and_policy_screen.dart';
 import './screens/profile/profile_screen.dart';
 import './screens/terms_of_use/terms_of_use_screen.dart';
+import 'screens/Bidders/main_bidders.dart';
 
 // take the settings from onGenerateRoute in GetMaterialApp
 final log = getLogger('Router');

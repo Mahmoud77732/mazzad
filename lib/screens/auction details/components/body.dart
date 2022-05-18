@@ -8,7 +8,7 @@ import '../../../models/bidder/bidder.dart';
 import '../../../screens/auction details/components/bidders_carousal_slider.dart';
 import '../../../screens/auction details/components/product_info.dart';
 import '../../../screens/auction details/components/products_carousal_slider.dart';
-import '../../../screens/bidders/main_bidders.dart';
+import '../../Bidders/main_bidders.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);

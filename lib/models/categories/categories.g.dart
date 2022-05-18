@@ -10,7 +10,7 @@ _$_Categories _$$_CategoriesFromJson(Map<String, dynamic> json) =>
     _$_Categories(
       id: json['id'] as int?,
       name: json['name'] as String?,
-      icon: json['icon'].toString().substring(8),
+      icon: json['icon'] as String?,
     );
 
 Map<String, dynamic> _$$_CategoriesToJson(_$_Categories instance) =>

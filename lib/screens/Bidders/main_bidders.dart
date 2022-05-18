@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../screens/bidders/components/bidder_card.dart';
-import '../../screens/bidders/components/bottom_form.dart';
+import './components/bidder_card.dart';
+import './components/bottom_form.dart';
 
 class MainBidders extends StatefulWidget {
   const MainBidders({Key? key}) : super(key: key);

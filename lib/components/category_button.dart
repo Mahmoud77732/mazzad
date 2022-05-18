@@ -40,7 +40,15 @@ class CategoryButton extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(child: Text(name)),
+          SizedBox(
+            width: getProportionateScreenHeight(60),
+            child: Text(
+              name,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+              maxLines: 2,
+            ),
+          ),
         ],
       ),
     );
