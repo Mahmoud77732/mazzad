@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -20,14 +21,23 @@ class Body extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          IconButton(
-            onPressed: () {
-              Get.toNamed(NotificationsScreen.routeName);
-            },
-            icon: Icon(
-              Icons.notifications_outlined,
-              color: Colors.black,
-              size: getProportionateScreenHeight(30),
+          Badge(
+            position: BadgePosition.topStart(
+              start: 2,
+            ),
+            alignment: Alignment.topLeft,
+            badgeColor: Constants.kPrimaryColor,
+            animationType: BadgeAnimationType.scale,
+            badgeContent: const Text('4'),
+            child: IconButton(
+              onPressed: () {
+                Get.toNamed(NotificationsScreen.routeName);
+              },
+              icon: Icon(
+                Icons.notifications_outlined,
+                color: Colors.black,
+                size: getProportionateScreenHeight(30),
+              ),
             ),
           ),
           CircleAvatar(
