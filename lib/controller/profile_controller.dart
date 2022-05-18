@@ -11,11 +11,9 @@ class ProfileController extends GetxController {
 
   void getMyProfile() async {
     try {
-      print('my profilkeeeeeeeeee');
       await ProfileService.getProfileData().then((value) {
         myProfile!.value = value;
       });
-
       update();
     } catch (e) {
       print(e);

@@ -1,13 +1,31 @@
 import 'package:get/get.dart';
 
-class AuthTextFieldController extends GetxController {
+class TextFieldController extends GetxController {
   String password = '',
       confirmPassword = '',
       email = '',
       name = '',
-      phoneNumber = '';
-  AuthTextFieldController() {
+      phoneNumber = '',
+      auctionName = '',
+      auctionDescription = '';
+  int auctionInitialPrice = 0;
+  TextFieldController() {
     resetFields();
+  }
+
+  void updatePrice({required int newInitialPrice}) {
+    auctionInitialPrice = newInitialPrice;
+    update();
+  }
+
+  void updateProductName({required String newProductName}) {
+    auctionName = newProductName;
+    update();
+  }
+
+  void updateProductDescription({required String newProductDescription}) {
+    auctionDescription = newProductDescription;
+    update();
   }
 
   void updateEmail({required String newEmail}) {

@@ -8,7 +8,7 @@ import '../../../components/already_have_an_account_check.dart';
 import '../../../components/default_button.dart';
 import '../../../components/default_text_field.dart';
 import '../../../constants.dart';
-import '../../../controller/auth_text_field_controller.dart';
+import '../../../controller/text_field_controller.dart';
 import '../../../screens/SignUp/signup_screen.dart';
 import '../../../screens/home/home_screen.dart';
 import '../../../screens/login/components/background.dart';
@@ -38,8 +38,8 @@ class BodyState extends State<Body> {
           padding: const EdgeInsets.all(Constants.kHorizontalSpacing),
           child: Form(
             key: _formKey,
-            child: GetBuilder<AuthTextFieldController>(
-              init: AuthTextFieldController(),
+            child: GetBuilder<TextFieldController>(
+              init: TextFieldController(),
               builder: (controller) {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,

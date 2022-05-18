@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-
-import '../../components/default_button.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:mazzad/components/auction_item.dart';
+import 'package:mazzad/components/default_button.dart';
+import 'package:mazzad/components/default_text_field.dart';
+import 'package:mazzad/constants.dart';
 
 class AddProductScreen extends StatelessWidget {
   const AddProductScreen({Key? key}) : super(key: key);
@@ -12,88 +15,116 @@ class AddProductScreen extends StatelessWidget {
         title: const Text('Add Product'),
       ),
       body: ListView(
+        padding: const EdgeInsets.all(Constants.kHorizontalSpacing),
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         children: [
-          const TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderSide: BorderSide(width: 2),
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              ),
-              hintText: 'Product Name',
-            ),
-            keyboardType: TextInputType.emailAddress,
+          const DefaultTextField(
+            title: 'product name',
           ),
-          const TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderSide: BorderSide(width: 2),
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              ),
-              hintText: 'Product Desciption',
-            ),
-            keyboardType: TextInputType.emailAddress,
+          Constants.kSmallVerticalSpacing,
+          const DefaultTextField(
+            title: 'product description...',
+            isLargeText: true,
           ),
-          const TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderSide: BorderSide(width: 2),
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              ),
-              hintText: 'Start bid price',
-            ),
-            keyboardType: TextInputType.emailAddress,
+          Constants.kSmallVerticalSpacing,
+          const DefaultTextField(
+            title: 'starting bid price',
           ),
+          Constants.kSmallVerticalSpacing,
           Row(
-            children: const [
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(width: 2),
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Auciton Types',
+                    style: TextStyle(
+                      color: Colors.grey,
+                    ),
                   ),
-                  hintText: 'start time',
-                ),
-                keyboardType: TextInputType.emailAddress,
+                  MyDropDownButton(
+                      myDropDownItems:
+                          Status.values.map((e) => e.name).toList()),
+                ],
               ),
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(width: 2),
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Category',
+                    style: TextStyle(
+                      color: Colors.grey,
+                    ),
                   ),
-                  hintText: 'ending time',
-                ),
-                keyboardType: TextInputType.emailAddress,
+                  MyDropDownButton(
+                      myDropDownItems:
+                          Status.values.map((e) => e.name).toList()),
+                ],
               ),
             ],
           ),
-          const TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderSide: BorderSide(width: 2),
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              TextButton(
+                onPressed: () {
+                  DatePicker.showDatePicker(
+                    context,
+                    showTitleActions: true,
+                    minTime: DateTime.now(),
+                    onChanged: (date) {
+                      print('change $date');
+                    },
+                    onConfirm: (date) {
+                      print('confirm $date');
+                    },
+                    currentTime: DateTime.now(),
+                  );
+                },
+                child: const Text('start date time'),
               ),
-              hintText: 'category',
-            ),
-            keyboardType: TextInputType.emailAddress,
-          ),
-          const TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderSide: BorderSide(width: 2),
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              TextButton(
+                onPressed: () {},
+                child: const Text('end date time'),
               ),
-              hintText: 'type',
-            ),
-            keyboardType: TextInputType.emailAddress,
+            ],
           ),
-          DefaultButton(
-            onPressed: () {},
-            text: 'place product',
-          ),
+          DefaultButton(onPressed: () {}, text: 'place auction'),
         ],
       ),
+    );
+  }
+}
+
+class MyDropDownButton extends StatefulWidget {
+  const MyDropDownButton({Key? key, required this.myDropDownItems})
+      : super(key: key);
+  final List<String> myDropDownItems;
+  @override
+  State<MyDropDownButton> createState() => _MyDropDownButtonState();
+}
+
+class _MyDropDownButtonState extends State<MyDropDownButton> {
+  @override
+  Widget build(BuildContext context) {
+    String dropdownValue = widget.myDropDownItems[1];
+    return DropdownButton<String>(
+      value: dropdownValue,
+      icon: const Icon(Icons.arrow_downward),
+      elevation: 16,
+      onChanged: (String? newValue) {
+        setState(() {
+          dropdownValue = newValue!;
+        });
+      },
+      items:
+          widget.myDropDownItems.map<DropdownMenuItem<String>>((String? value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value ?? ''),
+        );
+      }).toList(),
     );
   }
 }

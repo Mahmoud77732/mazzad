@@ -5,7 +5,7 @@ import 'package:mazzad/components/already_have_an_account_check.dart';
 import 'package:mazzad/components/default_button.dart';
 import 'package:mazzad/components/default_text_field.dart';
 import 'package:mazzad/constants.dart';
-import 'package:mazzad/controller/auth_text_field_controller.dart';
+import 'package:mazzad/controller/text_field_controller.dart';
 import 'package:mazzad/screens/SignUp/components/background.dart';
 import 'package:mazzad/screens/home/home_screen.dart';
 import 'package:mazzad/screens/login/login_screen.dart';
@@ -38,8 +38,8 @@ class BodyState extends State<Body> {
         ),
         child: Form(
           key: _formKey,
-          child: GetBuilder<AuthTextFieldController>(
-              init: AuthTextFieldController(),
+          child: GetBuilder<TextFieldController>(
+              init: TextFieldController(),
               builder: (controller) {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,

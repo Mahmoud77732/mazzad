@@ -25,4 +25,31 @@ class ProfileService {
       rethrow;
     }
   }
+
+  static Future<bool>? updateUserData({Profile? profile}) async {
+    try {
+      final myStaticJson = {
+        "id": profile!.id.toString(),
+        "email": profile.email,
+        "name": profile.name,
+        "phone_number": profile.phone_number
+      };
+      final response = await http.post(
+          Uri.parse('${Constants.api}/me/updateProfile'),
+          body: myStaticJson,
+          headers: await Constants.profileHeader);
+      if (kDebugMode) {
+        print(response.body);
+      }
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        print('there is an err in updating user data');
+        return false;
+      }
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mazzad/controller/auth_text_field_controller.dart';
+import 'package:mazzad/controller/text_field_controller.dart';
 
 import '../constants.dart';
 
@@ -10,12 +10,14 @@ class DefaultTextField extends StatefulWidget {
       this.title,
       this.isSecure = false,
       this.isLargeText = false,
-      required this.validate,
+      this.validate,
+      this.initialValue,
       this.passwordFieldKey})
       : super(key: key);
   final String? title;
   final bool? isSecure;
   final bool? isLargeText;
+  final String? initialValue;
   final String? Function(String?)? validate;
   final GlobalKey<FormFieldState<String>>? passwordFieldKey;
   @override
@@ -25,8 +27,7 @@ class DefaultTextField extends StatefulWidget {
 class _DefaultTextFieldState extends State<DefaultTextField> {
   bool isVisible = true;
   //TODO make binding and delete the put from here and make it .find<>
-  final controller =
-      Get.put<AuthTextFieldController>(AuthTextFieldController());
+  final controller = Get.put<TextFieldController>(TextFieldController());
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -43,6 +44,7 @@ class _DefaultTextFieldState extends State<DefaultTextField> {
             }
           : widget.validate,
       maxLines: widget.isLargeText! ? 6 : 1,
+      initialValue: widget.initialValue,
       onChanged: (value) {
         switch (widget.title) {
           case 'Email Address':
@@ -67,12 +69,25 @@ class _DefaultTextFieldState extends State<DefaultTextField> {
               controller.updatePhoneNumber(newPhoneNumber: value);
             }
             break;
+          case 'product description...':
+            {
+              controller.updateProductDescription(newProductDescription: value);
+            }
+            break;
+          case 'product name':
+            {
+              controller.updateProductName(newProductName: value);
+            }
+            break;
+          case 'starting bid price':
+            {
+              controller.updatePrice(
+                newInitialPrice: int.parse(value),
+              );
+            }
+            break;
         }
       },
-      // onFieldSubmitted: (_) {
-      //   FocusScope.of(context).nextFocus();
-      // },
-      // textInputAction: TextInputAction.next,
       decoration: InputDecoration(
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(
@@ -105,9 +120,13 @@ class _DefaultTextFieldState extends State<DefaultTextField> {
       ),
       keyboardType: widget.isSecure!
           ? TextInputType.visiblePassword
-          : widget.title == 'Phone' || widget.title == 'Phone number'
+          : widget.title == 'Phone' ||
+                  widget.title == 'Phone number' ||
+                  widget.title == 'starting bid price'
               ? const TextInputType.numberWithOptions()
-              : TextInputType.emailAddress,
+              : widget.title == 'Name'
+                  ? TextInputType.name
+                  : TextInputType.emailAddress,
       obscureText: widget.isSecure! ? isVisible : false,
     );
   }
