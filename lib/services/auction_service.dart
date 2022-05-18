@@ -34,6 +34,7 @@ class AuctionService {
         Uri.parse('${Constants.api}/auction/'),
         headers: await Constants.profileHeader,
       );
+      print(response.statusCode);
       if (response.statusCode == 200) {
         final resbody = json.decode(response.body);
         return (resbody['data'] as Iterable)

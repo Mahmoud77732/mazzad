@@ -17,6 +17,7 @@ class CategoriesService {
         ),
         headers: await Constants.headers,
       );
+
       if (response.statusCode == 200 || response.statusCode == 201) {
         final resBody = jsonDecode(response.body)["data"];
         if (resBody != null) {

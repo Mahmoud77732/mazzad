@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:mazzad/components/auction_item.dart';
+import 'package:get/get.dart';
 import 'package:mazzad/components/default_button.dart';
 import 'package:mazzad/components/default_text_field.dart';
 import 'package:mazzad/constants.dart';
+import 'package:mazzad/controller/auction_c.dart';
+import 'package:mazzad/controller/categories_c.dart';
 
 class AddProductScreen extends StatelessWidget {
-  const AddProductScreen({Key? key}) : super(key: key);
+  final categoriesController = Get.find<CategoriesController>();
+  AddProductScreen({Key? key}) : super(key: key);
   static const String routeName = '/add_product_screen';
   @override
   Widget build(BuildContext context) {
@@ -36,16 +39,21 @@ class AddProductScreen extends StatelessWidget {
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
+                children: const [
+                  Text(
                     'Auciton Types',
                     style: TextStyle(
                       color: Colors.grey,
                     ),
                   ),
-                  MyDropDownButton(
-                      myDropDownItems:
-                          Status.values.map((e) => e.name).toList()),
+                  // MyDropDownButton(
+                  //     myDropDownItems: Status.values
+                  //         .map((e) => {
+                  //               'name': e.name,
+                  //               'id': e.index.toString(),
+                  //             })
+                  //         .toList(),
+                  //     isAuctionType: true),
                 ],
               ),
               Column(
@@ -58,8 +66,9 @@ class AddProductScreen extends StatelessWidget {
                     ),
                   ),
                   MyDropDownButton(
-                      myDropDownItems:
-                          Status.values.map((e) => e.name).toList()),
+                    myDropDownItems: categoriesController.categoriesNameAndId,
+                    isAuctionType: false,
+                  ),
                 ],
               ),
             ],
@@ -98,31 +107,45 @@ class AddProductScreen extends StatelessWidget {
 }
 
 class MyDropDownButton extends StatefulWidget {
-  const MyDropDownButton({Key? key, required this.myDropDownItems})
+  MyDropDownButton(
+      {Key? key, required this.myDropDownItems, this.isAuctionType})
       : super(key: key);
-  final List<String> myDropDownItems;
+  final List<Map<String?, String?>> myDropDownItems;
+  bool? isAuctionType = false;
   @override
   State<MyDropDownButton> createState() => _MyDropDownButtonState();
 }
 
 class _MyDropDownButtonState extends State<MyDropDownButton> {
+  final controller = Get.find<AuctionController>();
+  String? dropdownValue;
   @override
   Widget build(BuildContext context) {
-    String dropdownValue = widget.myDropDownItems[1];
     return DropdownButton<String>(
-      value: dropdownValue,
+      value: dropdownValue ?? widget.myDropDownItems[0]['name'],
       icon: const Icon(Icons.arrow_downward),
       elevation: 16,
       onChanged: (String? newValue) {
         setState(() {
           dropdownValue = newValue!;
         });
+        // if (widget.isAuctionType!) {
+        //   controller.updateAuctionType(newAuctionType: newValue);
+        //   print(controller.auctionType);
+        // } else {
+        //   Map<String?, String?> mySelectedItem = widget.myDropDownItems
+        //       .firstWhere((element) => element['name'] == dropdownValue);
+        //   controller.updateCategoryAcutionId(
+        //     mySelectedCategoryId: int.parse(
+        //       mySelectedItem['id']!,
+        //     ),
+        //   );
+        // }
       },
-      items:
-          widget.myDropDownItems.map<DropdownMenuItem<String>>((String? value) {
+      items: widget.myDropDownItems.map<DropdownMenuItem<String>>((Map? value) {
         return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value ?? ''),
+          value: value!['name'],
+          child: Text(value['name'] ?? ''),
         );
       }).toList(),
     );

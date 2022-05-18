@@ -7,9 +7,23 @@ import '../models/auction/auction.dart';
 class AuctionController extends GetxController {
   List<AuctionItem> _auctions = <AuctionItem>[].obs;
   List<AuctionItem> get auctions => _auctions;
+  String? _auctionType;
+  String? get auctionType => _auctionType;
   int get length => _auctions.length;
+  int _categoryId = -1;
+  int get categoryId => _categoryId;
   AuctionController() {
     getAuctions();
+  }
+
+  void updateAuctionName({String? newAuctionType}) {
+    _auctionType = newAuctionType;
+    update();
+  }
+
+  void updateCategoryAcutionId({int? mySelectedCategoryId}) {
+    _categoryId = mySelectedCategoryId ?? -1;
+    update();
   }
 
   Future<List<AuctionItem>> getAuctions() async {

@@ -50,13 +50,13 @@ class Router {
       case ContactUsScreen.routeName:
         return SlideRoute(page: const ContactUsScreen());
       case EditProfileScreen.routeName:
-        return SlideRoute(page: EditProfileScreen());
+        return SlideRoute(page: const EditProfileScreen());
       case TermsOfUseScreen.routeName:
         return SlideRoute(page: const TermsOfUseScreen());
       case PrivacyAndPolicy.routeName:
         return SlideRoute(page: const PrivacyAndPolicy());
       case AddProductScreen.routeName:
-        return SlideRoute(page: const AddProductScreen());
+        return SlideRoute(page: AddProductScreen());
       case MyAuctionsScreen.routeName:
         return SlideRoute(page: MyAuctionsScreen());
 
