@@ -1,7 +1,11 @@
-import 'package:flutter/foundation.dart';
+
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:mazzad/components/auction_item.dart';
+import 'package:mazzad/constants.dart';
+import 'package:mazzad/models/added_auction_model.dart';
 import 'package:mazzad/services/auction_service.dart';
 
 import '../models/auction/auction.dart';
@@ -11,9 +15,11 @@ class AuctionController extends GetxController {
   final Rx<String?> _scheduledAuctionNextPage = ''.obs;
   final Rx<String?> _upcomingAuctionNextPage = ''.obs;
 
+
   Rx<String?> get liveAuctionNextPage => _liveAuctionNextPage;
   Rx<String?> get scheduledAuctionNextPage => _scheduledAuctionNextPage;
   Rx<String?> get upcomingAuctionNextPage => _upcomingAuctionNextPage;
+
 
   // recommended auctions in home screen
   List<AuctionItem> _recommendedAuctions = <AuctionItem>[].obs;
@@ -180,6 +186,53 @@ class AuctionController extends GetxController {
           .toList();
       update();
       return true;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<bool>? postAuction(AddedAuctionModel? addedAuctionModel) async {
+    try {
+      // final myStaticJson = {
+      //   "name": addedAuctionModel!.name,
+      //   "images": addedAuctionModel.images![0],
+      //   "type": addedAuctionModel.type,
+      //   "start_date": addedAuctionModel.startDate,
+      //   "end_date": addedAuctionModel.endDate,
+      //   "description": addedAuctionModel.description,
+      //   "category_id": addedAuctionModel.categoryId,
+      //   "initial_price": addedAuctionModel.initialPrice,
+      //   // "keywords": addedAuctionModel.keywords,
+      //   "keywords": 'test',
+      // };
+
+      final myStaticJson = {
+        "name": "ahmed",
+        "images": ["uploads/1652037057wY3TFt1k.png"],
+        "type": "live",
+        "start_date": "2022-05-05T13:00",
+        "end_date": "2022-05-25T14:00",
+        "description": "HI there",
+        "category_id": "1",
+        "initial_price": "5",
+        "keywords": ["hi", "bye", "olla"]
+      };
+      // print('---> myStaticJson: $myStaticJson');
+      final response = await http.post(
+        Uri.parse('${Constants.api}/auction'),
+        body: jsonEncode(myStaticJson),
+        headers: await Constants.headers,
+      );
+      if (kDebugMode) {
+        print('my repsonse bodddddddddddddddddddddddddyyyyyyyyyyyyyyyyyyyyyy');
+        print(response.statusCode);
+      }
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        print('there is an err in updating user data');
+        return false;
+      }
     } catch (e) {
       rethrow;
     }

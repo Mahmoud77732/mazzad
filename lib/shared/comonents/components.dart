@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mazzad/components/auction_item.dart';
 import 'package:mazzad/constants.dart';
-import 'package:mazzad/models/search_model.dart';
+import 'package:mazzad/models/auction/auction.dart';
 
 import '../../controller/layout_controller.dart';
 
@@ -39,7 +39,7 @@ Widget defaultFormField({
   required TextEditingController controller,
   required TextInputType type,
   required String label,
-  required IconData prefix,
+  IconData? prefix,
   // required Function validate,
   required String? Function(String?)? validate,
   Function? onTap,
@@ -48,10 +48,12 @@ Widget defaultFormField({
   Function? onChange,
   Function? suffixPressed,
   IconData? suffix,
+  int? noOfLines,
   bool isPassword = false,
   bool isClickable = true,
 }) =>
     TextFormField(
+      maxLines: (noOfLines != null) ? noOfLines : 1,
       controller: controller,
       keyboardType: type,
       obscureText: isPassword,
@@ -76,7 +78,7 @@ Widget defaultFormField({
           : null,
       decoration: InputDecoration(
         labelText: label,
-        prefixIcon: Icon(prefix),
+        prefixIcon: (prefix != null) ? Icon(prefix) : null,
         suffixIcon: (suffix != null)
             ? IconButton(
                 onPressed: () {
@@ -134,7 +136,7 @@ Color chooseToastColor(ToastStates state) {
   return color;
 }
 
-Widget buildListAuction(List<AuctionElement> auctionElements, context) {
+Widget buildListAuction(List<Auction> auctionElements, context) {
   print('---> buildListAuction()');
   return Expanded(
     child: GridView(
@@ -147,10 +149,10 @@ Widget buildListAuction(List<AuctionElement> auctionElements, context) {
       children: List.generate(
         auctionElements.length,
         (index) => AuctionItem(
-          name: auctionElements[index].name!,
-          image: auctionElements[index].images!,
+          name: auctionElements[index].name,
+          image: auctionElements[index].images,
           currentBid: 500, //dummy
-          status: getStatus(auctionElements[index].type!),
+          status: auctionElements[index].type,
         ),
       ),
     ),

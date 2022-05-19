@@ -1,7 +1,6 @@
 // ignore_for_file: use_key_in_widget_constructors, must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:mazzad/controller/search_controller.dart';
 
 import '../../shared/comonents/components.dart';
@@ -49,7 +48,7 @@ class _SearchScreenState extends State<SearchScreen> {
             const LinearProgressIndicator(),
             if (searchSuccessState)
               buildListAuction(
-                searchController.searchModel!.data!.data!,
+                searchController.searchModel!,
                 context,
               ),
           ],
