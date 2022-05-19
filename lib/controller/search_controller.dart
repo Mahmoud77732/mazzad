@@ -2,28 +2,32 @@
 
 import 'dart:convert';
 
-import 'package:http/http.dart' as http;
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:http/http.dart' as http;
 import 'package:mazzad/constants.dart';
-import 'package:mazzad/models/auction/auction.dart';
-import 'package:mazzad/models/search_model.dart';
+
+import '../models/auction/auction.dart';
 
 class SearchController extends GetxController {
-  SearchModel? searchModel;
+  List<Auction>? searchModel;
 
   Future<void> search(String text) async {
     try {
+      print(text);
       final response = await http.get(
         Uri.parse(
-          // {{BASE_URL}}/auction/search?search=samsung
           '${Constants.api}/auction/search?search=$text',
         ),
         headers: await Constants.headers,
       );
-      final responseMap = jsonDecode(response.body) as Map<String, dynamic>;
-      print('---> responseMap: $responseMap');
-      print('---> responseMap[\'data\']: ${responseMap['data']}');
-      searchModel = SearchModel.fromJson(responseMap);
+
+      final responseMap = jsonDecode(response.body)['data']['data'];
+      print('this isn the json decoded response ');
+      print(responseMap);
+      searchModel =
+          (responseMap as Iterable).map((e) => Auction.fromJson(e)).toList();
+
+      print(searchModel);
       // searchModel = SearchModel.fromJson(responseMap['data']);
       print('---> response.body: ${response.body}');
       update();

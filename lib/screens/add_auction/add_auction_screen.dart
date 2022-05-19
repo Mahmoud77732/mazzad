@@ -8,7 +8,6 @@ import 'package:mazzad/constants.dart';
 import 'package:mazzad/controller/auction_controller.dart';
 import 'package:mazzad/controller/categories_controller.dart';
 import 'package:mazzad/models/added_auction_model.dart';
-import 'package:mazzad/screens/home/home_screen.dart';
 import 'package:mazzad/shared/comonents/components.dart';
 
 import '../../components/auction_item.dart';
@@ -246,18 +245,19 @@ class AddAuctionScreen extends StatelessWidget {
               print('---> (1) categoryId: ${auctionController.categoryId}');
               print(
                   '---> (1) nameTextController.text: ${nameTextController.text}');
-              AddedAuctionModel addedAuctionModel = AddedAuctionModel();
-              addedAuctionModel.name = nameTextController.text;
-              addedAuctionModel.description =
-                  descriptionTextController.text;
-              addedAuctionModel.initialPrice = priceTextController.text;
-              addedAuctionModel.type = auctionController.auctionType;
-              addedAuctionModel.categoryId =
-                  auctionController.categoryId.toString();
-              addedAuctionModel.startDate = startDateTextValue;
-              addedAuctionModel.endDate = endDateTextValue;
+              AddedAuctionModel addedAuctionModel = AddedAuctionModel(
+                  name: nameTextController.text,
+                  images: ['ddd1', 'ddd2'],
+                  type: auctionController.auctionType,
+                  startDate: startDateTextValue,
+                  endDate: endDateTextValue,
+                  description: descriptionTextController.text,
+                  categoryId: auctionController.categoryId.toString(),
+                  initialPrice: priceTextController.text,
+                  keywords: ['keywords']);
+
               auctionController.postAuction(addedAuctionModel)!.then((value) {
-                Get.toNamed(HomeScreen.routeName);
+                print(value);
               });
             },
           ),

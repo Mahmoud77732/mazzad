@@ -9,16 +9,17 @@ class AddedAuctionModel {
   String? initialPrice;
   List<String>? keywords;
 
-  AddedAuctionModel(
-      {this.name,
-      this.images,
-      this.type,
-      this.startDate,
-      this.endDate,
-      this.description,
-      this.categoryId,
-      this.initialPrice,
-      this.keywords});
+  AddedAuctionModel({
+    required this.name,
+    required this.images,
+    required this.type,
+    required this.startDate,
+    required this.endDate,
+    required this.description,
+    required this.categoryId,
+    required this.initialPrice,
+    required this.keywords,
+  });
 
   AddedAuctionModel.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -33,16 +34,16 @@ class AddedAuctionModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['images'] = this.images;
-    data['type'] = this.type;
-    data['start_date'] = this.startDate;
-    data['end_date'] = this.endDate;
-    data['description'] = this.description;
-    data['category_id'] = this.categoryId;
-    data['initial_price'] = this.initialPrice;
-    data['keywords'] = this.keywords;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['name'] = name;
+    data['images'] = images;
+    data['type'] = type;
+    data['start_date'] = startDate;
+    data['end_date'] = endDate;
+    data['description'] = description;
+    data['category_id'] = categoryId;
+    data['initial_price'] = initialPrice;
+    data['keywords'] = keywords;
     return data;
   }
 }
