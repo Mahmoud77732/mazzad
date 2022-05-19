@@ -32,27 +32,28 @@ class CategoriesScreen extends StatelessWidget {
                   init: CategoriesController(),
                   builder: (categoryController) {
                     return GridView(
-                        keyboardDismissBehavior:
-                            ScrollViewKeyboardDismissBehavior.onDrag,
-                        children: List.generate(
-                          categoryController.categories.length,
-                          (index) {
-                            return CategoryButton(
-                              color: categoryController.randomColor,
-                              icon: categoryController.categories[index].icon ??
-                                  "",
-                              onPress: () {},
-                              name: categoryController.categories[index].name ??
-                                  "",
-                            );
-                          },
-                        ),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 4,
-                        )
-                        // shrinkWrap: true,
-                        );
+                      keyboardDismissBehavior:
+                          ScrollViewKeyboardDismissBehavior.onDrag,
+                      children: List.generate(
+                        categoryController.categories.length,
+                        (index) {
+                          return CategoryButton(
+                            color: categoryController.randomColor,
+                            icon:
+                                categoryController.categories[index].icon ?? "",
+                            onPress: () {},
+                            name:
+                                categoryController.categories[index].name ?? "",
+                          );
+                        },
+                      ),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 4,
+                        childAspectRatio: 4 / 5,
+                      ),
+                      // shrinkWrap: true,
+                    );
                   }),
             ),
           ],

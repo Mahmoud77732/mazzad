@@ -26,6 +26,7 @@ class _BodyState extends State<Body> {
     ),
   ];
   int _selectedTabBar = 0;
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -92,6 +93,7 @@ class _BodyState extends State<Body> {
 class Live extends StatelessWidget {
   Live({Key? key}) : super(key: key);
   final controller = Get.put<AuctionController>(AuctionController());
+
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
@@ -103,10 +105,11 @@ class Live extends StatelessWidget {
         crossAxisCount: 2,
       ),
       itemBuilder: (ctx, index) => AuctionItem(
-          name: controller.liveAuctions[index].name,
-          image: controller.liveAuctions[index].image,
-          currentBid: controller.liveAuctions[index].currentBid,
-          status: controller.liveAuctions[index].status),
+        name: controller.liveAuctions[index].name,
+        image: controller.liveAuctions[index].image,
+        currentBid: controller.liveAuctions[index].currentBid,
+        status: controller.liveAuctions[index].status,
+      ),
     );
   }
 }
@@ -117,7 +120,7 @@ class Scheduled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      itemCount: controller.recommendedAuctionsLength,
+      itemCount: controller.scheduledAuctionsLength,
       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisSpacing: Constants.kHorizontalSpacing,
@@ -125,10 +128,11 @@ class Scheduled extends StatelessWidget {
         crossAxisCount: 2,
       ),
       itemBuilder: (ctx, index) => AuctionItem(
-          name: controller.recommendedAuctions[index].name,
-          image: controller.recommendedAuctions[index].image,
-          currentBid: controller.recommendedAuctions[index].currentBid,
-          status: controller.recommendedAuctions[index].status),
+        name: controller.scheduledAuctions[index].name,
+        image: controller.scheduledAuctions[index].image,
+        currentBid: controller.scheduledAuctions[index].currentBid,
+        status: controller.scheduledAuctions[index].status,
+      ),
     );
   }
 }
@@ -147,10 +151,11 @@ class UpComing extends StatelessWidget {
         crossAxisCount: 2,
       ),
       itemBuilder: (ctx, index) => AuctionItem(
-          name: controller.liveAuctions[index].name,
-          image: controller.liveAuctions[index].image,
-          currentBid: controller.liveAuctions[index].currentBid,
-          status: controller.liveAuctions[index].status),
+        name: controller.liveAuctions[index].name,
+        image: controller.liveAuctions[index].image,
+        currentBid: controller.liveAuctions[index].currentBid,
+        status: controller.liveAuctions[index].status,
+      ),
     );
   }
 }
