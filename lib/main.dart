@@ -36,6 +36,7 @@ void main() async {
   Logger.level = Level.error;
   await GetStorage.init();
 
+  HttpOverrides.global = MyHttpOverrides();
   // firebase intilaization
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -209,3 +210,20 @@ void registerNotifications() async {
     }
   }
 }
+
+extension Uris on Uri {
+  Uri withQueryParameters(Map<String, dynamic> queryParameters) {
+    return Uri.parse(
+        "$this/?${queryParameters.keys.map<String>((k) => "$k=${queryParameters[k]}").join("&")}");
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
+

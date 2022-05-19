@@ -6,6 +6,7 @@ import '../constants.dart';
 import '../size_config.dart';
 
 class AuctionItem extends StatelessWidget {
+
   const AuctionItem({
     Key? key,
     required this.name,
@@ -13,10 +14,12 @@ class AuctionItem extends StatelessWidget {
     required this.currentBid,
     required this.status,
   }) : super(key: key);
+
   final List<String> image;
   final String name;
   final double currentBid;
   final Status status;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

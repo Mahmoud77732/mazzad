@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:get/get.dart';
+import 'package:mazzad/screens/serach/search_screeen.dart';
 
 import '../constants.dart';
 
@@ -39,11 +41,13 @@ class SearchTextField extends StatelessWidget {
         onConfirmed;
       },
       onTap: () {
-        showSearch(context: context, delegate: CustomSearchDelegate());
+        // showSearch(context: context, delegate: CustomSearchDelegate());
+        Get.to(SearchScreen());
       },
     );
   }
 }
+
 
 class CustomSearchDelegate extends SearchDelegate {
   @override
