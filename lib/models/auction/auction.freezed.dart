@@ -23,6 +23,7 @@ mixin _$Auction {
   int get category_id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
+  List<String> get images => throw _privateConstructorUsedError;
   double get initial_price => throw _privateConstructorUsedError;
   DateTime get start_date => throw _privateConstructorUsedError;
   Status get type => throw _privateConstructorUsedError;
@@ -40,6 +41,7 @@ abstract class $AuctionCopyWith<$Res> {
       {int category_id,
       String name,
       String description,
+      List<String> images,
       double initial_price,
       DateTime start_date,
       Status type});
@@ -58,6 +60,7 @@ class _$AuctionCopyWithImpl<$Res> implements $AuctionCopyWith<$Res> {
     Object? category_id = freezed,
     Object? name = freezed,
     Object? description = freezed,
+    Object? images = freezed,
     Object? initial_price = freezed,
     Object? start_date = freezed,
     Object? type = freezed,
@@ -75,6 +78,10 @@ class _$AuctionCopyWithImpl<$Res> implements $AuctionCopyWith<$Res> {
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
+      images: images == freezed
+          ? _value.images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       initial_price: initial_price == freezed
           ? _value.initial_price
           : initial_price // ignore: cast_nullable_to_non_nullable
@@ -101,6 +108,7 @@ abstract class _$$_AuctionCopyWith<$Res> implements $AuctionCopyWith<$Res> {
       {int category_id,
       String name,
       String description,
+      List<String> images,
       double initial_price,
       DateTime start_date,
       Status type});
@@ -120,6 +128,7 @@ class __$$_AuctionCopyWithImpl<$Res> extends _$AuctionCopyWithImpl<$Res>
     Object? category_id = freezed,
     Object? name = freezed,
     Object? description = freezed,
+    Object? images = freezed,
     Object? initial_price = freezed,
     Object? start_date = freezed,
     Object? type = freezed,
@@ -137,6 +146,10 @@ class __$$_AuctionCopyWithImpl<$Res> extends _$AuctionCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
+      images: images == freezed
+          ? _value._images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       initial_price: initial_price == freezed
           ? _value.initial_price
           : initial_price // ignore: cast_nullable_to_non_nullable
@@ -160,10 +173,12 @@ class _$_Auction extends _Auction {
       {required this.category_id,
       required this.name,
       required this.description,
+      required final List<String> images,
       required this.initial_price,
       required this.start_date,
       required this.type})
-      : super._();
+      : _images = images,
+        super._();
 
   factory _$_Auction.fromJson(Map<String, dynamic> json) =>
       _$$_AuctionFromJson(json);
@@ -174,6 +189,13 @@ class _$_Auction extends _Auction {
   final String name;
   @override
   final String description;
+  final List<String> _images;
+  @override
+  List<String> get images {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_images);
+  }
+
   @override
   final double initial_price;
   @override
@@ -183,7 +205,7 @@ class _$_Auction extends _Auction {
 
   @override
   String toString() {
-    return 'Auction(category_id: $category_id, name: $name, description: $description, initial_price: $initial_price, start_date: $start_date, type: $type)';
+    return 'Auction(category_id: $category_id, name: $name, description: $description, images: $images, initial_price: $initial_price, start_date: $start_date, type: $type)';
   }
 
   @override
@@ -196,6 +218,7 @@ class _$_Auction extends _Auction {
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
                 .equals(other.description, description) &&
+            const DeepCollectionEquality().equals(other._images, _images) &&
             const DeepCollectionEquality()
                 .equals(other.initial_price, initial_price) &&
             const DeepCollectionEquality()
@@ -210,6 +233,7 @@ class _$_Auction extends _Auction {
       const DeepCollectionEquality().hash(category_id),
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(description),
+      const DeepCollectionEquality().hash(_images),
       const DeepCollectionEquality().hash(initial_price),
       const DeepCollectionEquality().hash(start_date),
       const DeepCollectionEquality().hash(type));
@@ -230,6 +254,7 @@ abstract class _Auction extends Auction {
       {required final int category_id,
       required final String name,
       required final String description,
+      required final List<String> images,
       required final double initial_price,
       required final DateTime start_date,
       required final Status type}) = _$_Auction;
@@ -243,6 +268,8 @@ abstract class _Auction extends Auction {
   String get name => throw _privateConstructorUsedError;
   @override
   String get description => throw _privateConstructorUsedError;
+  @override
+  List<String> get images => throw _privateConstructorUsedError;
   @override
   double get initial_price => throw _privateConstructorUsedError;
   @override

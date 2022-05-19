@@ -41,12 +41,8 @@ class CategoriesController extends GetxController {
 
   getCategories() async {
     try {
-      print('getting cagtegories');
-
       await CategoriesService.getAllCategories()
           .then((value) => _categories = value);
-      print('getting cagtegories');
-      print(categories);
       update();
     } catch (e) {
       if (kDebugMode) {

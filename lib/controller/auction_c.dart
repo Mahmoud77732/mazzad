@@ -5,44 +5,100 @@ import 'package:mazzad/services/auction_service.dart';
 import '../models/auction/auction.dart';
 
 class AuctionController extends GetxController {
-  List<AuctionItem> _auctions = <AuctionItem>[].obs;
-  List<AuctionItem> get auctions => _auctions;
+  // recommended auctions in home screen
+  List<AuctionItem> _recommendedAuctions = <AuctionItem>[].obs;
+  List<AuctionItem> get recommendedAuctions => _recommendedAuctions;
+  int get recommendedAuctionsLength => _recommendedAuctions.length;
+  // for our live auctions
+  List<AuctionItem> _liveAuctions = <AuctionItem>[].obs;
+  List<AuctionItem> get liveAuctions => _liveAuctions;
+  int get liveAuctionsLength => _liveAuctions.length;
+  // for our scheduled auctions
+  List<AuctionItem> _scheduledAuctions = <AuctionItem>[].obs;
+  List<AuctionItem> get scheduledAuctions => _scheduledAuctions;
+  int get scheduledAuctionsLength => _scheduledAuctions.length;
   String? _auctionType;
   String? get auctionType => _auctionType;
-  int get length => _auctions.length;
   int _categoryId = -1;
   int get categoryId => _categoryId;
   AuctionController() {
-    getAuctions();
+    getRecommendedAuctions();
+    getLiveAuctions();
+    getScheduledAuctions();
   }
-
+  // to get the auction type
   void updateAuctionName({String? newAuctionType}) {
     _auctionType = newAuctionType;
     update();
   }
 
+  // to get the auction cat id
   void updateCategoryAcutionId({int? mySelectedCategoryId}) {
     _categoryId = mySelectedCategoryId ?? -1;
     update();
   }
 
-  Future<List<AuctionItem>> getAuctions() async {
+  Future<List<AuctionItem>> getLiveAuctions() async {
     try {
-      List<Auction> allAuctions = await AuctionService.getAuctions();
-      _auctions = allAuctions
+      List<Auction> allAuctions = await AuctionService.getAuctions(
+        type: Status.live,
+      );
+      _liveAuctions = allAuctions
           .map(
             (e) => AuctionItem(
               name: e.name,
-              image: e.initial_price.toString(),
+              image: e.images,
               currentBid: e.initial_price,
               status: e.type,
             ),
           )
           .toList();
-      print('object');
-      print(_auctions);
       update();
-      return _auctions;
+      return _liveAuctions;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<List<AuctionItem>> getScheduledAuctions() async {
+    try {
+      List<Auction> allAuctions = await AuctionService.getAuctions(
+        type: Status.scheduled,
+      );
+      _scheduledAuctions = allAuctions
+          .map(
+            (e) => AuctionItem(
+              name: e.name,
+              image: e.images,
+              currentBid: e.initial_price,
+              status: e.type,
+            ),
+          )
+          .toList();
+      update();
+      return _scheduledAuctions;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<List<AuctionItem>> getRecommendedAuctions() async {
+    try {
+      List<Auction> allAuctions = await AuctionService.getAuctions(
+        limit: '10',
+      );
+      _recommendedAuctions = allAuctions
+          .map(
+            (e) => AuctionItem(
+              name: e.name,
+              image: e.images,
+              currentBid: e.initial_price,
+              status: e.type,
+            ),
+          )
+          .toList();
+      update();
+      return _recommendedAuctions;
     } catch (e) {
       rethrow;
     }

@@ -59,4 +59,5 @@ TODO  put the onboard screen at the top and getstorage weather he opened the app
 TODO  see some proejects that contains the FCM
 TODO  put the registerNotifications in a separeate class and call it in the right places
 TODO  add shimmer to the loading screen
-TODO  add Photo View to the photos of the auctions 
+TODO  add Photo V
+todo add the substring in the categories and add a condition that if the icon string that I got from db is null then provide a default one 

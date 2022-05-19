@@ -26,7 +26,6 @@ class DefaultTextField extends StatefulWidget {
 
 class _DefaultTextFieldState extends State<DefaultTextField> {
   bool isVisible = true;
-  //TODO make binding and delete the put from here and make it .find<>
   final controller = Get.put<TextFieldController>(TextFieldController());
   @override
   Widget build(BuildContext context) {

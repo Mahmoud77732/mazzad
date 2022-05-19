@@ -9,6 +9,10 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:logger/logger.dart';
+import 'package:mazzad/controller/auction_c.dart';
+import 'package:mazzad/controller/categories_c.dart';
+import 'package:mazzad/controller/profile_controller.dart';
+import 'package:mazzad/controller/text_field_controller.dart';
 
 import './/constants.dart';
 import './/firebase_options.dart';
@@ -119,6 +123,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      initialBinding: Binding(),
       debugShowCheckedModeBanner: false,
       home: FutureBuilder(
         future: getUser(),
@@ -136,6 +141,16 @@ class MyApp extends StatelessWidget {
       title: 'Mazzad',
       onGenerateRoute: router.Router.onGenerateRoute,
     );
+  }
+}
+
+class Binding extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut(() => CategoriesController());
+    Get.lazyPut(() => AuctionController());
+    Get.lazyPut(() => TextFieldController());
+    Get.lazyPut(() => ProfileController());
   }
 }
 
@@ -211,3 +226,4 @@ class MyHttpOverrides extends HttpOverrides {
           (X509Certificate cert, String host, int port) => true;
   }
 }
+

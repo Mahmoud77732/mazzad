@@ -33,8 +33,8 @@ class BodyState extends State<Body> {
     Size size = MediaQuery.of(context).size;
     return Background(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(
-          horizontal: Constants.kHorizontalSpacing,
+        padding: const EdgeInsets.all(
+          15,
         ),
         child: Form(
           key: _formKey,

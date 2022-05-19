@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mazzad/components/auction_item.dart';
+import 'package:mazzad/controller/auction_c.dart';
 
 import '../../../components/search_textfield.dart';
 import '../../../constants.dart';
@@ -23,6 +26,7 @@ class _BodyState extends State<Body> {
     ),
   ];
   int _selectedTabBar = 0;
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -68,13 +72,13 @@ class _BodyState extends State<Body> {
               child: Builder(
                 builder: (_) {
                   if (_selectedTabBar == 0) {
-                    return const Live();
+                    return Live();
                   } else if (_selectedTabBar == 1) {
-                    return const Scheduled();
+                    return Scheduled();
                   } else if (_selectedTabBar == 2) {
-                    return const UpComing();
+                    return UpComing();
                   } else {
-                    return const Live();
+                    return Live();
                   }
                 },
               ),
@@ -87,60 +91,70 @@ class _BodyState extends State<Body> {
 }
 
 class Live extends StatelessWidget {
-  const Live({Key? key}) : super(key: key);
+  Live({Key? key}) : super(key: key);
+  final controller = Get.put<AuctionController>(AuctionController());
 
   @override
   Widget build(BuildContext context) {
-    return GridView(
+    return GridView.builder(
+      itemCount: controller.liveAuctionsLength,
       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisSpacing: Constants.kHorizontalSpacing,
         mainAxisSpacing: Constants.kHorizontalSpacing / 2,
         crossAxisCount: 2,
       ),
-      children: List.generate(
-        Constants.kDummyLiveAuctionItems.length,
-        (index) => Constants.kDummyLiveAuctionItems[index],
+      itemBuilder: (ctx, index) => AuctionItem(
+        name: controller.liveAuctions[index].name,
+        image: controller.liveAuctions[index].image,
+        currentBid: controller.liveAuctions[index].currentBid,
+        status: controller.liveAuctions[index].status,
       ),
     );
   }
 }
 
 class Scheduled extends StatelessWidget {
-  const Scheduled({Key? key}) : super(key: key);
-
+  Scheduled({Key? key}) : super(key: key);
+  final controller = Get.find<AuctionController>();
   @override
   Widget build(BuildContext context) {
-    return GridView(
+    return GridView.builder(
+      itemCount: controller.scheduledAuctionsLength,
       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
         crossAxisSpacing: Constants.kHorizontalSpacing,
         mainAxisSpacing: Constants.kHorizontalSpacing / 2,
+        crossAxisCount: 2,
       ),
-      children: List.generate(
-        Constants.kDummyScheduledAuctionItems.length,
-        (index) => Constants.kDummyScheduledAuctionItems[index],
+      itemBuilder: (ctx, index) => AuctionItem(
+        name: controller.scheduledAuctions[index].name,
+        image: controller.scheduledAuctions[index].image,
+        currentBid: controller.scheduledAuctions[index].currentBid,
+        status: controller.scheduledAuctions[index].status,
       ),
     );
   }
 }
 
 class UpComing extends StatelessWidget {
-  const UpComing({Key? key}) : super(key: key);
-
+  UpComing({Key? key}) : super(key: key);
+  final controller = Get.find<AuctionController>();
   @override
   Widget build(BuildContext context) {
-    return GridView(
+    return GridView.builder(
+      itemCount: controller.liveAuctionsLength,
       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
         crossAxisSpacing: Constants.kHorizontalSpacing,
         mainAxisSpacing: Constants.kHorizontalSpacing / 2,
+        crossAxisCount: 2,
       ),
-      children: List.generate(
-        Constants.kDummyUpcomingAuctionItems.length,
-        (index) => Constants.kDummyUpcomingAuctionItems[index],
+      itemBuilder: (ctx, index) => AuctionItem(
+        name: controller.liveAuctions[index].name,
+        image: controller.liveAuctions[index].image,
+        currentBid: controller.liveAuctions[index].currentBid,
+        status: controller.liveAuctions[index].status,
       ),
     );
   }
