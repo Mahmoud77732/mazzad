@@ -6,6 +6,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 import './components/auction_item.dart';
 import './models/bidder/bidder.dart';
+import './services/auth_service.dart';
 import 'size_config.dart';
 
 class Constants {
@@ -22,12 +23,10 @@ class Constants {
         "Accept": "application/json",
       };
   static Future<Map<String, String>> get profileHeader async => {
-        "Authorization":
-            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NWY5NzM2Ny03M2E5LTQ3NWEtYjgxNy0xNmMwZDU2N2Q2OTciLCJqdGkiOiIwYTJhMTc0MDQwODYwMDBjZjlkOGEwYTBiZmYwMjI1YzliNTczYmMyNjQ4ODliY2M1NDc2Y2NmZGRjYjgxMjVmYWNkMjJiNjg5NDViZGE3MiIsImlhdCI6MTY1Mjk5MDk5NS41ODU1NzIsIm5iZiI6MTY1Mjk5MDk5NS41ODU1NzUsImV4cCI6MTY4NDUyNjk5NS41NzgxODcsInN1YiI6IjEiLCJzY29wZXMiOlsiKiJdfQ.1lsXT92RyBepnSR5uOgKUeFZqV8zHatbg6BmRiepF65l_TC8cffbFCIUMX-wmxJUe5lBElO15DAjG04nyP09rb8ypL0SXzyQrVNyhY298kuUJgzrs8Tm1UG_dLA7JHq9NKufEspNqyxdHLR_O1XcwA-J54YLCXZJwwdWkUlSoHJaT71U4QYn9QbRDbWtcCRAX7XispK6M9FhurOkwgENRq0Cdg-DZ9o-IWdsLfv16ttL5Vrj9vUgK0XnbgZsD9hOkfGvDGQsXc45AUZ0VWloAtMay6rlgXxw4HKa_L3wl9s7AL2qnrv1EiCtYI8GfuTtozCDHRrIDRiV8Q2bQ24s0W-VQIDKpiK1Bb5LYDkLxibqp0aI1xwCX_lH_fFbPKHaS9E5AEQnACYxjQuUFmzv4Mdzhlqy38QoyFqg3iYWzNggP3D4mrkFXqz8Du7ED_tK-ppSzRlwBUPT76iN8iLhUlyvZZwH2GjfrNx3Qdf-iL9mqj8EUyiti9noSX-emy8AnFEazF0OgkHaCngpnQDdkrYZkSV4JRB6wUBlTTGgzrVpcnw0kh8XwRdlvr5EH2VzDyMaSzIc0XVdieP76WwdUUdtklCs_BNt29js_IcFSU1oEtjo-IzkHAD9rJPms5lTajS4TqGPBXDG58moqgx8-7Pbo-eeN152BGtJ5QANNOM",
+        "Authorization": "Bearer ${await AuthService.token}",
       };
   static Future<Map<String, String>> get headers async => {
-        "Authorization":
-            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NWY5NzM2Ny03M2E5LTQ3NWEtYjgxNy0xNmMwZDU2N2Q2OTciLCJqdGkiOiIwYTJhMTc0MDQwODYwMDBjZjlkOGEwYTBiZmYwMjI1YzliNTczYmMyNjQ4ODliY2M1NDc2Y2NmZGRjYjgxMjVmYWNkMjJiNjg5NDViZGE3MiIsImlhdCI6MTY1Mjk5MDk5NS41ODU1NzIsIm5iZiI6MTY1Mjk5MDk5NS41ODU1NzUsImV4cCI6MTY4NDUyNjk5NS41NzgxODcsInN1YiI6IjEiLCJzY29wZXMiOlsiKiJdfQ.1lsXT92RyBepnSR5uOgKUeFZqV8zHatbg6BmRiepF65l_TC8cffbFCIUMX-wmxJUe5lBElO15DAjG04nyP09rb8ypL0SXzyQrVNyhY298kuUJgzrs8Tm1UG_dLA7JHq9NKufEspNqyxdHLR_O1XcwA-J54YLCXZJwwdWkUlSoHJaT71U4QYn9QbRDbWtcCRAX7XispK6M9FhurOkwgENRq0Cdg-DZ9o-IWdsLfv16ttL5Vrj9vUgK0XnbgZsD9hOkfGvDGQsXc45AUZ0VWloAtMay6rlgXxw4HKa_L3wl9s7AL2qnrv1EiCtYI8GfuTtozCDHRrIDRiV8Q2bQ24s0W-VQIDKpiK1Bb5LYDkLxibqp0aI1xwCX_lH_fFbPKHaS9E5AEQnACYxjQuUFmzv4Mdzhlqy38QoyFqg3iYWzNggP3D4mrkFXqz8Du7ED_tK-ppSzRlwBUPT76iN8iLhUlyvZZwH2GjfrNx3Qdf-iL9mqj8EUyiti9noSX-emy8AnFEazF0OgkHaCngpnQDdkrYZkSV4JRB6wUBlTTGgzrVpcnw0kh8XwRdlvr5EH2VzDyMaSzIc0XVdieP76WwdUUdtklCs_BNt29js_IcFSU1oEtjo-IzkHAD9rJPms5lTajS4TqGPBXDG58moqgx8-7Pbo-eeN152BGtJ5QANNOM",
+        "Authorization": "Bearer ${await AuthService.token}",
         "Content-Type": "application/json",
         "Accept": "application/json",
         "OS_Name": Platform.operatingSystem,

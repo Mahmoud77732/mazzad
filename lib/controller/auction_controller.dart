@@ -1,5 +1,6 @@
-
 import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -15,11 +16,9 @@ class AuctionController extends GetxController {
   final Rx<String?> _scheduledAuctionNextPage = ''.obs;
   final Rx<String?> _upcomingAuctionNextPage = ''.obs;
 
-
   Rx<String?> get liveAuctionNextPage => _liveAuctionNextPage;
   Rx<String?> get scheduledAuctionNextPage => _scheduledAuctionNextPage;
   Rx<String?> get upcomingAuctionNextPage => _upcomingAuctionNextPage;
-
 
   // recommended auctions in home screen
   List<AuctionItem> _recommendedAuctions = <AuctionItem>[].obs;
