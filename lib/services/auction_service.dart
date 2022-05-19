@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -22,8 +23,10 @@ class AuctionService {
             .map((e) => Auction.fromJson(e['data']))
             .toList();
       } else {
-        print("postAuction: ${response.statusCode}");
-        print("postAuction: ${response.body}");
+        if (kDebugMode) {
+          print("postAuction: ${response.statusCode}");
+          print("postAuction: ${response.body}");
+        }
         throw 'can\'t fetch the auctions from the server';
       }
     } catch (e) {
@@ -34,7 +37,6 @@ class AuctionService {
   static Future<List<Auction>> getAuctions(
       {Status? type, String? limit, String? cursor}) async {
     try {
-      print(type);
       final queryParameters = {
         if (type != null) "type": type.name,
         if (limit != null) "limit": limit,
@@ -56,7 +58,6 @@ class AuctionService {
           Get.find<AuctionController>().updateScheduledNextPage(
               newNextPage: resbody['data']['next_cursor']);
         }
-
         return (resbody['data']['data'] as Iterable)
             .map((e) => Auction.fromJson(e))
             .toList();

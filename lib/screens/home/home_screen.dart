@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Widget> navPages = [
     const Body(),
     const AuctionsScreen(),
-    const ShopScreen(),
+    ShopScreen(),
     const ProfileScreen(),
   ];
   @override
