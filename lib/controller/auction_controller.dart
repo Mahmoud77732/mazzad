@@ -1,5 +1,11 @@
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:mazzad/components/auction_item.dart';
+import 'package:mazzad/constants.dart';
+import 'package:mazzad/models/added_auction_model.dart';
 import 'package:mazzad/services/auction_service.dart';
 
 import '../models/auction/auction.dart';
@@ -8,6 +14,8 @@ class AuctionController extends GetxController {
   String? _liveAuctionNextPage;
   String? _scheduledAuctionNextPage;
   String? _upcomingAuctionNextPage;
+
+  // AddedAuctionModel? addedAuctionModel = AddedAuctionModel();
 
   String? get liveAuctionNextPage => _liveAuctionNextPage;
   String? get scheduledAuctionNextPage => _scheduledAuctionNextPage;
@@ -120,6 +128,41 @@ class AuctionController extends GetxController {
           .toList();
       update();
       return _recommendedAuctions;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<bool>? postAuction(AddedAuctionModel? addedAuctionModel) async {
+    try {
+      final myStaticJson = {
+        "name": addedAuctionModel!.name,
+        // "images": addedAuctionModel.images,
+        "images": "uploads/1652037057wY3TFt1k.png",
+        "type": addedAuctionModel.type,
+        "start_date": addedAuctionModel.startDate,
+        "end_date": addedAuctionModel.endDate,
+        "description": addedAuctionModel.description,
+        "category_id": addedAuctionModel.categoryId,
+        "initial_price": addedAuctionModel.initialPrice,
+        // "keywords": addedAuctionModel.keywords,
+        "keywords": 'test',
+      };
+      print('---> myStaticJson: $myStaticJson');
+      final response = await http.post(
+        Uri.parse('${Constants.api}/auction'),
+        body: myStaticJson,
+        headers: await Constants.profileHeader,
+      );
+      if (kDebugMode) {
+        print(response.body);
+      }
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        print('there is an err in updating user data');
+        return false;
+      }
     } catch (e) {
       rethrow;
     }

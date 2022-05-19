@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mazzad/screens/add_auction/add_auction_screen.dart';
 import 'package:mazzad/utils/logger.dart';
 
 import './screens/SignUp/signup_screen.dart';
-import './screens/add_product/add_product_screen.dart';
 import './screens/auction details/auction_details_screen.dart';
 import './screens/auctions/auctions.dart';
 import './screens/categories/categories_screen.dart';
@@ -55,8 +55,8 @@ class Router {
         return SlideRoute(page: const TermsOfUseScreen());
       case PrivacyAndPolicy.routeName:
         return SlideRoute(page: const PrivacyAndPolicy());
-      case AddProductScreen.routeName:
-        return SlideRoute(page: AddProductScreen());
+      case AddAuctionScreen.routeName:
+        return SlideRoute(page: AddAuctionScreen());
       case MyAuctionsScreen.routeName:
         return SlideRoute(page: MyAuctionsScreen());
 

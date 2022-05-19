@@ -39,7 +39,7 @@ Widget defaultFormField({
   required TextEditingController controller,
   required TextInputType type,
   required String label,
-  required IconData prefix,
+  IconData? prefix,
   // required Function validate,
   required String? Function(String?)? validate,
   Function? onTap,
@@ -48,10 +48,12 @@ Widget defaultFormField({
   Function? onChange,
   Function? suffixPressed,
   IconData? suffix,
+  int? noOfLines,
   bool isPassword = false,
   bool isClickable = true,
 }) =>
-    TextFormField(
+    TextFormField(      
+      maxLines: (noOfLines != null) ? noOfLines : 1,
       controller: controller,
       keyboardType: type,
       obscureText: isPassword,
@@ -76,7 +78,7 @@ Widget defaultFormField({
           : null,
       decoration: InputDecoration(
         labelText: label,
-        prefixIcon: Icon(prefix),
+        prefixIcon: (prefix != null) ? Icon(prefix) : null,
         suffixIcon: (suffix != null)
             ? IconButton(
                 onPressed: () {
