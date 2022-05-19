@@ -1,7 +1,7 @@
 name: mazzad
 description: A new Flutter project.
 
-publish_to: "none" 
+publish_to: "none"
 
 version: 1.0.0+1
 
@@ -37,6 +37,7 @@ dependencies:
   material_design_icons_flutter: ^5.0.6595
   overlay_support: ^1.2.1
   package_info_plus: ^1.4.2
+  pull_to_refresh: ^2.0.0
   shimmer: ^2.0.0
   smooth_page_indicator: ^1.0.0+2
 
@@ -59,4 +60,3 @@ flutter:
     - assets/images/.
     - assets/svg/.
     - assets/lotties/.
-  

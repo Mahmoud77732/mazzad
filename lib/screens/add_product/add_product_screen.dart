@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:mazzad/components/default_button.dart';
 import 'package:mazzad/components/default_text_field.dart';
 import 'package:mazzad/constants.dart';
-import 'package:mazzad/controller/auction_c.dart';
-import 'package:mazzad/controller/categories_c.dart';
+import 'package:mazzad/controller/auction_controller.dart';
+import 'package:mazzad/controller/categories_controller.dart';
 
 class AddProductScreen extends StatelessWidget {
   final categoriesController = Get.find<CategoriesController>();

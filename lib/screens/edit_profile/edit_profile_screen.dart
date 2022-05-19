@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mazzad/controller/layout_controller.dart';
-import 'package:mazzad/controller/text_field_controller.dart';
 
 import '../../components/default_button.dart';
 import '../../components/default_text_field.dart';
 import '../../constants.dart';
+import '../../controller/layout_controller.dart';
+import '../../controller/text_field_controller.dart';
 import '../../models/profile/profile.dart';
 import '../../services/validator.dart';
 
@@ -104,7 +104,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           );
                           final bool? check = await layoutController
                               .updateUserData(profile: profile);
-                          print(check);
                           _formKey.currentState!.validate();
                         },
                         text: 'Place Changes',

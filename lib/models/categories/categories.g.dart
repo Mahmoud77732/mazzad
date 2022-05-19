@@ -8,9 +8,9 @@ part of 'categories.dart';
 
 _$_Categories _$$_CategoriesFromJson(Map<String, dynamic> json) =>
     _$_Categories(
-      id: json['id'] as int?,
-      name: json['name'] as String?,
-      icon: json['icon'] as String?,
+      id: json['id'] as int? ?? -1,
+      name: json['name'] as String? ?? "",
+      icon: json['icon'] as String? ?? "view-dashboard",
     );
 
 Map<String, dynamic> _$$_CategoriesToJson(_$_Categories instance) =>

@@ -148,7 +148,7 @@ Widget buildListAuction(List<AuctionElement> auctionElements, context) {
         auctionElements.length,
         (index) => AuctionItem(
           name: auctionElements[index].name!,
-          image: auctionElements[index].images![0],
+          image: auctionElements[index].images!,
           currentBid: 500, //dummy
           status: getStatus(auctionElements[index].type!),
         ),
@@ -174,7 +174,7 @@ getStatus(String type) {
   if (type == 'live') {
     return Status.live;
   } else if (type == 'scheduled') {
-    return Status.scheuled;
+    return Status.scheduled;
   } else {
     return Status.soon;
   }
@@ -193,7 +193,7 @@ Widget buildListProduct(model, context, {bool isOldPrice = true}) {
   print('---> buildListProduct()');
   return Padding(
     padding: const EdgeInsets.all(20.0),
-    child: Container(
+    child: SizedBox(
       height: 120.0,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,

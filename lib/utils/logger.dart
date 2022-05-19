@@ -37,7 +37,7 @@ class SimpleLogPrinter extends LogPrinter {
 //   static void i(dynamic message) {
 //     logger.i(message);
 //   }
-
+ 
 //   //for debug message
 //   static void d(dynamic message) {
 //     logger.d(message);

@@ -3,12 +3,12 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mazzad/controller/auction_c.dart';
+import 'package:mazzad/controller/auction_controller.dart';
 
 import '../../../components/category_button.dart';
 import '../../../components/search_textfield.dart';
 import '../../../constants.dart';
-import '../../../controller/categories_c.dart';
+import '../../../controller/categories_controller.dart';
 import '../../../screens/categories/categories_screen.dart';
 import '../../../screens/notifications/notifications_screen.dart';
 import '../../../size_config.dart';
@@ -43,7 +43,7 @@ class Body extends StatelessWidget {
           CircleAvatar(
             radius: getProportionateScreenHeight(15),
             backgroundImage: const AssetImage(
-              'assets/images/profile_pic.jpg',
+              'assets/images/profile_pic.png',
             ),
           ),
           const SizedBox(
@@ -119,9 +119,9 @@ class Body extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) => CategoryButton(
                         color: categoryController.randomColor,
-                        icon: categoryController.categories[index].icon ?? "",
+                        icon: categoryController.categories[index].icon,
                         onPress: () {},
-                        name: categoryController.categories[index].name ?? "",
+                        name: categoryController.categories[index].name,
                       ),
                       itemCount: categoryController.categories.length > 10
                           ? 10
@@ -134,7 +134,7 @@ class Body extends StatelessWidget {
               ),
               Constants.kBigVertcialSpacing,
               Text(
-                'Recently Auctions Added',
+                'Recommended Auctions',
                 style: TextStyle(
                   fontSize: getProportionateScreenHeight(18),
                 ),
@@ -148,14 +148,15 @@ class Body extends StatelessWidget {
                       return ListView(
                         scrollDirection: Axis.horizontal,
                         children: List.generate(
-                            controller.recommendedAuctionsLength,
+                            controller.recommendedAuctionsLength.value,
                             (index) => controller.recommendedAuctions[index]),
                       );
                     }),
               ),
-              SizedBox(
-                height: getProportionateScreenHeight(90),
-              ),
+              Constants.kSmallVerticalSpacing,
+              Constants.kSmallVerticalSpacing,
+              Constants.kSmallVerticalSpacing,
+              Constants.kSmallVerticalSpacing,
             ],
           ),
         ),

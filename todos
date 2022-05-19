@@ -19,7 +19,7 @@ TODO  learn FCM for the notifications
 TODO  put the bidders list inside a refresh indicator for refreshing the page to get the top high pidders every time
       or just serach for how u can do animations when bidder have the best price u make him as the top bidder 
 TODO  maybe add liquid_pull_to_refresh in the bidders screen app
-TODO  maybe make the timer inside the scheuled app as a percent_indicator or just show the hrs and mins without the secs and      make the secs in the last so we make a better performed app
+TODO  maybe make the timer inside the scheuled app as a percent_indicator or just show the hrs and mins without the secs and make the secs in the last so we make a better performed app
 TODO  change the onboard screen with flutter_carousel_slider to get the cube swiping effect
 TODO  maybe use some lottie files in our app like in search and onboard
 TODO  add the based content screen in our app :D\
@@ -52,12 +52,10 @@ TODO  make the notifications screen in figma
 TODO  make the notification screen in flutter
 TODO  learn FCM for the notifications 
 TODO  use UtilsScreen
-TODO  use MaterialIcons thorugh out the app
-TODO  amke garud cauases in if else statements :if(!condition){return;}
 TODO  change the whole UI
 TODO  put the onboard screen at the top and getstorage weather he opened the app before or not
 TODO  see some proejects that contains the FCM
 TODO  put the registerNotifications in a separeate class and call it in the right places
 TODO  add shimmer to the loading screen
 TODO  add Photo V
-todo add the substring in the categories and add a condition that if the icon string that I got from db is null then provide a default one 
+TODO  add the substring in the categories and add a condition that if the icon string that I got from db is null then provide a default one 

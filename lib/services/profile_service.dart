@@ -12,8 +12,8 @@ class ProfileService {
       final response = await http.get(Uri.parse('${Constants.api}/me'),
           headers: await Constants.profileHeader);
 
-      final decodedProfileData = json.decode(response.body);
       if (response.statusCode == 200) {
+        final decodedProfileData = json.decode(response.body);
         return Profile.fromJson(decodedProfileData['data']);
       } else {
         throw response.statusCode;

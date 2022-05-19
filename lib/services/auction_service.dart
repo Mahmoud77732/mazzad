@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 import '../components/auction_item.dart';
 import '../constants.dart';
+import '../controller/auction_controller.dart';
 import '../models/auction/auction.dart';
 
 class AuctionService {
@@ -30,27 +32,31 @@ class AuctionService {
   }
 
   static Future<List<Auction>> getAuctions(
-      {Status? type, String? limit}) async {
+      {Status? type, String? limit, String? cursor}) async {
     try {
       print(type);
       final queryParameters = {
         if (type != null) "type": type.name,
         if (limit != null) "limit": limit,
+        if (cursor != null) "cursor": cursor
       };
       final response = await http.get(
         Uri.parse('${Constants.api}/auction')
             .withQueryParameters(queryParameters),
         headers: await Constants.profileHeader,
       );
-      final resbody = json.decode(response.body);
-      // print((resbody['data'] as Iterable)
-      // .map((e) => Auction.fromJson(e))
-      // .toList());
-      print(response.statusCode);
+
       if (response.statusCode == 200) {
-        print((resbody['data']['data'] as Iterable)
-            .map((e) => Auction.fromJson(e))
-            .toList());
+        final resbody = json.decode(response.body);
+        if (type == Status.live) {
+          Get.find<AuctionController>()
+              .updateLiveNextPage(newNextPage: resbody['data']['next_cursor']);
+        }
+        if (type == Status.scheduled) {
+          Get.find<AuctionController>().updateScheduledNextPage(
+              newNextPage: resbody['data']['next_cursor']);
+        }
+
         return (resbody['data']['data'] as Iterable)
             .map((e) => Auction.fromJson(e))
             .toList();

@@ -5,18 +5,27 @@ import 'package:mazzad/services/auction_service.dart';
 import '../models/auction/auction.dart';
 
 class AuctionController extends GetxController {
+  String? _liveAuctionNextPage;
+  String? _scheduledAuctionNextPage;
+  String? _upcomingAuctionNextPage;
+
+  String? get liveAuctionNextPage => _liveAuctionNextPage;
+  String? get scheduledAuctionNextPage => _scheduledAuctionNextPage;
+  String? get upcomingAuctionNextPage => _upcomingAuctionNextPage;
+
   // recommended auctions in home screen
   List<AuctionItem> _recommendedAuctions = <AuctionItem>[].obs;
   List<AuctionItem> get recommendedAuctions => _recommendedAuctions;
-  int get recommendedAuctionsLength => _recommendedAuctions.length;
+  Rx<int> get recommendedAuctionsLength => _recommendedAuctions.length.obs;
   // for our live auctions
   List<AuctionItem> _liveAuctions = <AuctionItem>[].obs;
   List<AuctionItem> get liveAuctions => _liveAuctions;
-  int get liveAuctionsLength => _liveAuctions.length;
+  Rx<int> get liveAuctionsLength => _liveAuctions.length.obs;
   // for our scheduled auctions
   List<AuctionItem> _scheduledAuctions = <AuctionItem>[].obs;
   List<AuctionItem> get scheduledAuctions => _scheduledAuctions;
-  int get scheduledAuctionsLength => _scheduledAuctions.length;
+  Rx<int> get scheduledAuctionsLength => _scheduledAuctions.length.obs;
+
   String? _auctionType;
   String? get auctionType => _auctionType;
   int _categoryId = -1;
@@ -32,6 +41,16 @@ class AuctionController extends GetxController {
     update();
   }
 
+  void updateLiveNextPage({String? newNextPage}) {
+    _liveAuctionNextPage = newNextPage;
+    update();
+  }
+
+  void updateScheduledNextPage({String? newNextPage}) {
+    _scheduledAuctionNextPage = newNextPage;
+    update();
+  }
+
   // to get the auction cat id
   void updateCategoryAcutionId({int? mySelectedCategoryId}) {
     _categoryId = mySelectedCategoryId ?? -1;
@@ -42,6 +61,7 @@ class AuctionController extends GetxController {
     try {
       List<Auction> allAuctions = await AuctionService.getAuctions(
         type: Status.live,
+        cursor: '_liveAuctionNextPage',
       );
       _liveAuctions = allAuctions
           .map(
@@ -64,6 +84,7 @@ class AuctionController extends GetxController {
     try {
       List<Auction> allAuctions = await AuctionService.getAuctions(
         type: Status.scheduled,
+        cursor: _scheduledAuctionNextPage,
       );
       _scheduledAuctions = allAuctions
           .map(

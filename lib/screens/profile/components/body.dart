@@ -115,7 +115,8 @@ class Body extends StatelessWidget {
                           children: [
                             CircleAvatar(
                               backgroundImage: const AssetImage(
-                                  'assets/images/profile_pic.jpg'),
+                                'assets/images/profile_pic.png',
+                              ),
                               radius: getProportionateScreenHeight(50),
                             ),
                             SizedBox(

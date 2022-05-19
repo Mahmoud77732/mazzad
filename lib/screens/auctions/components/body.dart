@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mazzad/components/auction_item.dart';
-import 'package:mazzad/controller/auction_c.dart';
+import 'package:mazzad/controller/auction_controller.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../components/search_textfield.dart';
 import '../../../constants.dart';
@@ -83,6 +84,10 @@ class _BodyState extends State<Body> {
                 },
               ),
             ),
+            Constants.kSmallVerticalSpacing,
+            Constants.kSmallVerticalSpacing,
+            Constants.kSmallVerticalSpacing,
+            Constants.kSmallVerticalSpacing,
           ],
         ),
       ),
@@ -93,22 +98,36 @@ class _BodyState extends State<Body> {
 class Live extends StatelessWidget {
   Live({Key? key}) : super(key: key);
   final controller = Get.put<AuctionController>(AuctionController());
-
+  final RefreshController refreshController = RefreshController(
+    initialRefresh: true,
+  );
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      itemCount: controller.liveAuctionsLength,
-      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisSpacing: Constants.kHorizontalSpacing,
-        mainAxisSpacing: Constants.kHorizontalSpacing / 2,
-        crossAxisCount: 2,
-      ),
-      itemBuilder: (ctx, index) => AuctionItem(
-        name: controller.liveAuctions[index].name,
-        image: controller.liveAuctions[index].image,
-        currentBid: controller.liveAuctions[index].currentBid,
-        status: controller.liveAuctions[index].status,
+    return SmartRefresher(
+      enablePullDown: true,
+      onRefresh: () async {
+        // final result  = ;
+
+        refreshController.refreshCompleted();
+      },
+      onLoading: () async {
+        print('loading ');
+      },
+      controller: refreshController,
+      child: GridView.builder(
+        itemCount: controller.liveAuctionsLength.value,
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisSpacing: Constants.kHorizontalSpacing,
+          mainAxisSpacing: Constants.kHorizontalSpacing / 2,
+          crossAxisCount: 2,
+        ),
+        itemBuilder: (ctx, index) => AuctionItem(
+          name: controller.liveAuctions[index].name,
+          image: controller.liveAuctions[index].image,
+          currentBid: controller.liveAuctions[index].currentBid,
+          status: controller.liveAuctions[index].status,
+        ),
       ),
     );
   }
@@ -120,7 +139,7 @@ class Scheduled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      itemCount: controller.scheduledAuctionsLength,
+      itemCount: controller.scheduledAuctionsLength.value,
       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisSpacing: Constants.kHorizontalSpacing,
@@ -143,7 +162,7 @@ class UpComing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      itemCount: controller.liveAuctionsLength,
+      itemCount: controller.liveAuctionsLength.value,
       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisSpacing: Constants.kHorizontalSpacing,

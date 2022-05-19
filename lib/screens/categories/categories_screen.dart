@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../../components/category_button.dart';
 import '../../components/search_textfield.dart';
 import '../../constants.dart';
-import '../../controller/categories_c.dart';
+import '../../controller/categories_controller.dart';
 import '../../size_config.dart';
 
 class CategoriesScreen extends StatelessWidget {
@@ -37,13 +37,12 @@ class CategoriesScreen extends StatelessWidget {
                       children: List.generate(
                         categoryController.categories.length,
                         (index) {
+                          print(categoryController.categories[index].icon);
                           return CategoryButton(
                             color: categoryController.randomColor,
-                            icon:
-                                categoryController.categories[index].icon ?? "",
+                            icon: categoryController.categories[index].icon,
                             onPress: () {},
-                            name:
-                                categoryController.categories[index].name ?? "",
+                            name: categoryController.categories[index].name,
                           );
                         },
                       ),

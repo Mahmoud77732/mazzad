@@ -9,8 +9,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:logger/logger.dart';
-import 'package:mazzad/controller/auction_c.dart';
-import 'package:mazzad/controller/categories_c.dart';
+import 'package:mazzad/controller/auction_controller.dart';
+import 'package:mazzad/controller/categories_controller.dart';
 import 'package:mazzad/controller/profile_controller.dart';
 import 'package:mazzad/controller/text_field_controller.dart';
 
@@ -226,4 +226,3 @@ class MyHttpOverrides extends HttpOverrides {
           (X509Certificate cert, String host, int port) => true;
   }
 }
-
