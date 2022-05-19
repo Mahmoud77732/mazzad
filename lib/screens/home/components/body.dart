@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mazzad/controller/auction_controller.dart';
+import 'package:mazzad/controller/home_controller.dart';
 
 import '../../../components/category_button.dart';
 import '../../../components/search_textfield.dart';
@@ -65,25 +66,43 @@ class Body extends StatelessWidget {
               Constants.kSmallVerticalSpacing,
               const SearchTextField(),
               Constants.kBigVertcialSpacing,
-              CarouselSlider(
-                items: List.generate(
-                  Constants.kDummyImgs.length,
-                  (index) => InkWell(
-                    onTap: () {},
-                    child: Image.asset(Constants.kDummyImgs[index]),
-                  ),
-                ),
-                options: CarouselOptions(
-                  height: SizeConfig.screenHeight * 0.6 * 0.45,
-                  viewportFraction: 1.0,
-                  autoPlay: true,
-                  onPageChanged: (i, reason) {
-                    if (kDebugMode) {
-                      print(i);
-                    }
-                  },
-                ),
-              ),
+              GetBuilder<HomeController>(
+                  init: HomeController(),
+                  builder: (controller) {
+                    return FutureBuilder(
+                      future: controller.getSlider(),
+                      builder: (context, snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.active:
+                          case ConnectionState.waiting:
+                          case ConnectionState.none:
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          case ConnectionState.done:
+                            return CarouselSlider(
+                              items: List.generate(
+                                controller.length,
+                                (index) => InkWell(
+                                  onTap: () {},
+                                  child: Image.network(
+                                      'https://mazzad.unidevs.co/storage/${controller.slider![index].image!}'),
+                                ),
+                              ),
+                              options: CarouselOptions(
+                                height: SizeConfig.screenHeight * 0.6 * 0.45,
+                                viewportFraction: 1.0,
+                                autoPlay: true,
+                                onPageChanged: (i, reason) {
+                                  if (kDebugMode) {
+                                    print(i);
+                                  }
+                                },
+                              ),
+                            );
+                        }
+                      },
+                    );
+                  }),
               Constants.kBigVertcialSpacing,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -34,6 +34,7 @@ class AuctionController extends GetxController {
   String? get auctionType => _auctionType;
   int _categoryId = -1;
   int get categoryId => _categoryId;
+
   AuctionController() {
     getRecommendedAuctions();
     getLiveAuctions();
