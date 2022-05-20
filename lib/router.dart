@@ -3,7 +3,7 @@ import 'package:mazzad/screens/add_auction/add_auction_screen.dart';
 import 'package:mazzad/utils/logger.dart';
 
 import './screens/SignUp/signup_screen.dart';
-import './screens/auction details/auction_details_screen.dart';
+import './screens/auction_details/auction_details_screen.dart';
 import './screens/auctions/auctions.dart';
 import './screens/categories/categories_screen.dart';
 import './screens/contact_us/contact_us_screen.dart';
@@ -44,7 +44,7 @@ class Router {
       case AuctionsScreen.routeName:
         return SlideRoute(page: const AuctionsScreen());
       case AuctionDetailsScreen.routeName:
-        return SlideRoute(page: const AuctionDetailsScreen());
+        return SlideRoute(page: AuctionDetailsScreen());
       case MainBidders.routeName:
         return SlideRoute(page: const MainBidders());
       case ContactUsScreen.routeName:

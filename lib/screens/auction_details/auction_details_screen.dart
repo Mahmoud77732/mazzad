@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-import '../../screens/auction details/components/body.dart';
+import '../../controller/details_controller.dart';
+import '../../screens/auction_details/components/body.dart';
 
 class AuctionDetailsScreen extends StatefulWidget {
-  const AuctionDetailsScreen({Key? key}) : super(key: key);
   static const routeName = '/auction_details_screen';
   @override
   State<StatefulWidget> createState() {
@@ -20,7 +21,7 @@ class AuctionDetailsScreenState extends State<AuctionDetailsScreen> {
           'Details',
         ),
       ),
-      body: const Body(),
+      body: Body(),
     );
   }
 }
