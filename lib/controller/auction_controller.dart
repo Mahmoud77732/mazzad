@@ -45,6 +45,7 @@ class AuctionController extends GetxController {
     getLiveAuctions();
     getScheduledAuctions();
   }
+
   // to get the auction type
   void updateAuctionName({String? newAuctionType}) {
     _auctionType = newAuctionType;
@@ -81,6 +82,7 @@ class AuctionController extends GetxController {
             .map(
               (e) => AuctionItem(
                 name: e.name,
+                description: e.description,
                 image: e.images,
                 currentBid: e.initial_price,
                 status: e.type,
@@ -101,6 +103,7 @@ class AuctionController extends GetxController {
             .map(
               (e) => AuctionItem(
                 name: e.name,
+                description: e.description,
                 image: e.images,
                 currentBid: e.initial_price,
                 status: e.type,
@@ -130,6 +133,7 @@ class AuctionController extends GetxController {
             .map(
               (e) => AuctionItem(
                 name: e.name,
+                description: e.description,
                 image: e.images,
                 currentBid: e.initial_price,
                 status: e.type,
@@ -152,6 +156,7 @@ class AuctionController extends GetxController {
               .map(
                 (e) => AuctionItem(
                   name: e.name,
+                  description: e.description,
                   image: e.images,
                   currentBid: e.initial_price,
                   status: e.type,
@@ -170,13 +175,12 @@ class AuctionController extends GetxController {
 
   Future<bool> getRecommendedAuctions() async {
     try {
-      List<Auction> allAuctions = await AuctionService.getAuctions(
-        limit: '10',
-      );
+      List<Auction> allAuctions = await AuctionService.getAuctions(limit: '10');
       _recommendedAuctions = allAuctions
           .map(
             (e) => AuctionItem(
               name: e.name,
+              description: e.description,
               image: e.images,
               currentBid: e.initial_price,
               status: e.type,

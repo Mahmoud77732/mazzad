@@ -2,6 +2,8 @@
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mazzad/controller/details_controller.dart';
 
 class ProductsCarousalSlider extends StatefulWidget {
   @override
@@ -18,12 +20,16 @@ class _ProductsCarousalSliderState extends State<ProductsCarousalSlider> {
 
   @override
   Widget build(BuildContext context) {
+    DetailsController detailsController = Get.find<DetailsController>();
+    print('----> (3) arguments: ${detailsController.argumentsValues}');
+    imageList = detailsController.argumentsValues!['image'];
     return CarouselSlider(
       items: imageList
           .map((linkIndex) => ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Stack(fit: StackFit.expand, children: [
-                Image.asset(linkIndex.toString(), fit: BoxFit.cover),
+                // Image.asset(linkIndex.toString(), fit: BoxFit.cover),
+                Image.network(linkIndex.toString(), fit: BoxFit.cover),
                 Positioned.fill(
                   top: 130,
                   child: Container(
@@ -42,7 +48,8 @@ class _ProductsCarousalSliderState extends State<ProductsCarousalSlider> {
                     child: Align(
                       alignment: Alignment.center,
                       child: Text(
-                        "1080\$",
+                        // "1080\$",
+                        "${detailsController.argumentsValues!['current_bid']}\$",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.white,
