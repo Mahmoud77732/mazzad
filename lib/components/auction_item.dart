@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mazzad/screens/auction%20details/auction_details_screen.dart';
+import 'package:mazzad/controller/details_controller.dart';
+import 'package:mazzad/screens/auction_details/auction_details_screen.dart';
 
 import '../constants.dart';
 import '../size_config.dart';
 
-class AuctionItem extends StatelessWidget {
-
+class AuctionItem extends StatefulWidget {
   const AuctionItem({
     Key? key,
     required this.name,
+    this.description,
     required this.image,
     required this.currentBid,
     required this.status,
@@ -17,13 +18,34 @@ class AuctionItem extends StatelessWidget {
 
   final List<String> image;
   final String name;
+  final String? description;
   final double currentBid;
   final Status status;
+
+  @override
+  State<AuctionItem> createState() => _AuctionItemState();
+}
+
+class _AuctionItemState extends State<AuctionItem> {
+  Map<String, dynamic>? argumentsValues;
+
+  @override
+  void initState() {
+    argumentsValues = {
+      'name': widget.name,
+      'description': widget.description,
+      'image': widget.image,
+      'current_bid': widget.currentBid,
+      'status': widget.status,
+    };
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        Get.find<DetailsController>().argumentsValues = argumentsValues;
         Get.toNamed(AuctionDetailsScreen.routeName);
       },
       child: Container(
@@ -35,7 +57,7 @@ class AuctionItem extends StatelessWidget {
               flex: 10,
               child: Center(
                 child: Image.network(
-                  image[0],
+                  widget.image[0],
                   fit: BoxFit.fitWidth,
                 ),
               ),
@@ -50,13 +72,13 @@ class AuctionItem extends StatelessWidget {
                   ),
                   //status == Status.live ?
                   AuctionStatus(
-                    status: status,
+                    status: widget.status,
                   ),
                   const Spacer(
                     flex: 1,
                   ),
                   Text(
-                    name,
+                    widget.name,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: getProportionateScreenHeight(14),
@@ -75,7 +97,7 @@ class AuctionItem extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '${currentBid.toStringAsFixed(0)} \$',
+                    '${widget.currentBid.toStringAsFixed(0)} \$',
                     style: TextStyle(
                       color: Colors.grey,
                       fontSize: getProportionateScreenHeight(14),

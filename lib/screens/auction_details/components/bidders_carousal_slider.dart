@@ -47,42 +47,44 @@ class _TopFiveBiddersCarousalSliderState
                       radius: 23,
                       backgroundColor: Colors.transparent,
                       backgroundImage: AssetImage(
-                          bidder.image ?? "assets/images/profile_pic.jpg"),
+                          bidder.image ?? 'assets/images/profile_pic.png'),
                     ),
-                    title: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: 'Bid By ',
-                                style: TextStyle(
-                                  color: Colors.grey,
+                    title: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'Bid By ',
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                  ),
                                 ),
-                              ),
-                              TextSpan(
-                                text: bidder.name ?? "unkwon",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
-                                  color: Colors.black,
+                                TextSpan(
+                                  text: bidder.name ?? "unkwon",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15,
+                                    color: Colors.black,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        Text(
-                          DateFormat('yMMMMd')
-                              .format(bidder.date ?? DateTime.now())
-                              .toString(),
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 14,
+                          Text(
+                            DateFormat('yMMMMd')
+                                .format(bidder.date ?? DateTime.now())
+                                .toString(),
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 14,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     trailing: Text(
                       '\$${bidder.price ?? 0.0}',

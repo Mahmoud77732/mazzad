@@ -144,6 +144,7 @@ class Constants {
     const AuctionItem(
       image: ['assets/images/product.jpeg'],
       name: 'Best controller ever',
+      description: 'Compatible with select electronic devices; AAA size',
       currentBid: 500,
       status: Status.live,
     ),
@@ -152,6 +153,7 @@ class Constants {
     const AuctionItem(
       image: ['assets/images/product.jpeg'],
       name: 'Best controller ever',
+      description: 'Compatible with select electronic devices; AAA size',
       currentBid: 500,
       status: Status.scheduled,
     ),
@@ -160,6 +162,7 @@ class Constants {
     const AuctionItem(
       image: ['assets/images/product.jpeg'],
       name: 'Best controller ever',
+      description: 'Compatible with select electronic devices; AAA size',
       currentBid: 500,
       status: Status.soon,
     ),
@@ -168,6 +171,7 @@ class Constants {
     const AuctionItem(
       image: ['assets/images/product.jpeg'],
       name: 'Best controller ever',
+      description: 'Compatible with select electronic devices; AAA size',
       currentBid: 500,
       status: Status.scheduled,
     ),
@@ -177,27 +181,27 @@ class Constants {
         name: 'Bidder Name',
         price: '1080',
         date: DateTime.now(),
-        image: 'assets/images/profile_pic.jpg'),
+        image: 'assets/images/profile_pic.png'),
     Bidder(
         name: 'Bidder Name',
         price: '1080',
         date: DateTime.now(),
-        image: 'assets/images/profile_pic.jpg'),
+        image: 'assets/images/profile_pic.png'),
     Bidder(
         name: 'Bidder Name',
         price: '1080',
         date: DateTime.now(),
-        image: 'assets/images/profile_pic.jpg'),
+        image: 'assets/images/profile_pic.png'),
     Bidder(
         name: 'Bidder Name',
         price: '1080',
         date: DateTime.now(),
-        image: 'assets/images/profile_pic.jpg'),
+        image: 'assets/images/profile_pic.png'),
     Bidder(
         name: 'Bidder Name',
         price: '1080',
         date: DateTime.now(),
-        image: 'assets/images/profile_pic.jpg'),
+        image: 'assets/images/profile_pic.png'),
   ];
   static List<Bidder> kDummyBiddersList = [
     const Bidder(name: 'Malia Renault', price: '1080'),

@@ -150,6 +150,7 @@ Widget buildListAuction(List<Auction> auctionElements, context) {
         auctionElements.length,
         (index) => AuctionItem(
           name: auctionElements[index].name,
+          description: auctionElements[index].description,
           image: auctionElements[index].images,
           currentBid: 500, //dummy
           status: auctionElements[index].type,
