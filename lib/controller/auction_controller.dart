@@ -8,6 +8,7 @@ import 'package:mazzad/components/auction_item.dart';
 import 'package:mazzad/constants.dart';
 import 'package:mazzad/services/auction_service.dart';
 
+import '../components/auction_status.dart';
 import '../models/auction/auction.dart';
 
 class AuctionController extends GetxController {
@@ -80,12 +81,17 @@ class AuctionController extends GetxController {
         _liveAuctions.value = allAuctions
             .map(
               (e) => AuctionItem(
-                name: e.name,
-                description: e.description,
-                image: e.images,
-                currentBid: e.initial_price,
-                status: e.type,
-                end_date: e.end_date,
+                myAuction: Auction(
+                    id: e.id,
+                    category_id: e.category_id,
+                    name: e.name,
+                    description: e.description,
+                    images: e.images,
+                    initial_price: e.initial_price,
+                    start_date: e.start_date,
+                    end_date: e.end_date,
+                    type: e.type,
+                    keywords: e.keywords),
               ),
             )
             .toList();
@@ -102,12 +108,17 @@ class AuctionController extends GetxController {
         _liveAuctions.addAll(allAuctions
             .map(
               (e) => AuctionItem(
-                name: e.name,
-                description: e.description,
-                image: e.images,
-                currentBid: e.initial_price,
-                status: e.type,
-                end_date: e.end_date,
+                myAuction: Auction(
+                    id: e.id,
+                    category_id: e.category_id,
+                    name: e.name,
+                    description: e.description,
+                    images: e.images,
+                    initial_price: e.initial_price,
+                    start_date: e.start_date,
+                    end_date: e.end_date,
+                    type: e.type,
+                    keywords: e.keywords),
               ),
             )
             .toList());
@@ -117,6 +128,17 @@ class AuctionController extends GetxController {
       return true;
     } catch (e) {
       rethrow;
+    }
+  }
+
+  static Future<bool> recordUserBehavior(
+      {required int auctionId, required String action}) async {
+    bool isBehavedCorrectly = await AuctionService.recordUserBehavior(
+        auctionId: auctionId, action: action);
+    if (isBehavedCorrectly) {
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -133,12 +155,17 @@ class AuctionController extends GetxController {
         _scheduledAuctions = allAuctions
             .map(
               (e) => AuctionItem(
-                name: e.name,
-                description: e.description,
-                image: e.images,
-                currentBid: e.initial_price,
-                status: e.type,
-                end_date: e.end_date,
+                myAuction: Auction(
+                    id: e.id,
+                    category_id: e.category_id,
+                    name: e.name,
+                    description: e.description,
+                    images: e.images,
+                    initial_price: e.initial_price,
+                    start_date: e.start_date,
+                    end_date: e.end_date,
+                    type: e.type,
+                    keywords: e.keywords),
               ),
             )
             .toList();
@@ -157,12 +184,17 @@ class AuctionController extends GetxController {
           allAuctions
               .map(
                 (e) => AuctionItem(
-                  name: e.name,
-                  description: e.description,
-                  image: e.images,
-                  currentBid: e.initial_price,
-                  status: e.type,
-                  end_date: e.end_date,
+                  myAuction: Auction(
+                      id: e.id,
+                      category_id: e.category_id,
+                      name: e.name,
+                      description: e.description,
+                      images: e.images,
+                      initial_price: e.initial_price,
+                      start_date: e.start_date,
+                      end_date: e.end_date,
+                      type: e.type,
+                      keywords: e.keywords),
                 ),
               )
               .toList(),
@@ -182,12 +214,17 @@ class AuctionController extends GetxController {
       _recommendedAuctions = allAuctions
           .map(
             (e) => AuctionItem(
-              name: e.name,
-              description: e.description,
-              image: e.images,
-              currentBid: e.initial_price,
-              end_date: e.end_date,
-              status: e.type,
+              myAuction: Auction(
+                  id: e.id,
+                  category_id: e.category_id,
+                  name: e.name,
+                  description: e.description,
+                  images: e.images,
+                  initial_price: e.initial_price,
+                  start_date: e.start_date,
+                  end_date: e.end_date,
+                  type: e.type,
+                  keywords: e.keywords),
             ),
           )
           .toList();
@@ -205,14 +242,14 @@ class AuctionController extends GetxController {
         body: jsonEncode(addedAuctionModel.toJson()),
         headers: await Constants.headers,
       );
-      print(response.body);
       if (kDebugMode) {
+        print(response.body);
         print(response.statusCode);
       }
       if (response.statusCode == 200) {
         return true;
       } else {
-        print('there is an err in updating user data');
+        if (kDebugMode) print('there is an err in updating user data');
         return false;
       }
     } catch (e) {

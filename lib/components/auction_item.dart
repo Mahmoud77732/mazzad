@@ -1,41 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mazzad/components/auction_status.dart';
+import 'package:mazzad/controller/auction_controller.dart';
 import 'package:mazzad/screens/auction_details/auction_details_screen.dart';
 
 import '../controller/details_controller.dart';
-import '../screens/auction_details/components/body.dart';
+import '../models/auction/auction.dart';
 import '../size_config.dart';
 
 class AuctionItem extends StatelessWidget {
-  const AuctionItem({
-    Key? key,
-    required this.name,
-    required this.description,
-    required this.image,
-    required this.currentBid,
-    required this.status,
-    required this.end_date,
-  }) : super(key: key);
+  final Auction myAuction;
 
-  final List<String> image;
-  final String name;
-  final String description;
-  final double currentBid;
-  final Status status;
-  final DateTime end_date;
+  const AuctionItem({Key? key, required this.myAuction}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Get.find<DetailsController>().argumentsValues = {
-          'name': name,
-          'description': description,
-          'image': image,
-          'current_bid': currentBid,
-          'status': status,
-          'date_time': end_date,
+          'name': myAuction.name,
+          'description': myAuction.description,
+          'image': myAuction.images,
+          'current_bid': myAuction.initial_price,
+          'status': myAuction.type,
+          'date_time': myAuction.end_date,
+          'id': myAuction.id
         };
+        print('this is the auction id::::${myAuction.id}');
+        AuctionController.recordUserBehavior(
+            auctionId: myAuction.id, action: "view");
         Get.toNamed(
           AuctionDetailsScreen.routeName,
         );
@@ -49,7 +42,7 @@ class AuctionItem extends StatelessWidget {
               flex: 10,
               child: Center(
                 child: Image.network(
-                  image[0],
+                  myAuction.images[0],
                   fit: BoxFit.fitWidth,
                 ),
               ),
@@ -62,15 +55,15 @@ class AuctionItem extends StatelessWidget {
                   const Spacer(
                     flex: 1,
                   ),
-                  DetailsAuctionStatus(
-                    status: status,
-                    endDate: end_date,
+                  AuctionStatus(
+                    status: myAuction.type,
+                    endDate: myAuction.end_date,
                   ),
                   const Spacer(
                     flex: 1,
                   ),
                   Text(
-                    name,
+                    myAuction.name,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: getProportionateScreenHeight(14),
@@ -89,7 +82,7 @@ class AuctionItem extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '${currentBid.toStringAsFixed(0)} \$',
+                    '${myAuction.initial_price.toStringAsFixed(0)} \$',
                     style: TextStyle(
                       color: Colors.grey,
                       fontSize: getProportionateScreenHeight(14),
@@ -119,58 +112,3 @@ class AuctionItem extends StatelessWidget {
     );
   }
 }
-
-enum Status { live, scheduled, soon }
-
-// class AuctionStatus extends StatelessWidget {
-//   const AuctionStatus({
-//     Key? key,
-//     required this.status,
-//   }) : super(key: key);
-//   final Status status;
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
-//       decoration: BoxDecoration(
-//         borderRadius: BorderRadius.circular(5),
-//         color: status == Status.live
-//             ? Colors.red.withOpacity(0.2)
-//             : status == Status.scheduled
-//                 ? Colors.green.withOpacity(0.2)
-//                 : Constants.kPrimaryColor.withOpacity(0.2),
-//       ),
-//       child: Row(
-//         mainAxisSize: MainAxisSize.min,
-//         children: [
-//           status == Status.live
-//               ? const CircleAvatar(
-//                   radius: 3,
-//                   backgroundColor: Colors.red,
-//                 )
-//               : const SizedBox(),
-//           status == Status.live
-//               ? SizedBox(
-//                   width: getProportionateScreenWidth(5),
-//                 )
-//               : const SizedBox(),
-//           Text(
-//             status == Status.live
-//                 ? 'Live'
-//                 : status == Status.scheduled
-//                     ? "12h : 32m : 12s"
-//                     : "Soon",
-//             style: TextStyle(
-//               color: status == Status.live
-//                   ? Colors.red
-//                   : status == Status.scheduled
-//                       ? Colors.green
-//                       : Constants.kPrimaryColor,
-//               fontSize: getProportionateScreenHeight(14),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }

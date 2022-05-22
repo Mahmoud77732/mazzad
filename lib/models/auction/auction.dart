@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:mazzad/components/auction_item.dart';
+
+import '../../components/auction_status.dart';
 
 part 'auction.freezed.dart';
 part 'auction.g.dart';
@@ -9,6 +10,7 @@ class Auction with _$Auction {
   const Auction._();
 
   const factory Auction({
+    @Default(-1) int id,
     required int category_id,
     required String name,
     required String description,
@@ -23,14 +25,3 @@ class Auction with _$Auction {
   factory Auction.fromJson(Map<String, dynamic> json) =>
       _$AuctionFromJson(json);
 }
-
-/*
-{
-    "name":"allaaaaaaaaa",
-    "description":"Ibrahim is donkey",
-    "category_id":"1",
-    "initial_price":"1",
-    "type":"live",
-    "start_date":"2022/05/05"
-}
-*/

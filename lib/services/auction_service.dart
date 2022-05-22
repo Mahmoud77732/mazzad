@@ -4,12 +4,36 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
-import '../components/auction_item.dart';
+import '../components/auction_status.dart';
 import '../constants.dart';
 import '../controller/auction_controller.dart';
 import '../models/auction/auction.dart';
 
 class AuctionService {
+  static Future<bool> recordUserBehavior(
+      {required int auctionId, required String action}) async {
+    try {
+      final response = await http.post(
+        Uri.parse('${Constants.api}/recordAction'),
+        body: jsonEncode(
+          {"auction_id": auctionId, "action": action},
+        ),
+        headers: await Constants.headers,
+      );
+      print(response.body);
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        print(response.statusCode);
+        print("there is an error when recordin this user behavior");
+        return false;
+      }
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
+
   Future<List<Auction>> postAuction(Auction auction) async {
     try {
       final response = await http.post(

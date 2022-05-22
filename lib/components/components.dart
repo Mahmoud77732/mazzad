@@ -63,12 +63,17 @@ Widget buildListAuction(List<Auction> auctionElements, context) {
       children: List.generate(
         auctionElements.length,
         (index) => AuctionItem(
-          end_date: auctionElements[index].end_date,
-          name: auctionElements[index].name,
-          description: auctionElements[index].description,
-          image: auctionElements[index].images,
-          currentBid: 500, //dummy
-          status: auctionElements[index].type,
+          myAuction: Auction(
+              id: auctionElements[index].id,
+              category_id: auctionElements[index].category_id,
+              name: auctionElements[index].name,
+              description: auctionElements[index].description,
+              images: auctionElements[index].images,
+              initial_price: auctionElements[index].initial_price,
+              start_date: auctionElements[index].start_date,
+              end_date: auctionElements[index].end_date,
+              type: auctionElements[index].type,
+              keywords: auctionElements[index].keywords),
         ),
       ),
     ),
