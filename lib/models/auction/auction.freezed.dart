@@ -26,7 +26,9 @@ mixin _$Auction {
   List<String> get images => throw _privateConstructorUsedError;
   double get initial_price => throw _privateConstructorUsedError;
   DateTime get start_date => throw _privateConstructorUsedError;
+  DateTime get end_date => throw _privateConstructorUsedError;
   Status get type => throw _privateConstructorUsedError;
+  List<String> get keywords => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -44,7 +46,9 @@ abstract class $AuctionCopyWith<$Res> {
       List<String> images,
       double initial_price,
       DateTime start_date,
-      Status type});
+      DateTime end_date,
+      Status type,
+      List<String> keywords});
 }
 
 /// @nodoc
@@ -63,7 +67,9 @@ class _$AuctionCopyWithImpl<$Res> implements $AuctionCopyWith<$Res> {
     Object? images = freezed,
     Object? initial_price = freezed,
     Object? start_date = freezed,
+    Object? end_date = freezed,
     Object? type = freezed,
+    Object? keywords = freezed,
   }) {
     return _then(_value.copyWith(
       category_id: category_id == freezed
@@ -90,10 +96,18 @@ class _$AuctionCopyWithImpl<$Res> implements $AuctionCopyWith<$Res> {
           ? _value.start_date
           : start_date // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      end_date: end_date == freezed
+          ? _value.end_date
+          : end_date // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as Status,
+      keywords: keywords == freezed
+          ? _value.keywords
+          : keywords // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -111,7 +125,9 @@ abstract class _$$_AuctionCopyWith<$Res> implements $AuctionCopyWith<$Res> {
       List<String> images,
       double initial_price,
       DateTime start_date,
-      Status type});
+      DateTime end_date,
+      Status type,
+      List<String> keywords});
 }
 
 /// @nodoc
@@ -131,7 +147,9 @@ class __$$_AuctionCopyWithImpl<$Res> extends _$AuctionCopyWithImpl<$Res>
     Object? images = freezed,
     Object? initial_price = freezed,
     Object? start_date = freezed,
+    Object? end_date = freezed,
     Object? type = freezed,
+    Object? keywords = freezed,
   }) {
     return _then(_$_Auction(
       category_id: category_id == freezed
@@ -158,10 +176,18 @@ class __$$_AuctionCopyWithImpl<$Res> extends _$AuctionCopyWithImpl<$Res>
           ? _value.start_date
           : start_date // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      end_date: end_date == freezed
+          ? _value.end_date
+          : end_date // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as Status,
+      keywords: keywords == freezed
+          ? _value._keywords
+          : keywords // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -176,8 +202,11 @@ class _$_Auction extends _Auction {
       required final List<String> images,
       required this.initial_price,
       required this.start_date,
-      required this.type})
+      required this.end_date,
+      required this.type,
+      required final List<String> keywords})
       : _images = images,
+        _keywords = keywords,
         super._();
 
   factory _$_Auction.fromJson(Map<String, dynamic> json) =>
@@ -201,11 +230,19 @@ class _$_Auction extends _Auction {
   @override
   final DateTime start_date;
   @override
+  final DateTime end_date;
+  @override
   final Status type;
+  final List<String> _keywords;
+  @override
+  List<String> get keywords {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_keywords);
+  }
 
   @override
   String toString() {
-    return 'Auction(category_id: $category_id, name: $name, description: $description, images: $images, initial_price: $initial_price, start_date: $start_date, type: $type)';
+    return 'Auction(category_id: $category_id, name: $name, description: $description, images: $images, initial_price: $initial_price, start_date: $start_date, end_date: $end_date, type: $type, keywords: $keywords)';
   }
 
   @override
@@ -223,7 +260,9 @@ class _$_Auction extends _Auction {
                 .equals(other.initial_price, initial_price) &&
             const DeepCollectionEquality()
                 .equals(other.start_date, start_date) &&
-            const DeepCollectionEquality().equals(other.type, type));
+            const DeepCollectionEquality().equals(other.end_date, end_date) &&
+            const DeepCollectionEquality().equals(other.type, type) &&
+            const DeepCollectionEquality().equals(other._keywords, _keywords));
   }
 
   @JsonKey(ignore: true)
@@ -236,7 +275,9 @@ class _$_Auction extends _Auction {
       const DeepCollectionEquality().hash(_images),
       const DeepCollectionEquality().hash(initial_price),
       const DeepCollectionEquality().hash(start_date),
-      const DeepCollectionEquality().hash(type));
+      const DeepCollectionEquality().hash(end_date),
+      const DeepCollectionEquality().hash(type),
+      const DeepCollectionEquality().hash(_keywords));
 
   @JsonKey(ignore: true)
   @override
@@ -257,7 +298,9 @@ abstract class _Auction extends Auction {
       required final List<String> images,
       required final double initial_price,
       required final DateTime start_date,
-      required final Status type}) = _$_Auction;
+      required final DateTime end_date,
+      required final Status type,
+      required final List<String> keywords}) = _$_Auction;
   const _Auction._() : super._();
 
   factory _Auction.fromJson(Map<String, dynamic> json) = _$_Auction.fromJson;
@@ -275,7 +318,11 @@ abstract class _Auction extends Auction {
   @override
   DateTime get start_date => throw _privateConstructorUsedError;
   @override
+  DateTime get end_date => throw _privateConstructorUsedError;
+  @override
   Status get type => throw _privateConstructorUsedError;
+  @override
+  List<String> get keywords => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_AuctionCopyWith<_$_Auction> get copyWith =>

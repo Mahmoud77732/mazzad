@@ -14,7 +14,10 @@ _$_Auction _$$_AuctionFromJson(Map<String, dynamic> json) => _$_Auction(
           (json['images'] as List<dynamic>).map((e) => e as String).toList(),
       initial_price: (json['initial_price'] as num).toDouble(),
       start_date: DateTime.parse(json['start_date'] as String),
+      end_date: DateTime.parse(json['end_date'] as String),
       type: $enumDecode(_$StatusEnumMap, json['type']),
+      keywords:
+          (json['keywords'] as List<dynamic>).map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$$_AuctionToJson(_$_Auction instance) =>
@@ -25,7 +28,9 @@ Map<String, dynamic> _$$_AuctionToJson(_$_Auction instance) =>
       'images': instance.images,
       'initial_price': instance.initial_price,
       'start_date': instance.start_date.toIso8601String(),
+      'end_date': instance.end_date.toIso8601String(),
       'type': _$StatusEnumMap[instance.type],
+      'keywords': instance.keywords,
     };
 
 const _$StatusEnumMap = {

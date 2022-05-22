@@ -7,27 +7,25 @@ import 'package:mazzad/components/default_button.dart';
 import 'package:mazzad/constants.dart';
 import 'package:mazzad/controller/auction_controller.dart';
 import 'package:mazzad/controller/categories_controller.dart';
-import 'package:mazzad/models/added_auction_model.dart';
 import 'package:mazzad/shared/comonents/components.dart';
 
 import '../../components/auction_item.dart';
+import '../../models/auction/auction.dart';
 
 final AuctionController auctionController = Get.find<AuctionController>();
 
 class AddAuctionScreen extends StatelessWidget {
   final categoriesController = Get.find<CategoriesController>();
-  // final auctionController = Get.find<AuctionController>();
-  // final AddedAuctionModel? addedAuctionModel = AddedAuctionModel();
+
   AddAuctionScreen({Key? key}) : super(key: key);
   static const String routeName = '/add_product_screen';
   @override
   Widget build(BuildContext context) {
-    // final addedAuctionModel = AddedAuctionModel();
     var nameTextController = TextEditingController();
     var descriptionTextController = TextEditingController();
     var priceTextController = TextEditingController();
-    String startDateTextValue = '';
-    String endDateTextValue = '';
+    DateTime startDateTextValue = DateTime.now();
+    DateTime endDateTextValue = DateTime.now();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Auction'),
@@ -45,10 +43,6 @@ class AddAuctionScreen extends StatelessWidget {
               }
               return null;
             },
-            // onSubmit: (String text) {
-            //   // auctionController.addedAuctionModel!.data!.name = text;
-            //   addedAuctionModel.data!.name = text;
-            // },
             label: 'product name...',
           ),
           const SizedBox(height: 10),
@@ -62,14 +56,10 @@ class AddAuctionScreen extends StatelessWidget {
               }
               return null;
             },
-            // onSubmit: (String text) {
-            //   addedAuctionModel.data!.description = text;
-            // },
             label: 'product description...',
           ),
           const SizedBox(height: 10),
-          // Constants.kSmallVerticalSpacing,
-          // Constants.kSmallVerticalSpacing,
+
           defaultFormField(
             controller: priceTextController,
             type: TextInputType.text,
@@ -79,12 +69,6 @@ class AddAuctionScreen extends StatelessWidget {
               }
               return null;
             },
-            // onSubmit: (String text) {
-            //   addedAuctionModel.data!.initialPrice = text;
-            // },
-            // onChange: () {
-            //   print('---> addedAuctionModel!: $addedAuctionModel');
-            // },
             label: 'starting bid price',
           ),
           const SizedBox(height: 10),
@@ -136,20 +120,15 @@ class AddAuctionScreen extends StatelessWidget {
                         context,
                         showTitleActions: true,
                         minTime: DateTime.now(),
-                        // onChanged: (date) {
-                        //   print('----> (1) change: $date');
-                        // },
                         onConfirm: (date) {
-                          startDateTextValue = date.year.toString() +
-                              '-' +
-                              ((date.month < 10)
-                                  ? ('0' + date.month.toString())
-                                  : date.month.toString()) +
-                              '-' +
-                              ((date.day < 10)
-                                  ? ('0' + date.day.toString())
-                                  : date.day.toString()) +
-                              'T';
+                          startDateTextValue = DateTime(
+                            date.year,
+                            date.month,
+                            date.day,
+                            endDateTextValue.hour,
+                            endDateTextValue.minute,
+                            endDateTextValue.second,
+                          );
                         },
                         currentTime: DateTime.now(),
                       );
@@ -162,18 +141,14 @@ class AddAuctionScreen extends StatelessWidget {
                         context,
                         showTitleActions: true,
                         currentTime: DateTime.now(),
-                        // onChanged: (time) {
-                        //   print('----> (1) change: $time');
-                        // },
                         onConfirm: (time) {
-                          startDateTextValue += ((time.hour < 10)
-                                  ? ('0' + time.hour.toString())
-                                  : time.hour.toString()) +
-                              ':' +
-                              ((time.minute < 10)
-                                  ? ('0' + time.minute.toString())
-                                  : time.minute.toString());
-                          print('----> (1) confirm $startDateTextValue');
+                          startDateTextValue = DateTime(
+                              endDateTextValue.year,
+                              endDateTextValue.month,
+                              endDateTextValue.day,
+                              time.hour,
+                              time.minute,
+                              time.second);
                         },
                       );
                     },
@@ -181,14 +156,6 @@ class AddAuctionScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              /*
-                String date = "2019-07-14T18:30:00.000Z";
-                SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-                SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a");
-                Date parsedDate = inputFormat.parse(date);
-                String formattedDate = outputFormat.format(parsedDate);
-                System.out.println(formattedDate);
-              */
               Column(
                 children: [
                   TextButton(
@@ -198,16 +165,16 @@ class AddAuctionScreen extends StatelessWidget {
                         showTitleActions: true,
                         minTime: DateTime.now(),
                         onConfirm: (date) {
-                          endDateTextValue = date.year.toString() +
-                              '-' +
-                              ((date.month < 10)
-                                  ? ('0' + date.month.toString())
-                                  : date.month.toString()) +
-                              '-' +
-                              ((date.day < 10)
-                                  ? ('0' + date.day.toString())
-                                  : date.day.toString()) +
-                              'T';
+                          endDateTextValue =
+                              DateTime(date.year, date.month, date.day);
+                          endDateTextValue = DateTime(
+                            date.year,
+                            date.month,
+                            date.day,
+                            endDateTextValue.hour,
+                            endDateTextValue.minute,
+                            endDateTextValue.second,
+                          );
                         },
                         currentTime: DateTime.now(),
                       );
@@ -221,14 +188,13 @@ class AddAuctionScreen extends StatelessWidget {
                         showTitleActions: true,
                         currentTime: DateTime.now(),
                         onConfirm: (time) {
-                          endDateTextValue += ((time.hour < 10)
-                                  ? ('0' + time.hour.toString())
-                                  : time.hour.toString()) +
-                              ':' +
-                              ((time.minute < 10)
-                                  ? ('0' + time.minute.toString())
-                                  : time.minute.toString());
-                          print('----> (2) confirm $endDateTextValue');
+                          endDateTextValue = DateTime(
+                              endDateTextValue.year,
+                              endDateTextValue.month,
+                              endDateTextValue.day,
+                              time.hour,
+                              time.minute,
+                              time.second);
                         },
                       );
                     },
@@ -240,24 +206,28 @@ class AddAuctionScreen extends StatelessWidget {
           ),
           DefaultButton(
             text: 'place auction',
-            onPressed: () {
-              print('---> (1) auctionType: ${auctionController.auctionType}');
-              print('---> (1) categoryId: ${auctionController.categoryId}');
-              print(
-                  '---> (1) nameTextController.text: ${nameTextController.text}');
-              AddedAuctionModel addedAuctionModel = AddedAuctionModel(
-                  name: nameTextController.text,
-                  images: ['ddd1', 'ddd2'],
-                  type: auctionController.auctionType,
-                  startDate: startDateTextValue,
-                  endDate: endDateTextValue,
-                  description: descriptionTextController.text,
-                  categoryId: auctionController.categoryId.toString(),
-                  initialPrice: priceTextController.text,
-                  keywords: ['keywords']);
+            onPressed: () async {
+              Auction addedAuctionModel = Auction(
+                name: nameTextController.text,
+                images: ['ddd1', 'ddd2'],
+                type: Status.live.name == auctionController.auctionType
+                    ? Status.live
+                    : Status.scheduled.name == auctionController.auctionType
+                        ? Status.scheduled
+                        : Status.soon,
+                start_date: startDateTextValue,
+                end_date: endDateTextValue,
+                description: descriptionTextController.text,
+                category_id: auctionController.categoryId,
+                initial_price: double.parse(priceTextController.text),
+                keywords: ['keywords'],
+              );
 
-              auctionController.postAuction(addedAuctionModel)!.then((value) {
+              bool? isAuctionAddedSuccessfully = await auctionController
+                  .postAuction(addedAuctionModel)!
+                  .then((value) {
                 print(value);
+                return null;
               });
             },
           ),

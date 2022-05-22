@@ -15,7 +15,9 @@ class Auction with _$Auction {
     required List<String> images,
     required double initial_price,
     required DateTime start_date,
+    required DateTime end_date,
     required Status type,
+    required List<String> keywords,
   }) = _Auction;
 
   factory Auction.fromJson(Map<String, dynamic> json) =>
