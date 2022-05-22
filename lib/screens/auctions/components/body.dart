@@ -23,9 +23,6 @@ class _BodyState extends State<Body> {
     Tab(
       text: 'Scheduled',
     ),
-    Tab(
-      text: 'Upcoming',
-    ),
   ];
   int _selectedTabBar = 0;
 
@@ -78,8 +75,6 @@ class _BodyState extends State<Body> {
                     return Live();
                   } else if (_selectedTabBar == 1) {
                     return Scheduled();
-                  } else if (_selectedTabBar == 2) {
-                    return UpComing();
                   } else {
                     return Live();
                   }
@@ -150,6 +145,7 @@ class Live extends StatelessWidget {
                 crossAxisCount: 2,
               ),
               itemBuilder: (ctx, index) => AuctionItem(
+                end_date: controller.liveAuctions[index].end_date,
                 name: controller.liveAuctions[index].name,
                 description: controller.liveAuctions[index].description,
                 image: controller.liveAuctions[index].image,
@@ -215,6 +211,7 @@ class Scheduled extends StatelessWidget {
             crossAxisCount: 2,
           ),
           itemBuilder: (ctx, index) => AuctionItem(
+            end_date: controller.scheduledAuctions[index].end_date,
             name: controller.scheduledAuctions[index].name,
             description: controller.liveAuctions[index].description,
             image: controller.scheduledAuctions[index].image,
@@ -224,29 +221,5 @@ class Scheduled extends StatelessWidget {
         ),
       );
     });
-  }
-}
-
-class UpComing extends StatelessWidget {
-  UpComing({Key? key}) : super(key: key);
-  final controller = Get.find<AuctionController>();
-  @override
-  Widget build(BuildContext context) {
-    return GridView.builder(
-      itemCount: controller.liveAuctionsLength.value,
-      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisSpacing: Constants.kHorizontalSpacing,
-        mainAxisSpacing: Constants.kHorizontalSpacing / 2,
-        crossAxisCount: 2,
-      ),
-      itemBuilder: (ctx, index) => AuctionItem(
-        name: controller.liveAuctions[index].name,
-        description: controller.liveAuctions[index].description,
-        image: controller.liveAuctions[index].image,
-        currentBid: controller.liveAuctions[index].currentBid,
-        status: controller.liveAuctions[index].status,
-      ),
-    );
   }
 }

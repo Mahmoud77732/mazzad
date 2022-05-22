@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:mazzad/controller/search_controller.dart';
 
-import '../../shared/comonents/components.dart';
+import '../../components/components.dart';
 
 class SearchScreen extends StatefulWidget {
   @override

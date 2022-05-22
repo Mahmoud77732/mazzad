@@ -3,13 +3,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
-import 'package:mazzad/components/default_button.dart';
-import 'package:mazzad/constants.dart';
-import 'package:mazzad/controller/auction_controller.dart';
-import 'package:mazzad/controller/categories_controller.dart';
-import 'package:mazzad/shared/comonents/components.dart';
 
 import '../../components/auction_item.dart';
+import '../../components/components.dart';
+import '../../components/default_button.dart';
+import '../../constants.dart';
+import '../../controller/auction_controller.dart';
+import '../../controller/categories_controller.dart';
 import '../../models/auction/auction.dart';
 
 final AuctionController auctionController = Get.find<AuctionController>();

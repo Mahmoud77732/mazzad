@@ -19,12 +19,10 @@ import './screens/profile/profile_screen.dart';
 import './screens/terms_of_use/terms_of_use_screen.dart';
 import 'screens/Bidders/main_bidders.dart';
 
-// take the settings from onGenerateRoute in GetMaterialApp
 final log = getLogger('Router');
 
 class Router {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
-    //  emoji class name - my info :D
     log.i('onGenerateRoute | name:${settings.name} ');
     switch (settings.name) {
       case OnBoardScreen.rountName:

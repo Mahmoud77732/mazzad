@@ -85,6 +85,7 @@ class AuctionController extends GetxController {
                 image: e.images,
                 currentBid: e.initial_price,
                 status: e.type,
+                end_date: e.end_date,
               ),
             )
             .toList();
@@ -106,6 +107,7 @@ class AuctionController extends GetxController {
                 image: e.images,
                 currentBid: e.initial_price,
                 status: e.type,
+                end_date: e.end_date,
               ),
             )
             .toList());
@@ -136,6 +138,7 @@ class AuctionController extends GetxController {
                 image: e.images,
                 currentBid: e.initial_price,
                 status: e.type,
+                end_date: e.end_date,
               ),
             )
             .toList();
@@ -159,6 +162,7 @@ class AuctionController extends GetxController {
                   image: e.images,
                   currentBid: e.initial_price,
                   status: e.type,
+                  end_date: e.end_date,
                 ),
               )
               .toList(),
@@ -182,6 +186,7 @@ class AuctionController extends GetxController {
               description: e.description,
               image: e.images,
               currentBid: e.initial_price,
+              end_date: e.end_date,
               status: e.type,
             ),
           )

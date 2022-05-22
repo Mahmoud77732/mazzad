@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-import '../../controller/details_controller.dart';
 import '../../screens/auction_details/components/body.dart';
 
 class AuctionDetailsScreen extends StatefulWidget {
