@@ -1,5 +1,9 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mazzad/controller/auctions_by_category_controller.dart';
+import 'package:mazzad/screens/auctions_category/auctions_by_category_screen.dart';
 
 import '../../components/category_button.dart';
 import '../../components/search_textfield.dart';
@@ -12,6 +16,7 @@ class CategoriesScreen extends StatelessWidget {
   static const routeName = '/categories_screen';
   @override
   Widget build(BuildContext context) {
+    AuctionsByCategoryController auctionsByCategoryController = Get.find<AuctionsByCategoryController>();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -37,12 +42,16 @@ class CategoriesScreen extends StatelessWidget {
                       children: List.generate(
                         categoryController.categories.length,
                         (index) {
-                          print(categoryController.categories[index].icon);
+                          // print(categoryController.categories[index].icon);
                           return CategoryButton(
                             color: categoryController.randomColor,
                             icon: categoryController.categories[index].icon,
-                            onPress: () {},
                             name: categoryController.categories[index].name,
+                            onPress: () {
+                              auctionsByCategoryController.categoryName.value = categoryController.categories[index].name;
+                              auctionsByCategoryController.updateCategoryId(categoryController.categories[index].id);
+                              Get.to(() => const AuctionsByCategoryScreen());
+                            },
                           );
                         },
                       ),

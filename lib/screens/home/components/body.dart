@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mazzad/controller/auction_controller.dart';
 import 'package:mazzad/controller/home_controller.dart';
+import 'package:mazzad/screens/auctions_category/auctions_by_category_screen.dart';
 
 import '../../../components/category_button.dart';
 import '../../../components/search_textfield.dart';
 import '../../../constants.dart';
+import '../../../controller/auctions_by_category_controller.dart';
 import '../../../controller/categories_controller.dart';
 import '../../../screens/categories/categories_screen.dart';
 import '../../../screens/notifications/notifications_screen.dart';
@@ -19,6 +21,7 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuctionsByCategoryController auctionsByCategoryController = Get.find<AuctionsByCategoryController>();
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -139,8 +142,12 @@ class Body extends StatelessWidget {
                       itemBuilder: (context, index) => CategoryButton(
                         color: categoryController.randomColor,
                         icon: categoryController.categories[index].icon,
-                        onPress: () {},
                         name: categoryController.categories[index].name,
+                        onPress: () {
+                              auctionsByCategoryController.categoryName.value = categoryController.categories[index].name;
+                              auctionsByCategoryController.updateCategoryId(categoryController.categories[index].id);
+                              Get.to(() => const AuctionsByCategoryScreen());
+                        },
                       ),
                       itemCount: categoryController.categories.length > 10
                           ? 10
