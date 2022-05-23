@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mazzad/components/auction_status.dart';
-import 'package:mazzad/controller/auction_controller.dart';
 import 'package:mazzad/screens/auction_details/auction_details_screen.dart';
 
 import '../controller/details_controller.dart';
@@ -26,9 +25,6 @@ class AuctionItem extends StatelessWidget {
           'date_time': myAuction.end_date,
           'id': myAuction.id
         };
-        print('this is the auction id::::${myAuction.id}');
-        AuctionController.recordUserBehavior(
-            auctionId: myAuction.id, action: "view");
         Get.toNamed(
           AuctionDetailsScreen.routeName,
         );

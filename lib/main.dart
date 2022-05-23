@@ -14,10 +14,10 @@ import 'package:mazzad/controller/categories_controller.dart';
 import 'package:mazzad/controller/details_controller.dart';
 import 'package:mazzad/controller/profile_controller.dart';
 import 'package:mazzad/controller/text_field_controller.dart';
+import 'package:mazzad/services/fcm_service.dart';
 
 import './/constants.dart';
 import './/firebase_options.dart';
-import './/models/push_notification.dart';
 import './/screens/home/home_screen.dart';
 import './/screens/login/login_screen.dart';
 import './/services/auth_service.dart';
@@ -44,7 +44,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  registerNotifications();
+  FcmService.registerNotifications(_firebaseMessagingBackgroundHandler);
 
   // transparent statusbar
   SystemChrome.setSystemUIOverlayStyle(
@@ -153,70 +153,6 @@ class Binding extends Bindings {
     Get.lazyPut(() => TextFieldController(), fenix: true);
     Get.lazyPut(() => ProfileController(), fenix: true);
     Get.lazyPut(() => DetailsController(), fenix: true);
-  }
-}
-
-void registerNotifications() async {
-  FirebaseMessaging messaging = FirebaseMessaging.instance;
-
-  NotificationSettings status = await messaging.getNotificationSettings();
-
-  if (status.authorizationStatus == AuthorizationStatus.notDetermined) {
-    await messaging.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
-  }
-
-  // what this do ?
-  await FirebaseMessaging.instance.subscribeToTopic(
-    Platform.isAndroid
-        ? "android"
-        : Platform.isIOS
-            ? "ios"
-            : "unknown_platform",
-  );
-
-  // the message can be handled via the onBackgroundMessage handler
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
-  // listen to foreground stream when the user is authorized
-  if (status.authorizationStatus == AuthorizationStatus.authorized) {
-    FirebaseMessaging.onMessage.listen(
-      (RemoteMessage message) {
-        if (message.notification != null) {
-          RemoteNotification? notification = message.notification;
-          AndroidNotification? android = message.notification?.android;
-          if (notification != null && android != null) {
-            PushNotification pushNotification = PushNotification(
-              body: message.notification!.body,
-              title: message.notification!.title,
-            );
-          } else {
-            if (kDebugMode) {
-              print('the message have no body ${message.notification}');
-            }
-          }
-        }
-      },
-    );
-  } else {
-    if (kDebugMode) {
-      print(status.authorizationStatus.toString());
-      print('User declined or has not accepted permission');
-    }
-  }
-}
-
-extension Uris on Uri {
-  Uri withQueryParameters(Map<String, dynamic> queryParameters) {
-    return Uri.parse(
-        "$this/?${queryParameters.keys.map<String>((k) => "$k=${queryParameters[k]}").join("&")}");
   }
 }
 

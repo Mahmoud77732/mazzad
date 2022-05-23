@@ -11,25 +11,17 @@ class ProductsCarousalSlider extends StatefulWidget {
 }
 
 class _ProductsCarousalSliderState extends State<ProductsCarousalSlider> {
-  List<String> imageList = [
-    'assets/images/slider1.jpg',
-    'assets/images/slider2.jpg',
-    'assets/images/slider3.jpg',
-    'assets/images/slider8.jpg'
-  ];
+  List<String> imageList =
+      Get.find<DetailsController>().argumentsValues!['image'];
 
   @override
   Widget build(BuildContext context) {
-    DetailsController detailsController = Get.find<DetailsController>();
-    print('----> (3) arguments: ${detailsController.argumentsValues}');
-    imageList = detailsController.argumentsValues!['image'];
     return CarouselSlider(
       items: imageList
           .map((linkIndex) => ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Stack(fit: StackFit.expand, children: [
-                // Image.asset(linkIndex.toString(), fit: BoxFit.cover),
-                Image.network(linkIndex.toString(), fit: BoxFit.cover),
+                Image.network(linkIndex.toString(), fit: BoxFit.contain),
                 Positioned.fill(
                   top: 130,
                   child: Container(
@@ -48,8 +40,7 @@ class _ProductsCarousalSliderState extends State<ProductsCarousalSlider> {
                     child: Align(
                       alignment: Alignment.center,
                       child: Text(
-                        // "1080\$",
-                        "${detailsController.argumentsValues!['current_bid']}\$",
+                        "${Get.find<DetailsController>().argumentsValues!['current_bid']}\$",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.white,

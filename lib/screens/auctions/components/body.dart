@@ -206,7 +206,7 @@ class Scheduled extends StatelessWidget {
             crossAxisCount: 2,
           ),
           itemBuilder: (ctx, index) => AuctionItem(
-            myAuction: controller.liveAuctions[index].myAuction,
+            myAuction: controller.scheduledAuctions[index].myAuction,
           ),
         ),
       );

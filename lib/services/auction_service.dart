@@ -34,6 +34,51 @@ class AuctionService {
     }
   }
 
+  Future<bool> placeBid(
+      {required double bidPlaced, required int auction_id}) async {
+    try {
+      final response = await http.post(
+        Uri.parse('${Constants.api}/auction/$auction_id/bid/$bidPlaced'),
+        headers: await Constants.headers,
+      );
+      if (response.statusCode == 200) {
+        print('bid placed correctly');
+        print(response.body);
+        print(response.statusCode);
+        return true;
+      } else {
+        print(response.body);
+        print(response.statusCode);
+        return false;
+      }
+    } catch (e) {
+      if (kDebugMode) print(e);
+      rethrow;
+    }
+  }
+
+  Future<double?> getHighestBid({required int auction_id}) async {
+    try {
+      final response = await http.get(
+        Uri.parse('${Constants.api}/auction/bids/$auction_id'),
+        headers: await Constants.headers,
+      );
+      if (response.statusCode == 200) {
+        print(response.body);
+        print(response.statusCode);
+        final double? highestPrice = json.decode(response.body)['data']['max'];
+        return highestPrice;
+      } else {
+        print(response.body);
+        print(response.statusCode);
+        return 0.0;
+      }
+    } catch (e) {
+      if (kDebugMode) print(e);
+      rethrow;
+    }
+  }
+
   Future<List<Auction>> postAuction(Auction auction) async {
     try {
       final response = await http.post(
@@ -52,6 +97,53 @@ class AuctionService {
           print("postAuction: ${response.body}");
         }
         throw 'can\'t fetch the auctions from the server';
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static Future<List<Map>?> getAuctionBidders({required int auctionId}) async {
+    try {
+      final response = await http.get(
+        Uri.parse("${Constants.api}/auction/bids/$auctionId"),
+        headers: await Constants.headers,
+      );
+      print('list of auction bidders');
+      print(response.body);
+      if (response.statusCode == 200) {
+        final jsonDecoded = jsonDecode(response.body);
+        return (jsonDecoded['data'] as Iterable).map(
+          (e) {
+            return {
+              "price": e["price"],
+              "name": e["user"]["name"],
+            };
+          },
+        ).toList();
+      }
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+    return null;
+  }
+
+  static Future<List<Auction>> getSimilarAuctions({int? auctionId}) async {
+    try {
+      final response = await http.get(
+        Uri.parse('${Constants.api}/recommendation/$auctionId'),
+        headers: await Constants.profileHeader,
+      );
+
+      if (response.statusCode == 200) {
+        final resbody = json.decode(response.body);
+
+        return (resbody['data'] as Iterable)
+            .map((e) => Auction.fromJson(e))
+            .toList();
+      } else {
+        throw 'can\'t fetch the similiar auctions from the server';
       }
     } catch (e) {
       rethrow;

@@ -19,22 +19,29 @@ class AuctionController extends GetxController {
   Rx<String?> get liveAuctionNextPage => _liveAuctionNextPage;
   Rx<String?> get scheduledAuctionNextPage => _scheduledAuctionNextPage;
   Rx<String?> get upcomingAuctionNextPage => _upcomingAuctionNextPage;
-
+  // for our live auctions
+  final RxList<Map>? _bidderAndPrice = <Map>[].obs;
+  List<Map>? get bidderAndPrice => _bidderAndPrice;
+  Rx<int> get bidderAndPriceLength => _bidderAndPrice!.length.obs;
   // recommended auctions in home screen
   List<AuctionItem> _recommendedAuctions = <AuctionItem>[].obs;
   List<AuctionItem> get recommendedAuctions => _recommendedAuctions;
   Rx<int> get recommendedAuctionsLength => _recommendedAuctions.length.obs;
+  // similar auctions in auction detalis
+  final RxList<AuctionItem> _similarAuctions = <AuctionItem>[].obs;
+  List<AuctionItem> get similarAuctions => _similarAuctions;
+  Rx<int> get similarAuctionsLength => _similarAuctions.length.obs;
   // for our live auctions
   final RxList<AuctionItem> _liveAuctions = <AuctionItem>[].obs;
   List<AuctionItem> get liveAuctions => _liveAuctions;
-  Rx<int> get liveAuctionsLength =>
-      _liveAuctions.length.obs; //> 15 ? 0.obs : _liveAuctions.length.obs
+  Rx<int> get liveAuctionsLength => _liveAuctions.length.obs;
   // for our scheduled auctions
-  List<AuctionItem> _scheduledAuctions = <AuctionItem>[].obs;
+  final RxList<AuctionItem> _scheduledAuctions = <AuctionItem>[].obs;
   List<AuctionItem> get scheduledAuctions => _scheduledAuctions;
   Rx<int> get scheduledAuctionsLength => _scheduledAuctions.length.obs;
   ScrollController controller = ScrollController();
-
+  final int _highestBid = -1;
+  int get highestBid => _highestBid;
   String? _auctionType;
   String? get auctionType => _auctionType;
   int _categoryId = -1;
@@ -44,6 +51,7 @@ class AuctionController extends GetxController {
     getRecommendedAuctions();
     getLiveAuctions();
     getScheduledAuctions();
+    getSimilarAuctions(auctionId: 1);
   }
 
   // to get the auction type
@@ -67,6 +75,15 @@ class AuctionController extends GetxController {
     _categoryId = mySelectedCategoryId ?? -1;
     update();
   }
+
+  // Future<int> getHighestBid({required int auction_id}) {
+  //   try {
+
+  //   } catch (e) {
+  //     print(e);
+  //     rethrow;
+  //   }
+  // }
 
   Future<bool> getLiveAuctions({bool isRefresh = false}) async {
     try {
@@ -142,6 +159,37 @@ class AuctionController extends GetxController {
     }
   }
 
+  Future<bool> getSimilarAuctions({int? auctionId}) async {
+    try {
+      if (kDebugMode) {
+        print('getting the similar auctions for auction id $auctionId');
+      }
+      List<Auction> allAuctions =
+          await AuctionService.getSimilarAuctions(auctionId: auctionId);
+      _similarAuctions.value = allAuctions
+          .map(
+            (e) => AuctionItem(
+              myAuction: Auction(
+                  id: e.id,
+                  category_id: e.category_id,
+                  name: e.name,
+                  description: e.description,
+                  images: e.images,
+                  initial_price: e.initial_price,
+                  start_date: e.start_date,
+                  end_date: e.end_date,
+                  type: e.type,
+                  keywords: e.keywords),
+            ),
+          )
+          .toList();
+      update();
+      return true;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<bool> getScheduledAuctions({bool isRefresh = false}) async {
     try {
       if (isRefresh) {
@@ -152,7 +200,7 @@ class AuctionController extends GetxController {
         List<Auction> allAuctions = await AuctionService.getAuctions(
           type: Status.scheduled,
         );
-        _scheduledAuctions = allAuctions
+        _scheduledAuctions.value = allAuctions
             .map(
               (e) => AuctionItem(
                 myAuction: Auction(
@@ -207,6 +255,19 @@ class AuctionController extends GetxController {
       rethrow;
     }
   }
+
+  // Future<List<Map>?> getBiddersByAuction({required int auction_id}) async {
+  //   try {
+  //     List<Map>? listOfBiddersPriceMap =
+  //         await AuctionService.getAuctionBidders(auctionId: auction_id);
+  //     _bidderAndPrice!.value = listOfBiddersPriceMap;
+  //     print(listOfBiddersPriceMap);
+  //     return listOfBiddersPriceMap;
+  //   } catch (e) {
+  //     print(e);
+  //     rethrow;
+  //   }
+  // }
 
   Future<bool> getRecommendedAuctions() async {
     try {

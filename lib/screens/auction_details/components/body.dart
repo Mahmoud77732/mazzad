@@ -1,9 +1,8 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mazzad/controller/details_controller.dart';
 
+import '../../../components/auction_item.dart';
 import '../../../components/auction_status.dart';
 import '../../../components/default_button.dart';
 import '../../../constants.dart';
@@ -15,102 +14,136 @@ import '../../Bidders/main_bidders.dart';
 
 class Body extends StatelessWidget {
   DetailsController detailsController = Get.find<DetailsController>();
+
   @override
   Widget build(BuildContext context) {
-    Timer timer = Timer.periodic(
-      const Duration(seconds: 3),
-      (timer) {
-        print(
-            'this is the auction id::::${detailsController.argumentsValues!['id']}');
-        AuctionController.recordUserBehavior(
-            auctionId: detailsController.argumentsValues!['id'],
-            action: "view");
-      },
-    );
-    return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          ProductsCarousalSlider(),
-          Constants.kSmallVerticalSpacing,
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: Constants.kHorizontalSpacing,
-            ),
-            child: Column(
-              children: [
-                Row(
-                  children: const [
-                    Text(
-                      'creator',
-                      style: TextStyle(
-                        color: Colors.grey,
-                      ),
+    // Timer timer = Timer.periodic(
+    //   const Duration(seconds: 3),
+    //   (timer) {
+    //     print(
+    //         'this is the auction id::::${detailsController.argumentsValues!['id']}');
+    //     // AuctionController.recordUserBehavior(
+    //     //     auctionId: detailsController.argumentsValues!['id'],
+    //     //     action: "view");
+    //   },
+    // );
+    return ListView(
+      children: <Widget>[
+        ProductsCarousalSlider(),
+        Constants.kSmallVerticalSpacing,
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: Constants.kHorizontalSpacing,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: const [
+                  Text(
+                    'creator',
+                    style: TextStyle(
+                      color: Colors.grey,
                     ),
-                    Spacer(),
-                    Text(
-                      'status',
-                      style: TextStyle(
-                        color: Colors.grey,
-                      ),
+                  ),
+                  Spacer(),
+                  Text(
+                    'status',
+                    style: TextStyle(
+                      color: Colors.grey,
                     ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Row(
-                      children: const [
-                        CircleAvatar(
-                          radius: 22,
-                          backgroundColor: Colors.transparent,
-                          backgroundImage: AssetImage(
-                            'assets/images/profile_pic.png',
-                          ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Row(
+                    children: const [
+                      CircleAvatar(
+                        radius: 22,
+                        backgroundColor: Colors.transparent,
+                        backgroundImage: AssetImage(
+                          'assets/images/profile_pic.png',
                         ),
-                        Constants.kSmallHorizontalSpacing,
-                        Text(
-                          'bidder.name',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
+                      ),
+                      Constants.kSmallHorizontalSpacing,
+                      Text(
+                        'bidder.name',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
                         ),
-                      ],
-                    ),
-                    const Spacer(),
-                    AuctionStatus(
-                      status: detailsController.argumentsValues!['status'],
-                      endDate: detailsController.argumentsValues!['date_time'],
-                    ),
-                  ],
+                      ),
+                    ],
+                  ),
+                  const Spacer(),
+                  AuctionStatus(
+                    status: detailsController.argumentsValues!['status'],
+                    endDate: detailsController.argumentsValues!['date_time'],
+                  ),
+                ],
+              ),
+              Constants.kSmallVerticalSpacing,
+              ProductInfo(
+                description: detailsController.argumentsValues!['description'],
+                name: detailsController.argumentsValues!['name'],
+              ),
+              Constants.kBigVertcialSpacing,
+              TopFiveBiddersCarousalSlider(
+                bidders: Constants.kDummyTopFiveBidders,
+              ),
+              Constants.kBigVertcialSpacing,
+              const Text(
+                'Similar Auctions',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
                 ),
-                Constants.kSmallVerticalSpacing,
-                ProductInfo(
-                  description:
-                      detailsController.argumentsValues!['description'],
-                  name: detailsController.argumentsValues!['name'],
+              ),
+              SizedBox(
+                height: 160,
+                child: GetBuilder<AuctionController>(
+                  init: AuctionController(),
+                  builder: (controller) {
+                    return FutureBuilder(
+                      future: controller.getSimilarAuctions(
+                          auctionId: detailsController.argumentsValues!['id']),
+                      builder: ((context, snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.active:
+                          case ConnectionState.none:
+                          case ConnectionState.waiting:
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          case ConnectionState.done:
+                            return ListView.builder(
+                              shrinkWrap: true,
+                              itemBuilder: ((context, index) {
+                                AuctionItem similarItem =
+                                    controller.similarAuctions[index];
+                                return similarItem;
+                              }),
+                              scrollDirection: Axis.horizontal,
+                              itemCount: controller.similarAuctionsLength.value,
+                            );
+                        }
+                      }),
+                    );
+                  },
                 ),
-                Constants.kBigVertcialSpacing,
-              ],
-            ),
+              ),
+              Constants.kBigVertcialSpacing,
+              DefaultButton(
+                onPressed: () {
+                  // timer.cancel();
+                  Get.toNamed(MainBidders.routeName);
+                },
+                text: 'Place Bid',
+              ),
+              Constants.kSmallVerticalSpacing,
+            ],
           ),
-          TopFiveBiddersCarousalSlider(
-            bidders: Constants.kDummyTopFiveBidders,
-          ),
-          Constants.kBigVertcialSpacing,
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: Constants.kHorizontalSpacing,
-            ),
-            child: DefaultButton(
-              onPressed: () {
-                timer.cancel();
-                Get.toNamed(MainBidders.routeName);
-              },
-              text: 'Place Bid',
-            ),
-          ),
-          Constants.kSmallVerticalSpacing,
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
