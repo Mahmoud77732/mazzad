@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Icons.person,
   ];
   List<Widget> navPages = [
-    const Body(),
+    Body(),
     const AuctionsScreen(),
     ShopScreen(),
     const ProfileScreen(),

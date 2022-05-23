@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:mazzad/controller/auctions_by_category_controller.dart';
+import 'package:mazzad/controller/my_auctions_controller.dart';
 
 import '../components/auction_status.dart';
 import '../constants.dart';
@@ -11,6 +12,9 @@ import '../controller/auction_controller.dart';
 import '../models/auction/auction.dart';
 
 class AuctionService {
+  static AuctionsByCategoryController auctionsByCategoryController =
+      Get.find<AuctionsByCategoryController>();
+
   static Future<bool> recordUserBehavior(
       {required int auctionId, required String action}) async {
     try {
@@ -140,9 +144,10 @@ class AuctionService {
       if (response.statusCode == 200) {
         final resbody = json.decode(response.body);
 
-        return (resbody['data'] as Iterable)
-            .map((e) => Auction.fromJson(e))
-            .toList();
+        return (resbody['data'] as Iterable).map((e) {
+          e['keywords'] = (e['keywords'] == null) ? ["", ""] : e['keywords'];
+          return Auction.fromJson(e);
+        }).toList();
       } else {
         throw 'can\'t fetch the similiar auctions from the server';
       }
@@ -175,9 +180,46 @@ class AuctionService {
           Get.find<AuctionController>().updateScheduledNextPage(
               newNextPage: resbody['data']['next_cursor']);
         }
-        return (resbody['data']['data'] as Iterable)
-            .map((e) => Auction.fromJson(e))
-            .toList();
+        return (resbody['data']['data'] as Iterable).map((e) {
+          return Auction.fromJson(e);
+        }).toList();
+      } else {
+        throw 'can\'t fetch the auctions from the server';
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static Future<List<Auction>> getAuctionsByUserId(
+      {Status? type, String? limit, String? cursor}) async {
+    try {
+      final queryParameters = {
+        if (type != null) "type": type.name,
+        if (limit != null) "limit": limit,
+        if (cursor != null) "cursor": cursor
+      };
+      final response = await http.get(
+        // Uri.parse('${Constants.api}/auction?user_id=2')
+        Uri.parse('${Constants.api}/auction?user_id=${Get.find<MyAuctionsController>().userId}')
+            .withQueryParameters(queryParameters),
+        headers: await Constants.profileHeader,
+      );
+
+      if (response.statusCode == 200) {
+        final resbody = json.decode(response.body);
+        if (type == Status.live) {
+          Get.find<AuctionController>()
+              .updateLiveNextPage(newNextPage: resbody['data']['next_cursor']);
+        }
+        if (type == Status.scheduled) {
+          Get.find<AuctionController>().updateScheduledNextPage(
+              newNextPage: resbody['data']['next_cursor']);
+        }
+        return (resbody['data']['data'] as Iterable).map((e) {
+          e['keywords'] = (e['keywords'] == null) ? ["", ""] : e['keywords'];
+          return Auction.fromJson(e);
+        }).toList();
       } else {
         throw 'can\'t fetch the auctions from the server';
       }
@@ -187,7 +229,6 @@ class AuctionService {
   }
 
   static Future<List<Auction>> getAuctionsByCategory({
-    int? categoryId,
     Status? type,
     String? limit,
     String? cursor,
@@ -200,7 +241,7 @@ class AuctionService {
       };
       final response = await http.get(
         Uri.parse(
-                '${Constants.api}/auction/category/${Get.find<AuctionsByCategoryController>().categoryId}')
+                '${Constants.api}/auction/category/${auctionsByCategoryController.categoryId}')
             .withQueryParameters(queryParameters),
         headers: await Constants.headers,
       );
@@ -216,6 +257,7 @@ class AuctionService {
               newNextPage: resbody['data']['next_cursor']);
         }
         return (resbody['data']['data'] as Iterable).map((e) {
+          e['keywords'] = (e['keywords'] == null) ? ["", ""] : e['keywords'];
           return Auction.fromJson(e);
         }).toList();
       } else {

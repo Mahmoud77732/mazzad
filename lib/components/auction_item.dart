@@ -37,10 +37,15 @@ class AuctionItem extends StatelessWidget {
             Expanded(
               flex: 10,
               child: Center(
-                child: Image.network(
-                  myAuction.images[0],
-                  fit: BoxFit.fitWidth,
-                ),
+                child: (myAuction.images[0].contains('uploads'))
+                    ? Image.asset(
+                        'assets/images/uploads_image.png',
+                        fit: BoxFit.fitWidth,
+                      )
+                    : Image.network(
+                        myAuction.images[0],
+                        fit: BoxFit.fitWidth,
+                      ),
               ),
             ),
             Expanded(
