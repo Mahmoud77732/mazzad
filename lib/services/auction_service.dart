@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:mazzad/controller/auctions_by_category_controller.dart';
+import 'package:mazzad/screens/auctions_category/my_model.dart';
 
 import '../components/auction_status.dart';
 import '../constants.dart';
@@ -103,6 +105,13 @@ class AuctionService {
     }
   }
 
+
+  static Future<List<Auction>> getAuctions({
+    Status? type,
+    String? limit,
+    String? cursor,
+  }) async {
+
   static Future<List<Map>?> getAuctionBidders({required int auctionId}) async {
     try {
       final response = await http.get(
@@ -152,6 +161,7 @@ class AuctionService {
 
   static Future<List<Auction>> getAuctions(
       {Status? type, String? limit, String? cursor}) async {
+
     try {
       final queryParameters = {
         if (type != null) "type": type.name,
@@ -163,7 +173,6 @@ class AuctionService {
             .withQueryParameters(queryParameters),
         headers: await Constants.profileHeader,
       );
-
       if (response.statusCode == 200) {
         final resbody = json.decode(response.body);
         if (type == Status.live) {
@@ -177,6 +186,46 @@ class AuctionService {
         return (resbody['data']['data'] as Iterable)
             .map((e) => Auction.fromJson(e))
             .toList();
+      } else {
+        throw 'can\'t fetch the auctions from the server';
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static Future<List<MyModel>> getAuctionsByCategory({
+    int? categoryId,
+    Status? type,
+    String? limit,
+    String? cursor,
+  }) async {
+    try {
+      final queryParameters = {
+        if (type != null) "type": type.name,
+        if (limit != null) "limit": limit,
+        if (cursor != null) "cursor": cursor
+      };
+      final response = await http.get(
+        Uri.parse(
+                '${Constants.api}/auction/category/${Get.find<AuctionsByCategoryController>().categoryId}')
+            .withQueryParameters(queryParameters),
+        headers: await Constants.headers,
+      );
+      // print('-----> getAuctions_response= $response');
+      if (response.statusCode == 200) {
+        final resbody = json.decode(response.body);
+        if (type == Status.live) {
+          Get.find<AuctionController>()
+              .updateLiveNextPage(newNextPage: resbody['data']['next_cursor']);
+        }
+        if (type == Status.scheduled) {
+          Get.find<AuctionController>().updateScheduledNextPage(
+              newNextPage: resbody['data']['next_cursor']);
+        }
+        return (resbody['data']['data'] as Iterable).map((e) {
+          return MyModel.fromJson(e);
+        }).toList();
       } else {
         throw 'can\'t fetch the auctions from the server';
       }
