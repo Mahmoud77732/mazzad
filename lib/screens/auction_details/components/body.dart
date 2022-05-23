@@ -17,16 +17,8 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Timer timer = Timer.periodic(
-    //   const Duration(seconds: 3),
-    //   (timer) {
-    //     print(
-    //         'this is the auction id::::${detailsController.argumentsValues!['id']}');
-    //     // AuctionController.recordUserBehavior(
-    //     //     auctionId: detailsController.argumentsValues!['id'],
-    //     //     action: "view");
-    //   },
-    // );
+    AuctionController.recordUserBehavior(
+        auctionId: detailsController.argumentsValues!['id'], action: "view");
     return ListView(
       children: <Widget>[
         ProductsCarousalSlider(),

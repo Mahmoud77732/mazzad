@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
+import '../../../controller/auction_controller.dart';
 import '../../../size_config.dart';
 
 class BidderCard extends StatefulWidget {
@@ -15,14 +16,8 @@ class BidderCard extends StatefulWidget {
 class BidderCardState extends State<BidderCard> {
   @override
   Widget build(BuildContext context) {
-    // Timer timer = Timer.periodic(
-    //   const Duration(seconds: 3),
-    //   (timer) {
-    //     print('this is the auction id::::${widget.auction_id}');
-    //     AuctionController.recordUserBehavior(
-    //         auctionId: widget.auction_id!, action: "attempt_to_bid");
-    //   },
-    // );
+    AuctionController.recordUserBehavior(
+        auctionId: widget.auction_id!, action: "attempt_to_bid");
     return Column(
       children: [
         Expanded(
