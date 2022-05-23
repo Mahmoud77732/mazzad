@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mazzad/screens/add_auction/add_auction_screen.dart';
 import 'package:mazzad/utils/logger.dart';
 
 import './screens/SignUp/signup_screen.dart';
-import './screens/add_product/add_product_screen.dart';
-import './screens/auction details/auction_details_screen.dart';
+import './screens/auction_details/auction_details_screen.dart';
 import './screens/auctions/auctions.dart';
-import './screens/bidders/main_bidders.dart';
 import './screens/categories/categories_screen.dart';
 import './screens/contact_us/contact_us_screen.dart';
 import './screens/edit_profile/edit_profile_screen.dart';
@@ -18,13 +17,12 @@ import './screens/otb/otb_screen.dart';
 import './screens/privacy_and_policy/privacy_and_policy_screen.dart';
 import './screens/profile/profile_screen.dart';
 import './screens/terms_of_use/terms_of_use_screen.dart';
+import 'screens/Bidders/main_bidders.dart';
 
-// take the settings from onGenerateRoute in GetMaterialApp
 final log = getLogger('Router');
 
 class Router {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
-    // // emoji class name - my info :D
     log.i('onGenerateRoute | name:${settings.name} ');
     switch (settings.name) {
       case OnBoardScreen.rountName:
@@ -44,19 +42,19 @@ class Router {
       case AuctionsScreen.routeName:
         return SlideRoute(page: const AuctionsScreen());
       case AuctionDetailsScreen.routeName:
-        return SlideRoute(page: const AuctionDetailsScreen());
+        return SlideRoute(page: AuctionDetailsScreen());
       case MainBidders.routeName:
         return SlideRoute(page: const MainBidders());
       case ContactUsScreen.routeName:
         return SlideRoute(page: const ContactUsScreen());
       case EditProfileScreen.routeName:
-        return SlideRoute(page: EditProfileScreen());
+        return SlideRoute(page: const EditProfileScreen());
       case TermsOfUseScreen.routeName:
         return SlideRoute(page: const TermsOfUseScreen());
       case PrivacyAndPolicy.routeName:
         return SlideRoute(page: const PrivacyAndPolicy());
-      case AddProductScreen.routeName:
-        return SlideRoute(page: const AddProductScreen());
+      case AddAuctionScreen.routeName:
+        return SlideRoute(page: AddAuctionScreen());
       case MyAuctionsScreen.routeName:
         return SlideRoute(page: MyAuctionsScreen());
 

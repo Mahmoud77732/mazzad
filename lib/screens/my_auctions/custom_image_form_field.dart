@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class CustomImageFormField extends StatelessWidget {
@@ -28,7 +29,9 @@ class CustomImageFormField extends StatelessWidget {
                     _pickedFile = File(file!.files.single.path!);
                     onChanged.call(_pickedFile!);
                   } catch (e) {
-                    print(e);
+                    if (kDebugMode) {
+                      print(e);
+                    }
                   }
                   // FilePickerResult? file = await FilePicker.platform
                   //     .pickFiles(type: FileType.image, allowMultiple: false);

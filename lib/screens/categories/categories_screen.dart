@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:mazzad/components/search_textfield.dart';
-import 'package:mazzad/constants.dart';
+import 'package:get/get.dart';
+import 'package:mazzad/controller/auctions_by_category_controller.dart';
+import 'package:mazzad/screens/auctions_category/auctions_by_category_screen.dart';
 
+import '../../components/category_button.dart';
+import '../../components/search_textfield.dart';
+import '../../constants.dart';
+import '../../controller/categories_controller.dart';
 import '../../size_config.dart';
 
 class CategoriesScreen extends StatelessWidget {
@@ -9,6 +14,8 @@ class CategoriesScreen extends StatelessWidget {
   static const routeName = '/categories_screen';
   @override
   Widget build(BuildContext context) {
+    AuctionsByCategoryController auctionsByCategoryController =
+        Get.find<AuctionsByCategoryController>();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -25,16 +32,38 @@ class CategoriesScreen extends StatelessWidget {
               height: getProportionateScreenHeight(20),
             ),
             Expanded(
-              child: GridView(
-                  children:
-                      List.generate(Constants.kDummyCategories.length, (index) {
-                    return Constants.kDummyCategories[index];
+              child: GetBuilder<CategoriesController>(
+                  init: CategoriesController(),
+                  builder: (categoryController) {
+                    return GridView(
+                      keyboardDismissBehavior:
+                          ScrollViewKeyboardDismissBehavior.onDrag,
+                      children: List.generate(
+                        categoryController.categories.length,
+                        (index) {
+                          // print(categoryController.categories[index].icon);
+                          return CategoryButton(
+                            color: categoryController.randomColor,
+                            icon: categoryController.categories[index].icon,
+                            onPress: () {
+                              auctionsByCategoryController.categoryName.value =
+                                  categoryController.categories[index].name;
+                              auctionsByCategoryController.updateCategoryId(
+                                  categoryController.categories[index].id);
+                              Get.to(() => const AuctionsByCategoryScreen());
+                            },
+                            name: categoryController.categories[index].name,
+                          );
+                        },
+                      ),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 4,
+                        childAspectRatio: 4 / 5,
+                      ),
+                      // shrinkWrap: true,
+                    );
                   }),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4,
-                  )
-                  // shrinkWrap: true,
-                  ),
             ),
           ],
         ),
@@ -42,5 +71,3 @@ class CategoriesScreen extends StatelessWidget {
     );
   }
 }
-//TODO: change the padding in categories item and dont remove the earch field padding
-

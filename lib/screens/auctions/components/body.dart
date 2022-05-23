@@ -1,6 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:mazzad/components/search_textfield.dart';
-import 'package:mazzad/constants.dart';
+import 'package:get/get.dart';
+import 'package:mazzad/components/auction_item.dart';
+import 'package:mazzad/controller/auction_controller.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+import '../../../components/search_textfield.dart';
+import '../../../constants.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -17,13 +23,12 @@ class _BodyState extends State<Body> {
     Tab(
       text: 'Scheduled',
     ),
-    Tab(
-      text: 'Upcoming',
-    ),
   ];
   int _selectedTabBar = 0;
+
   @override
   Widget build(BuildContext context) {
+    Get.put<AuctionController>(AuctionController());
     return DefaultTabController(
       length: _tabs.length,
       child: Padding(
@@ -67,17 +72,19 @@ class _BodyState extends State<Body> {
               child: Builder(
                 builder: (_) {
                   if (_selectedTabBar == 0) {
-                    return const Live();
+                    return Live();
                   } else if (_selectedTabBar == 1) {
-                    return const Scheduled();
-                  } else if (_selectedTabBar == 2) {
-                    return const UpComing();
+                    return Scheduled();
                   } else {
-                    return const Live();
+                    return Live();
                   }
                 },
               ),
             ),
+            Constants.kSmallVerticalSpacing,
+            Constants.kSmallVerticalSpacing,
+            Constants.kSmallVerticalSpacing,
+            Constants.kSmallVerticalSpacing,
           ],
         ),
       ),
@@ -86,58 +93,123 @@ class _BodyState extends State<Body> {
 }
 
 class Live extends StatelessWidget {
-  const Live({Key? key}) : super(key: key);
+  final RefreshController refreshController = RefreshController(
+    initialRefresh: false,
+  );
 
   @override
   Widget build(BuildContext context) {
-    return GridView(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisSpacing: Constants.kHorizontalSpacing,
-        mainAxisSpacing: Constants.kHorizontalSpacing / 2,
-        crossAxisCount: 2,
-      ),
-      children: List.generate(
-        Constants.kDummyLiveAuctionItems.length,
-        (index) => Constants.kDummyLiveAuctionItems[index],
-      ),
-    );
+    return GetBuilder<AuctionController>(
+        init: AuctionController(),
+        builder: (controller) {
+          return SmartRefresher(
+            enablePullUp: true,
+            onRefresh: () async {
+              if (kDebugMode) {
+                print('inside the onRefresh live auctions');
+              }
+              bool refresed = await controller.getLiveAuctions(isRefresh: true);
+              if (refresed) {
+                refreshController.refreshCompleted();
+              } else {
+                refreshController.refreshFailed();
+              }
+            },
+            onLoading: () async {
+              if (kDebugMode) {
+                print('inside the onloading live auctions');
+              }
+              bool refresed =
+                  await controller.getLiveAuctions(isRefresh: false);
+              if (refresed) {
+                if (kDebugMode) {
+                  print(
+                      'live data loaded successfully to the new to exsiting data');
+                }
+                refreshController.loadComplete();
+              } else {
+                if (kDebugMode) {
+                  print(
+                      'an err occured while loading the new live data to exsiting data');
+                }
+                refreshController.loadFailed();
+              }
+            },
+            controller: refreshController,
+            child: GridView.builder(
+              itemCount: controller.liveAuctionsLength.value,
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisSpacing: Constants.kHorizontalSpacing,
+                mainAxisSpacing: Constants.kHorizontalSpacing / 2,
+                crossAxisCount: 2,
+              ),
+              itemBuilder: (ctx, index) => AuctionItem(
+                myAuction: controller.liveAuctions[index].myAuction,
+              ),
+            ),
+          );
+        });
   }
 }
 
 class Scheduled extends StatelessWidget {
-  const Scheduled({Key? key}) : super(key: key);
-
+  Scheduled({Key? key}) : super(key: key);
+  final controller = Get.find<AuctionController>();
+  final RefreshController refreshController = RefreshController(
+    initialRefresh: false,
+  );
   @override
   Widget build(BuildContext context) {
-    return GridView(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: Constants.kHorizontalSpacing,
-        mainAxisSpacing: Constants.kHorizontalSpacing / 2,
-      ),
-      children: List.generate(
-        Constants.kDummyScheduledAuctionItems.length,
-        (index) => Constants.kDummyScheduledAuctionItems[index],
-      ),
-    );
-  }
-}
-
-class UpComing extends StatelessWidget {
-  const UpComing({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GridView(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: Constants.kHorizontalSpacing,
-        mainAxisSpacing: Constants.kHorizontalSpacing / 2,
-      ),
-      children: List.generate(
-        Constants.kDummyUpcomingAuctionItems.length,
-        (index) => Constants.kDummyUpcomingAuctionItems[index],
-      ),
-    );
+    return GetBuilder<AuctionController>(builder: (context) {
+      return SmartRefresher(
+        enablePullUp: true,
+        onRefresh: () async {
+          if (kDebugMode) {
+            print('inside the onRefresh Scheduled auctions');
+          }
+          bool refresed =
+              await controller.getScheduledAuctions(isRefresh: true);
+          if (refresed) {
+            refreshController.refreshCompleted();
+          } else {
+            refreshController.refreshFailed();
+          }
+        },
+        onLoading: () async {
+          if (kDebugMode) {
+            print('inside the onloading Scheduled auctions');
+          }
+          bool refresed =
+              await controller.getScheduledAuctions(isRefresh: false);
+          if (refresed) {
+            if (kDebugMode) {
+              print(
+                  'Scheduled data loaded successfully to the new to exsiting data');
+            }
+            refreshController.loadComplete();
+          } else {
+            if (kDebugMode) {
+              print(
+                  'an err occured while loading the new live data to exsiting data');
+            }
+            refreshController.loadFailed();
+          }
+        },
+        controller: refreshController,
+        child: GridView.builder(
+          itemCount: controller.scheduledAuctionsLength.value,
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisSpacing: Constants.kHorizontalSpacing,
+            mainAxisSpacing: Constants.kHorizontalSpacing / 2,
+            crossAxisCount: 2,
+          ),
+          itemBuilder: (ctx, index) => AuctionItem(
+            myAuction: controller.scheduledAuctions[index].myAuction,
+          ),
+        ),
+      );
+    });
   }
 }

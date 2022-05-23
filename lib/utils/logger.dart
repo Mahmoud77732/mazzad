@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 
 Logger getLogger(String className) =>
@@ -13,7 +14,9 @@ class SimpleLogPrinter extends LogPrinter {
     var color = PrettyPrinter.levelColors[event.level];
     var emoji = PrettyPrinter.levelEmojis[event.level];
     // emoji className -  u must update ur user token
-    print(color!('$emoji $className - ${event.message}'));
+    if (kDebugMode) {
+      print(color!('$emoji $className - ${event.message}'));
+    }
     throw UnimplementedError();
   }
 }
@@ -34,7 +37,7 @@ class SimpleLogPrinter extends LogPrinter {
 //   static void i(dynamic message) {
 //     logger.i(message);
 //   }
-
+ 
 //   //for debug message
 //   static void d(dynamic message) {
 //     logger.d(message);

@@ -1,12 +1,41 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mazzad/components/auction_item.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
-import 'components/category_button.dart';
-import 'models/bidder.dart';
+import './models/bidder/bidder.dart';
 import 'size_config.dart';
 
 class Constants {
+  static String get api => _api;
+  static String get clientSecret => _clientSecret;
+  static String get clientId => _clientId;
+
+  static const String _api = 'https://mazzad.unidevs.co/api';
+  static const String _clientSecret =
+      '331ONKkzjiVKT52ZeReYYN9xCjsQo4iCTPmNICvU';
+  static const String _clientId = '95f97367-73a9-475a-b817-16c0d567d697';
+  static Map<String, String> get authHeaders => {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      };
+  static Future<Map<String, String>> get profileHeader async => {
+        // "Authorization": "Bearer ${await AuthService.token}",
+        "Authorization":
+            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NWY5NzM2Ny03M2E5LTQ3NWEtYjgxNy0xNmMwZDU2N2Q2OTciLCJqdGkiOiI5YmU2YWU5NDkwMGI4ZTJkMzAyYWZjM2Q0NmI0YWVmMjM0OGI0MWFiMzA4MjBkYWE5YzE3MDk5Y2VhODJjN2VkM2Q3YWM0NTA5YjgzZjk5NCIsImlhdCI6MTY1MzE2ODgzNy4zMDU3NTgsIm5iZiI6MTY1MzE2ODgzNy4zMDU3NjIsImV4cCI6MTY4NDcwNDgzNy4yOTU1MDMsInN1YiI6IjEiLCJzY29wZXMiOlsiKiJdfQ.1rtdXSm4LjQLBgLEhUv-nEDzbL07q4ig8__WMUvvOH5Rihk9Sz885m9wjJWnLoJRcU5x8MAbKZH7YhySrZYGdObZHOgzUoiGs9151VR2PZm27A7qryKZC_6LPge2S1K1ZDA9I6BgFtZ83xm1ewqUKw6MtEDv27_QOsY52G4f0kJbsn0PBJ6hnQzKG8gQ6Lk4s6Xt5hc3X0sL4ydb_litg6znfvCBQgLQemb3GeVGaqyO9dDkJxLYAIzdnRE-XGWVGBPYFzH644xT2_OLuKc0QxxHG4tJBM_L1Re1OSN1_nGgU0RuIxGDmS5hpjtLX_cP_qLrFD0GzjWuiAONBEK6DYJ4P9zZQfWQPxT0ihyo4FKJlfr79zrHUYmhzFYUTsxPv77CHC-uoxcBtAKsMK184Lz6BKqWYGhF3NMrlBTE2Os1HaNWOgWMLGRAGCh7WI-WdWlqeyHYjQIy0pg1hjdgAARdVwvGIynYK_EYQjnIHA67ZnkGJ9tvzeUoYXCUJbLG7A89Z4SyJT6wqOBI0xhs3om55TBickoJ-qcI9Y149wVS8bjDL5vPoM0p3QqPhI48IHBisQ86Z13GE3wS4--lDJ7zelwon2z5cT4trvYNJPVNuafYLbkc43RA4WNsGJtCTBQAw6d4kq5oELWeN_Sb-WqG3x2VSESl1sDwoG-D3mY",
+      };
+  static Future<Map<String, String>> get headers async => {
+        // "Authorization": "Bearer ${await AuthService.token}",
+        "Authorization":
+            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NWY5NzM2Ny03M2E5LTQ3NWEtYjgxNy0xNmMwZDU2N2Q2OTciLCJqdGkiOiI5YmU2YWU5NDkwMGI4ZTJkMzAyYWZjM2Q0NmI0YWVmMjM0OGI0MWFiMzA4MjBkYWE5YzE3MDk5Y2VhODJjN2VkM2Q3YWM0NTA5YjgzZjk5NCIsImlhdCI6MTY1MzE2ODgzNy4zMDU3NTgsIm5iZiI6MTY1MzE2ODgzNy4zMDU3NjIsImV4cCI6MTY4NDcwNDgzNy4yOTU1MDMsInN1YiI6IjEiLCJzY29wZXMiOlsiKiJdfQ.1rtdXSm4LjQLBgLEhUv-nEDzbL07q4ig8__WMUvvOH5Rihk9Sz885m9wjJWnLoJRcU5x8MAbKZH7YhySrZYGdObZHOgzUoiGs9151VR2PZm27A7qryKZC_6LPge2S1K1ZDA9I6BgFtZ83xm1ewqUKw6MtEDv27_QOsY52G4f0kJbsn0PBJ6hnQzKG8gQ6Lk4s6Xt5hc3X0sL4ydb_litg6znfvCBQgLQemb3GeVGaqyO9dDkJxLYAIzdnRE-XGWVGBPYFzH644xT2_OLuKc0QxxHG4tJBM_L1Re1OSN1_nGgU0RuIxGDmS5hpjtLX_cP_qLrFD0GzjWuiAONBEK6DYJ4P9zZQfWQPxT0ihyo4FKJlfr79zrHUYmhzFYUTsxPv77CHC-uoxcBtAKsMK184Lz6BKqWYGhF3NMrlBTE2Os1HaNWOgWMLGRAGCh7WI-WdWlqeyHYjQIy0pg1hjdgAARdVwvGIynYK_EYQjnIHA67ZnkGJ9tvzeUoYXCUJbLG7A89Z4SyJT6wqOBI0xhs3om55TBickoJ-qcI9Y149wVS8bjDL5vPoM0p3QqPhI48IHBisQ86Z13GE3wS4--lDJ7zelwon2z5cT4trvYNJPVNuafYLbkc43RA4WNsGJtCTBQAw6d4kq5oELWeN_Sb-WqG3x2VSESl1sDwoG-D3mY",
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "OS_Name": Platform.operatingSystem,
+        "OS_Version": Platform.operatingSystemVersion,
+        "App_Version":
+            await PackageInfo.fromPlatform().then((value) => value.version),
+      };
   // Colors
   static const kPrimaryColor = Color(0xFFFF7643);
   static const kSecondaryColor = Color(0xFFFF7643);
@@ -112,599 +141,50 @@ class Constants {
     'assets/images/product.jpeg',
     'assets/images/product1.png',
   ];
-  static List<CategoryButton> kDummyCategories = [
-    CategoryButton(
-      color: Colors.amber,
-      icon: Icons.category,
-      onPress: () {},
-      name: 'All',
-    ),
-    CategoryButton(
-      color: Colors.pinkAccent,
-      icon: Icons.ac_unit,
-      onPress: () {},
-      name: 'Snow',
-    ),
-    CategoryButton(
-      color: Colors.purpleAccent,
-      icon: Icons.chair,
-      onPress: () {},
-      name: 'Furniture',
-    ),
-    CategoryButton(
-      color: Colors.orange,
-      icon: Icons.laptop,
-      onPress: () {},
-      name: 'Technology',
-    ),
-    CategoryButton(
-      color: Colors.blueAccent,
-      icon: Icons.book,
-      onPress: () {},
-      name: 'Books',
-    ),
-    CategoryButton(
-      color: Colors.amber,
-      icon: Icons.category,
-      onPress: () {},
-      name: 'All',
-    ),
-    CategoryButton(
-      color: Colors.pinkAccent,
-      icon: Icons.ac_unit,
-      onPress: () {},
-      name: 'Snow',
-    ),
-    CategoryButton(
-      color: Colors.purpleAccent,
-      icon: Icons.chair,
-      onPress: () {},
-      name: 'Furniture',
-    ),
-    CategoryButton(
-      color: Colors.orange,
-      icon: Icons.laptop,
-      onPress: () {},
-      name: 'Technology',
-    ),
-    CategoryButton(
-      color: Colors.blueAccent,
-      icon: Icons.book,
-      onPress: () {},
-      name: 'Books',
-    ),
-    CategoryButton(
-      color: Colors.amber,
-      icon: Icons.category,
-      onPress: () {},
-      name: 'All',
-    ),
-    CategoryButton(
-      color: Colors.pinkAccent,
-      icon: Icons.ac_unit,
-      onPress: () {},
-      name: 'Snow',
-    ),
-    CategoryButton(
-      color: Colors.purpleAccent,
-      icon: Icons.chair,
-      onPress: () {},
-      name: 'Furniture',
-    ),
-    CategoryButton(
-      color: Colors.orange,
-      icon: Icons.laptop,
-      onPress: () {},
-      name: 'Technology',
-    ),
-    CategoryButton(
-      color: Colors.blueAccent,
-      icon: Icons.book,
-      onPress: () {},
-      name: 'Books',
-    ),
-    CategoryButton(
-      color: Colors.amber,
-      icon: Icons.category,
-      onPress: () {},
-      name: 'All',
-    ),
-    CategoryButton(
-      color: Colors.pinkAccent,
-      icon: Icons.ac_unit,
-      onPress: () {},
-      name: 'Snow',
-    ),
-    CategoryButton(
-      color: Colors.purpleAccent,
-      icon: Icons.chair,
-      onPress: () {},
-      name: 'Furniture',
-    ),
-    CategoryButton(
-      color: Colors.orange,
-      icon: Icons.laptop,
-      onPress: () {},
-      name: 'Technology',
-    ),
-    CategoryButton(
-      color: Colors.blueAccent,
-      icon: Icons.book,
-      onPress: () {},
-      name: 'Books',
-    ),
-  ];
-  static List<AuctionItem> kDummyLiveAuctionItems = [
-    const AuctionItem(
-      image: 'assets/images/product.jpeg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.live,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider1.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.live,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider2.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.live,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider3.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.live,
-    ),
-    const AuctionItem(
-      image: 'assets/images/product.jpeg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.live,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider1.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.live,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider2.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.live,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider3.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.live,
-    ),
-    const AuctionItem(
-      image: 'assets/images/product.jpeg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.live,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider1.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.live,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider2.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.live,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider3.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.live,
-    ),
-    const AuctionItem(
-      image: 'assets/images/product.jpeg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.live,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider1.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.live,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider2.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.live,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider3.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.live,
-    ),
-  ];
-  static List<AuctionItem> kDummyScheduledAuctionItems = [
-    const AuctionItem(
-      image: 'assets/images/product.jpeg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.scheuled,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider1.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.scheuled,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider2.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.scheuled,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider3.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.scheuled,
-    ),
-    const AuctionItem(
-      image: 'assets/images/product.jpeg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.scheuled,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider1.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.scheuled,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider2.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.scheuled,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider3.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.scheuled,
-    ),
-    const AuctionItem(
-      image: 'assets/images/product.jpeg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.scheuled,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider1.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.scheuled,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider2.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.scheuled,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider3.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.scheuled,
-    ),
-    const AuctionItem(
-      image: 'assets/images/product.jpeg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.scheuled,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider1.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.scheuled,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider2.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.scheuled,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider3.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.scheuled,
-    ),
-  ];
-  static List<AuctionItem> kDummyUpcomingAuctionItems = [
-    const AuctionItem(
-      image: 'assets/images/product.jpeg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.soon,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider1.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.soon,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider2.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.soon,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider3.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.soon,
-    ),
-    const AuctionItem(
-      image: 'assets/images/product.jpeg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.soon,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider1.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.soon,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider2.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.soon,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider3.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.soon,
-    ),
-    const AuctionItem(
-      image: 'assets/images/product.jpeg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.soon,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider1.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.soon,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider2.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.soon,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider3.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.soon,
-    ),
-    const AuctionItem(
-      image: 'assets/images/product.jpeg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.soon,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider1.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.soon,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider2.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.soon,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider3.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.soon,
-    ),
-    const AuctionItem(
-      image: 'assets/images/product.jpeg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.soon,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider1.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.soon,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider2.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.soon,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider3.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.soon,
-    ),
-  ];
-  static List<AuctionItem> kDummyAuctionItems = [
-    const AuctionItem(
-      image: 'assets/images/product.jpeg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.scheuled,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider1.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.soon,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider2.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.live,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider3.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.scheuled,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider1.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.live,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider2.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.live,
-    ),
-    const AuctionItem(
-      image: 'assets/images/product.jpeg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.scheuled,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider1.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.soon,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider2.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.live,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider3.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.scheuled,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider1.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.live,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider2.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.live,
-    ),
-    const AuctionItem(
-      image: 'assets/images/product.jpeg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.scheuled,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider1.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.soon,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider2.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.live,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider3.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.scheuled,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider1.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.live,
-    ),
-    const AuctionItem(
-      image: 'assets/images/slider2.jpg',
-      name: 'Best controller ever',
-      currentBid: 500,
-      status: Status.live,
-    ),
-  ];
+
   static List<Bidder> kDummyTopFiveBidders = [
     Bidder(
         name: 'Bidder Name',
         price: '1080',
         date: DateTime.now(),
-        image: 'assets/images/profile_pic.jpg'),
+        image: 'assets/images/profile_pic.png'),
     Bidder(
         name: 'Bidder Name',
         price: '1080',
         date: DateTime.now(),
-        image: 'assets/images/profile_pic.jpg'),
+        image: 'assets/images/profile_pic.png'),
     Bidder(
         name: 'Bidder Name',
         price: '1080',
         date: DateTime.now(),
-        image: 'assets/images/profile_pic.jpg'),
+        image: 'assets/images/profile_pic.png'),
     Bidder(
         name: 'Bidder Name',
         price: '1080',
         date: DateTime.now(),
-        image: 'assets/images/profile_pic.jpg'),
+        image: 'assets/images/profile_pic.png'),
     Bidder(
         name: 'Bidder Name',
         price: '1080',
         date: DateTime.now(),
-        image: 'assets/images/profile_pic.jpg'),
+        image: 'assets/images/profile_pic.png'),
   ];
   static List<Bidder> kDummyBiddersList = [
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
-    Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
+    const Bidder(name: 'Malia Renault', price: '1080'),
   ];
 }

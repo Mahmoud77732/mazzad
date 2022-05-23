@@ -1,45 +1,60 @@
 import 'dart:io';
 
+import 'package:cron/cron.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:logger/logger.dart';
-import 'package:mazzad/constants.dart';
-import 'package:mazzad/firebase_options.dart';
-import 'package:mazzad/models/push_notification.dart';
-import 'package:mazzad/screens/onboard/on_board_screen.dart';
-import 'package:overlay_support/overlay_support.dart';
+import 'package:mazzad/controller/auction_controller.dart';
+import 'package:mazzad/controller/auctions_by_category_controller.dart';
+import 'package:mazzad/controller/categories_controller.dart';
+import 'package:mazzad/controller/details_controller.dart';
+import 'package:mazzad/controller/profile_controller.dart';
+import 'package:mazzad/controller/text_field_controller.dart';
+import 'package:mazzad/services/fcm_service.dart';
 
+import './/constants.dart';
+import './/firebase_options.dart';
+import './/screens/home/home_screen.dart';
+import './/screens/login/login_screen.dart';
+import './/services/auth_service.dart';
 import './router.dart' as router;
 
 // the handler of Bckg message its work on its isloate ' on its own thread '
 // receive message when its on bckg
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
-  print('A Background message just showed up :  ${message.messageId}');
+  if (kDebugMode) {
+    print('A Background message just showed up :  ${message.messageId}');
+  }
 }
 
+bool? initScreen;
 void main() async {
   Logger.level = Level.error;
+  await GetStorage.init();
 
-// firebase intilaization
+  HttpOverrides.global = MyHttpOverrides();
+  // firebase intilaization
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  registerNotifications();
+  FcmService.registerNotifications(_firebaseMessagingBackgroundHandler);
 
-  // make the statusbar transparent for full visability
+  // transparent statusbar
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
     ),
   );
 
-  // to make the red error screen a bit funnier :DD
+  // customize red err screen
   ErrorWidget.builder = (FlutterErrorDetails details) {
     return Material(
       child: Container(
@@ -58,7 +73,22 @@ void main() async {
     );
   };
 
-  // set the preferred orientations for our app , we make only portrait
+  var cron = Cron();
+
+  // update access_token each 20 min
+  cron.schedule(
+    Schedule.parse('*/20 * * * *'),
+    () async {
+      if (await AuthService.isLoggedIn) {
+        AuthService.updateToken(refreshToken: await AuthService.refreshToken);
+        if (kDebugMode) {
+          print('every 1 minutes');
+        }
+      }
+    },
+  );
+
+  // portrait only
   SystemChrome.setPreferredOrientations(
     [
       DeviceOrientation.portraitUp,
@@ -73,76 +103,66 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  Future<Widget> getUser() async {
+    if (initScreen == null || initScreen == false) {
+      return const HomeScreen();
+    }
+
+    if (await AuthService.isLoggedIn) {
+      int duration = await AuthService.box.read("duration");
+      DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(duration);
+      if (DateTime.now().isAfter(dateTime)) {
+        String refreshToken = AuthService.box.read("refresh_token").toString();
+        AuthService.updateToken(refreshToken: refreshToken);
+      }
+      return const HomeScreen();
+    }
+
+    return LoginScreen();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return OverlaySupport(
-      child: GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: const OnBoardScreen(),
-        theme: Constants.kMazzadTheme,
-        title: 'Mazzad',
-        onGenerateRoute: router.Router.onGenerateRoute,
+    return GetMaterialApp(
+      initialBinding: Binding(),
+      debugShowCheckedModeBanner: false,
+      home: FutureBuilder(
+        future: getUser(),
+        builder: (context, snapshot) => !snapshot.hasData
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : snapshot.connectionState == ConnectionState.done
+                ? snapshot.data as Widget
+                : const Center(
+                    child: CircularProgressIndicator(),
+                  ),
       ),
+      theme: Constants.kMazzadTheme,
+      title: 'Mazzad',
+      onGenerateRoute: router.Router.onGenerateRoute,
     );
   }
 }
 
-void registerNotifications() async {
-  FirebaseMessaging messaging = FirebaseMessaging.instance;
-
-  NotificationSettings status = await messaging.getNotificationSettings();
-
-  if (status.authorizationStatus == AuthorizationStatus.notDetermined) {
-    await messaging.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
+class Binding extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut(() => CategoriesController(), fenix: true);
+    Get.lazyPut(() => AuctionController(), fenix: true);
+    Get.lazyPut(() => TextFieldController(), fenix: true);
+    Get.lazyPut(() => ProfileController(), fenix: true);
+    Get.lazyPut(() => DetailsController(), fenix: true);
+    Get.lazyPut(() => AuctionsByCategoryController(), fenix: true);
   }
+}
 
-  await FirebaseMessaging.instance.subscribeToTopic(
-    Platform.isAndroid
-        ? "android"
-        : Platform.isIOS
-            ? "ios"
-            : "unknown_platform",
-  );
-
-  // the message can be handled via the onBackgroundMessage handler
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
-  // listen to foreground stream when the user is authorized
-  if (status.authorizationStatus == AuthorizationStatus.authorized) {
-    FirebaseMessaging.onMessage.listen(
-      (RemoteMessage message) {
-        if (message.notification != null) {
-          RemoteNotification? notification = message.notification;
-          AndroidNotification? android = message.notification?.android;
-          if (notification != null && android != null) {
-            PushNotification pushNotification = PushNotification(
-              body: message.notification!.body,
-              title: message.notification!.title,
-            );
-            // from the overlay_support, give styling to the notification
-            // showSimpleNotification(
-            //   Text(pushNotification.title!),
-            //   leading: const Icon(Icons.book),
-            //   subtitle: Text(pushNotification.body!),
-            //   duration: const Duration(seconds: 2),
-            // );
-
-          } else {
-            print('the message have no body ${message.notification}');
-          }
-        }
-      },
-    );
-  } else {
-    print(status.authorizationStatus.toString());
-    print('User declined or has not accepted permission');
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }

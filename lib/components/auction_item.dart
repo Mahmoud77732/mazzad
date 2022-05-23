@@ -1,27 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mazzad/screens/auction%20details/auction_details_screen.dart';
+import 'package:mazzad/components/auction_status.dart';
+import 'package:mazzad/screens/auction_details/auction_details_screen.dart';
 
-import '../constants.dart';
+import '../controller/details_controller.dart';
+import '../models/auction/auction.dart';
 import '../size_config.dart';
 
 class AuctionItem extends StatelessWidget {
-  const AuctionItem({
-    Key? key,
-    required this.name,
-    required this.image,
-    required this.currentBid,
-    required this.status,
-  }) : super(key: key);
-  final String image;
-  final String name;
-  final double currentBid;
-  final Status status;
+  final Auction myAuction;
+
+  const AuctionItem({Key? key, required this.myAuction}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed(AuctionDetailsScreen.routeName);
+        Get.find<DetailsController>().argumentsValues = {
+          'name': myAuction.name,
+          'description': myAuction.description,
+          'image': myAuction.images,
+          'current_bid': myAuction.initial_price,
+          'status': myAuction.type,
+          'date_time': myAuction.end_date,
+          'id': myAuction.id
+        };
+        Get.toNamed(
+          AuctionDetailsScreen.routeName,
+        );
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
@@ -31,8 +37,8 @@ class AuctionItem extends StatelessWidget {
             Expanded(
               flex: 10,
               child: Center(
-                child: Image.asset(
-                  image,
+                child: Image.network(
+                  myAuction.images[0],
                   fit: BoxFit.fitWidth,
                 ),
               ),
@@ -45,19 +51,21 @@ class AuctionItem extends StatelessWidget {
                   const Spacer(
                     flex: 1,
                   ),
-                  //status == Status.live ?
                   AuctionStatus(
-                    status: status,
+                    status: myAuction.type,
+                    endDate: myAuction.end_date,
                   ),
                   const Spacer(
                     flex: 1,
                   ),
                   Text(
-                    name,
+                    myAuction.name,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: getProportionateScreenHeight(14),
                     ),
+                    maxLines: 1,
+                    overflow: TextOverflow.clip,
                   ),
                   const Spacer(
                     flex: 2,
@@ -70,7 +78,7 @@ class AuctionItem extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '${currentBid.toStringAsFixed(0)} \$',
+                    '${myAuction.initial_price.toStringAsFixed(0)} \$',
                     style: TextStyle(
                       color: Colors.grey,
                       fontSize: getProportionateScreenHeight(14),
@@ -96,61 +104,6 @@ class AuctionItem extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-enum Status { live, scheuled, soon }
-
-class AuctionStatus extends StatelessWidget {
-  const AuctionStatus({
-    Key? key,
-    required this.status,
-  }) : super(key: key);
-  final Status status;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        color: status == Status.live
-            ? Colors.red.withOpacity(0.2)
-            : status == Status.scheuled
-                ? Colors.green.withOpacity(0.2)
-                : Constants.kPrimaryColor.withOpacity(0.2),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          status == Status.live
-              ? const CircleAvatar(
-                  radius: 3,
-                  backgroundColor: Colors.red,
-                )
-              : const SizedBox(),
-          status == Status.live
-              ? SizedBox(
-                  width: getProportionateScreenWidth(5),
-                )
-              : const SizedBox(),
-          Text(
-            status == Status.live
-                ? 'Live'
-                : status == Status.scheuled
-                    ? "12h : 32m : 12s"
-                    : "Soon",
-            style: TextStyle(
-              color: status == Status.live
-                  ? Colors.red
-                  : status == Status.scheuled
-                      ? Colors.green
-                      : Constants.kPrimaryColor,
-              fontSize: getProportionateScreenHeight(14),
-            ),
-          ),
-        ],
       ),
     );
   }

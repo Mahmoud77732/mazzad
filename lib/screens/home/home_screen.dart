@@ -1,11 +1,12 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mazzad/screens/add_auction/add_auction_screen.dart';
 
-import './/constants.dart';
-import './/screens/add_product/add_product_screen.dart';
-import './/screens/auctions/auctions.dart';
-import './/screens/profile/profile_screen.dart';
+import '../../constants.dart';
+import '../../screens/auctions/auctions.dart';
+import '../../screens/profile/profile_screen.dart';
+import '../../size_config.dart';
 // import 'package:mazzad/screens/shop/shop_screen.dart';
 
 import '../Shop/shop_screen.dart';
@@ -30,11 +31,12 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Widget> navPages = [
     const Body(),
     const AuctionsScreen(),
-    const ShopScreen(),
+    ShopScreen(),
     const ProfileScreen(),
   ];
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       extendBody: true,
       body: navPages[_bottomNavIndex],
@@ -58,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: FloatingActionButton(
           backgroundColor: Constants.kPrimaryColor,
           onPressed: () {
-            Get.toNamed(AddProductScreen.routeName);
+            Get.toNamed(AddAuctionScreen.routeName);
           },
           child: const Icon(Icons.add),
         ),

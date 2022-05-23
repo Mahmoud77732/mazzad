@@ -1,7 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:mazzad/services/validator.dart';
 
-import 'custom_image_form_field.dart';
+import './custom_image_form_field.dart';
+import '../../services/validator.dart';
 
 class MyAuctionsScreen extends StatelessWidget {
   MyAuctionsScreen({Key? key}) : super(key: key);
@@ -32,7 +33,9 @@ class MyAuctionsScreen extends StatelessWidget {
                   if (value == null || value.isEmpty || !value.isValidEmail) {
                     return "Full Name field is required";
                   }
-                  print(value.isValidEmail);
+                  if (kDebugMode) {
+                    print(value.isValidEmail);
+                  }
                   return null;
                 },
               ),
@@ -45,7 +48,9 @@ class MyAuctionsScreen extends StatelessWidget {
                   if (value == null || value.isEmpty || !value.isValidName) {
                     return "Full Name field is required";
                   }
-                  print(value.isValidEmail);
+                  if (kDebugMode) {
+                    print(value.isValidEmail);
+                  }
                   return null;
                 },
               ),
@@ -59,9 +64,13 @@ class MyAuctionsScreen extends StatelessWidget {
               TextButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      print('all valid');
+                      if (kDebugMode) {
+                        print('all valid');
+                      }
                     } else {
-                      print('its not valid');
+                      if (kDebugMode) {
+                        print('its not valid');
+                      }
                     }
                   },
                   child: const Text('press here')),
@@ -107,12 +116,7 @@ class InputTextWidget extends StatelessWidget {
                   ),
                 ),
                 child: TextField(
-                  // new line
-                  // validator: validator, // use validator in [TextFormField]
-                  // Notify the FormField State of Changes
                   onChanged: (String value) {
-                    //update the formfield stae with my input value
-
                     formFieldState.didChange(value);
                   },
                   controller: inputController,

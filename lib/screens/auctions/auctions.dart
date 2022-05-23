@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mazzad/screens/auctions/components/body.dart';
+
+import '../../screens/auctions/components/body.dart';
 
 class AuctionsScreen extends StatelessWidget {
   const AuctionsScreen({Key? key}) : super(key: key);

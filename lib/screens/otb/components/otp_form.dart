@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mazzad/components/default_button.dart';
-import 'package:mazzad/screens/home/home_screen.dart';
 
+import '../../../components/default_button.dart';
 import '../../../constants.dart';
+import '../../../screens/home/home_screen.dart';
 import '../../../size_config.dart';
 
 class OTPForm extends StatefulWidget {

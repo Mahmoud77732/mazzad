@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import './/constants.dart';
-import './/size_config.dart';
 import './otp_form.dart';
+import '../../../constants.dart';
+import '../../../size_config.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);

@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mazzad/constants.dart';
-import 'package:mazzad/size_config.dart';
+import 'package:get/get.dart';
+import 'package:mazzad/controller/home_controller.dart';
+
+import '../../constants.dart';
+import '../../size_config.dart';
 
 class ShopScreen extends StatelessWidget {
   static const routeName = '/shop_screen';
+  final ctrl = Get.put<HomeController>(HomeController());
 
-  const ShopScreen({Key? key}) : super(key: key);
+  ShopScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    ctrl.getSlider();
     return Scaffold(
       appBar: AppBar(
         title: const Text(

@@ -11,7 +11,9 @@ class NotificationsScreen extends StatelessWidget {
           'Notifications',
         ),
       ),
-      body: ListView(),
+      body: ListView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+      ),
     );
   }
 }
