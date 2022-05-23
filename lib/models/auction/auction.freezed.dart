@@ -20,6 +20,7 @@ Auction _$AuctionFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Auction {
+  int get id => throw _privateConstructorUsedError;
   int get category_id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
@@ -40,7 +41,8 @@ abstract class $AuctionCopyWith<$Res> {
   factory $AuctionCopyWith(Auction value, $Res Function(Auction) then) =
       _$AuctionCopyWithImpl<$Res>;
   $Res call(
-      {int category_id,
+      {int id,
+      int category_id,
       String name,
       String description,
       List<String> images,
@@ -61,6 +63,7 @@ class _$AuctionCopyWithImpl<$Res> implements $AuctionCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? category_id = freezed,
     Object? name = freezed,
     Object? description = freezed,
@@ -72,6 +75,10 @@ class _$AuctionCopyWithImpl<$Res> implements $AuctionCopyWith<$Res> {
     Object? keywords = freezed,
   }) {
     return _then(_value.copyWith(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       category_id: category_id == freezed
           ? _value.category_id
           : category_id // ignore: cast_nullable_to_non_nullable
@@ -119,7 +126,8 @@ abstract class _$$_AuctionCopyWith<$Res> implements $AuctionCopyWith<$Res> {
       __$$_AuctionCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int category_id,
+      {int id,
+      int category_id,
       String name,
       String description,
       List<String> images,
@@ -141,6 +149,7 @@ class __$$_AuctionCopyWithImpl<$Res> extends _$AuctionCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? category_id = freezed,
     Object? name = freezed,
     Object? description = freezed,
@@ -152,6 +161,10 @@ class __$$_AuctionCopyWithImpl<$Res> extends _$AuctionCopyWithImpl<$Res>
     Object? keywords = freezed,
   }) {
     return _then(_$_Auction(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       category_id: category_id == freezed
           ? _value.category_id
           : category_id // ignore: cast_nullable_to_non_nullable
@@ -196,7 +209,8 @@ class __$$_AuctionCopyWithImpl<$Res> extends _$AuctionCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Auction extends _Auction {
   const _$_Auction(
-      {required this.category_id,
+      {this.id = -1,
+      required this.category_id,
       required this.name,
       required this.description,
       required final List<String> images,
@@ -212,6 +226,9 @@ class _$_Auction extends _Auction {
   factory _$_Auction.fromJson(Map<String, dynamic> json) =>
       _$$_AuctionFromJson(json);
 
+  @override
+  @JsonKey()
+  final int id;
   @override
   final int category_id;
   @override
@@ -242,7 +259,7 @@ class _$_Auction extends _Auction {
 
   @override
   String toString() {
-    return 'Auction(category_id: $category_id, name: $name, description: $description, images: $images, initial_price: $initial_price, start_date: $start_date, end_date: $end_date, type: $type, keywords: $keywords)';
+    return 'Auction(id: $id, category_id: $category_id, name: $name, description: $description, images: $images, initial_price: $initial_price, start_date: $start_date, end_date: $end_date, type: $type, keywords: $keywords)';
   }
 
   @override
@@ -250,6 +267,7 @@ class _$_Auction extends _Auction {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Auction &&
+            const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality()
                 .equals(other.category_id, category_id) &&
             const DeepCollectionEquality().equals(other.name, name) &&
@@ -269,6 +287,7 @@ class _$_Auction extends _Auction {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(category_id),
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(description),
@@ -292,7 +311,8 @@ class _$_Auction extends _Auction {
 
 abstract class _Auction extends Auction {
   const factory _Auction(
-      {required final int category_id,
+      {final int id,
+      required final int category_id,
       required final String name,
       required final String description,
       required final List<String> images,
@@ -305,6 +325,8 @@ abstract class _Auction extends Auction {
 
   factory _Auction.fromJson(Map<String, dynamic> json) = _$_Auction.fromJson;
 
+  @override
+  int get id => throw _privateConstructorUsedError;
   @override
   int get category_id => throw _privateConstructorUsedError;
   @override

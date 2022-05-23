@@ -145,12 +145,7 @@ class Live extends StatelessWidget {
                 crossAxisCount: 2,
               ),
               itemBuilder: (ctx, index) => AuctionItem(
-                end_date: controller.liveAuctions[index].end_date,
-                name: controller.liveAuctions[index].name,
-                description: controller.liveAuctions[index].description,
-                image: controller.liveAuctions[index].image,
-                currentBid: controller.liveAuctions[index].currentBid,
-                status: controller.liveAuctions[index].status,
+                myAuction: controller.liveAuctions[index].myAuction,
               ),
             ),
           );
@@ -211,12 +206,7 @@ class Scheduled extends StatelessWidget {
             crossAxisCount: 2,
           ),
           itemBuilder: (ctx, index) => AuctionItem(
-            end_date: controller.scheduledAuctions[index].end_date,
-            name: controller.scheduledAuctions[index].name,
-            description: controller.liveAuctions[index].description,
-            image: controller.scheduledAuctions[index].image,
-            currentBid: controller.scheduledAuctions[index].currentBid,
-            status: controller.scheduledAuctions[index].status,
+            myAuction: controller.scheduledAuctions[index].myAuction,
           ),
         ),
       );

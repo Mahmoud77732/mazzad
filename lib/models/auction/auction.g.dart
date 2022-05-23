@@ -7,6 +7,7 @@ part of 'auction.dart';
 // **************************************************************************
 
 _$_Auction _$$_AuctionFromJson(Map<String, dynamic> json) => _$_Auction(
+      id: json['id'] as int? ?? -1,
       category_id: json['category_id'] as int,
       name: json['name'] as String,
       description: json['description'] as String,
@@ -22,6 +23,7 @@ _$_Auction _$$_AuctionFromJson(Map<String, dynamic> json) => _$_Auction(
 
 Map<String, dynamic> _$$_AuctionToJson(_$_Auction instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'category_id': instance.category_id,
       'name': instance.name,
       'description': instance.description,

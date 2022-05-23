@@ -3,11 +3,14 @@ import 'package:mazzad/components/default_button.dart';
 import 'package:mazzad/constants.dart';
 import 'package:mazzad/size_config.dart';
 
+import '../../../controller/auction_controller.dart';
+
 class BottomForm extends StatelessWidget {
   const BottomForm({
     Key? key,
+    required this.auction_id,
   }) : super(key: key);
-
+  final int? auction_id;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -56,7 +59,10 @@ class BottomForm extends StatelessWidget {
               Constants.kSmallHorizontalSpacing,
               Expanded(
                 child: DefaultButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    AuctionController.recordUserBehavior(
+                        auctionId: auction_id!, action: "bid");
+                  },
                   text: 'Bid',
                 ),
               )

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
 
-import '../../components/auction_item.dart';
+import '../../components/auction_status.dart';
 import '../../components/components.dart';
 import '../../components/default_button.dart';
 import '../../constants.dart';

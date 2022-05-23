@@ -4,8 +4,8 @@ import '../../../constants.dart';
 import '../../../size_config.dart';
 
 class BidderCard extends StatefulWidget {
-  const BidderCard({Key? key}) : super(key: key);
-
+  const BidderCard({Key? key, required this.auction_id}) : super(key: key);
+  final int? auction_id;
   @override
   State<StatefulWidget> createState() {
     return BidderCardState();
@@ -15,6 +15,14 @@ class BidderCard extends StatefulWidget {
 class BidderCardState extends State<BidderCard> {
   @override
   Widget build(BuildContext context) {
+    // Timer timer = Timer.periodic(
+    //   const Duration(seconds: 3),
+    //   (timer) {
+    //     print('this is the auction id::::${widget.auction_id}');
+    //     AuctionController.recordUserBehavior(
+    //         auctionId: widget.auction_id!, action: "attempt_to_bid");
+    //   },
+    // );
     return Column(
       children: [
         Expanded(
@@ -31,7 +39,7 @@ class BidderCardState extends State<BidderCard> {
                     backgroundColor: Colors.transparent,
                     backgroundImage: AssetImage(
                         Constants.kDummyBiddersList[index].image ??
-                            "assets/images/profile_pic.jpg"),
+                            "assets/images/profile_pic.png"),
                   ),
                   title: Text(
                     Constants.kDummyBiddersList[index].name ?? "unkwon",
