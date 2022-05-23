@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mazzad/controller/my_auctions_controller.dart';
+import 'package:mazzad/models/profile/profile.dart';
 
 import './big_clipper.dart';
 import '../../../constants.dart';
@@ -14,18 +16,33 @@ import '../../../size_config.dart';
 import '../../login/login_screen.dart';
 import '../clip_shadow_path.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
   const Body({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  var isLoading = true.obs;
+  ProfileController? profileController;
+
+  @override
+  void didChangeDependencies() {
+    profileController = Get.find<ProfileController>();
+    isLoading.value = false;
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: GetBuilder<ProfileController>(
-          init: ProfileController(),
-          builder: (controller) {
-            return Column(
+    // MyAuctionsController myAuctionsController=Get.find<MyAuctionsController>();
+    return (isLoading.value)
+        ? const Center(child: CircularProgressIndicator())
+        : SingleChildScrollView(
+            child: Column(
               children: [
                 SizedBox(
                   height: SizeConfig.screenHeight - 96,
@@ -123,7 +140,8 @@ class Body extends StatelessWidget {
                               height: getProportionateScreenHeight(15),
                             ),
                             Text(
-                              controller.myProfile!.value.name ?? "user",
+                              profileController!.myProfile!.value.name ??
+                                  "user",
                               style: TextStyle(
                                 fontSize: getProportionateScreenHeight(20),
                                 color: Colors.white,
@@ -139,7 +157,10 @@ class Body extends StatelessWidget {
                             keyboardDismissBehavior:
                                 ScrollViewKeyboardDismissBehavior.onDrag,
                             itemBuilder: (ctx, index) {
-                              return profileTiles[index];
+                              return (isLoading.value)
+                                  ? const Center(
+                                      child: CircularProgressIndicator())
+                                  : profileTiles[index];
                             },
                             separatorBuilder: (ctx, index) {
                               return const Divider(
@@ -158,9 +179,8 @@ class Body extends StatelessWidget {
                 ),
                 //    Container(height: SizeConfig.screenHeight / 4),
               ],
-            );
-          }),
-    );
+            ),
+          );
   }
 
   static List<ListTile> profileTiles = [
@@ -213,6 +233,12 @@ class Body extends StatelessWidget {
       ),
       trailing: const Icon(Icons.arrow_forward_ios),
       onTap: () {
+        Get.find<MyAuctionsController>()
+            .updateUserId(Get.find<ProfileController>().myProfile!.value.id!);
+        Get.find<MyAuctionsController>().updateUserName(
+            Get.find<ProfileController>().myProfile!.value.name!);
+        print(
+            '---> ProfileScreen.userId= ${Get.find<MyAuctionsController>().userId}');
         Get.toNamed(MyAuctionsScreen.routeName);
       },
     ),
