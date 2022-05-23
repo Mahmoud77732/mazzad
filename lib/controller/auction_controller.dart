@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:mazzad/components/auction_item.dart';
 import 'package:mazzad/constants.dart';
-import 'package:mazzad/screens/auctions_category/my_model.dart';
 import 'package:mazzad/services/auction_service.dart';
 
 import '../components/auction_status.dart';
@@ -14,13 +13,10 @@ import '../models/auction/auction.dart';
 
 class AuctionController extends GetxController {
   final Rx<String?> _liveAuctionNextPage = ''.obs;
-  final Rx<String?> _liveAuctionByCategoryNextPage = ''.obs;
   final Rx<String?> _scheduledAuctionNextPage = ''.obs;
   final Rx<String?> _upcomingAuctionNextPage = ''.obs;
 
   Rx<String?> get liveAuctionNextPage => _liveAuctionNextPage;
-  Rx<String?> get liveAuctionByCategoryNextPage =>
-      _liveAuctionByCategoryNextPage;
   Rx<String?> get scheduledAuctionNextPage => _scheduledAuctionNextPage;
   Rx<String?> get upcomingAuctionNextPage => _upcomingAuctionNextPage;
   // for our live auctions
@@ -37,24 +33,12 @@ class AuctionController extends GetxController {
   Rx<int> get similarAuctionsLength => _similarAuctions.length.obs;
   // for our live auctions
   final RxList<AuctionItem> _liveAuctions = <AuctionItem>[].obs;
-  final RxList<AuctionItem> _liveAuctionsByCategory = <AuctionItem>[].obs;
   List<AuctionItem> get liveAuctions => _liveAuctions;
-
-  List<AuctionItem> get liveAuctionsByCategory => _liveAuctionsByCategory;
-  Rx<int> get liveAuctionsLength =>
-      _liveAuctions.length.obs; //> 15 ? 0.obs : _liveAuctions.length.obs
-  Rx<int> get liveAuctionsByCategoryLength => _liveAuctionsByCategory
-      .length.obs; //> 15 ? 0.obs : _liveAuctions.length.obs
+  Rx<int> get liveAuctionsLength => _liveAuctions.length.obs;
   // for our scheduled auctions
-  List<AuctionItem> _scheduledAuctions = <AuctionItem>[].obs;
-  List<AuctionItem> _scheduledAuctionsByCategory = <AuctionItem>[].obs;
-
+  final RxList<AuctionItem> _scheduledAuctions = <AuctionItem>[].obs;
   List<AuctionItem> get scheduledAuctions => _scheduledAuctions;
-  List<AuctionItem> get scheduledAuctionsByCategory =>
-      _scheduledAuctionsByCategory;
   Rx<int> get scheduledAuctionsLength => _scheduledAuctions.length.obs;
-  Rx<int> get scheduledAuctionsByCategoryLength =>
-      _scheduledAuctionsByCategory.length.obs;
   ScrollController controller = ScrollController();
   final int _highestBid = -1;
   int get highestBid => _highestBid;
@@ -64,16 +48,10 @@ class AuctionController extends GetxController {
   int get categoryId => _categoryId;
 
   AuctionController() {
-    print('-----> here you are');
     getRecommendedAuctions();
     getLiveAuctions();
     getScheduledAuctions();
-
-    getLiveAuctionsByCategory();
-    getScheduledAuctionsByCategory();
-
     getSimilarAuctions(auctionId: 1);
-
   }
 
   // to get the auction type
@@ -170,57 +148,6 @@ class AuctionController extends GetxController {
     }
   }
 
-
-  Future<bool> getLiveAuctionsByCategory({bool isRefresh = false}) async {
-    try {
-      if (isRefresh) {
-        if (kDebugMode) {
-          print(
-              'getting the live auctions for the first time and store it in the controller');
-        }
-        List<MyModel> allAuctions = await AuctionService.getAuctionsByCategory(
-          type: Status.live,
-          categoryId: categoryId,
-        );
-        _liveAuctionsByCategory.value = allAuctions
-            .map(
-              (e) => AuctionItem(
-                name: e.name!,
-                description: e.description!,
-                image: e.images!,
-                currentBid: e.initialPrice!,
-                status: Status.live,
-                end_date: DateTime.parse(e.endDate!),
-              ),
-            )
-            .toList();
-        update();
-      } else {
-        if (kDebugMode) {
-          print(
-              'add the new live auctions to the extisting one in the controller');
-        }
-        List<MyModel> allAuctions = await AuctionService.getAuctionsByCategory(
-          type: Status.live,
-          cursor: _liveAuctionByCategoryNextPage.value,
-          categoryId: categoryId,
-        );
-        _liveAuctionsByCategory.addAll(allAuctions
-            .map(
-              (e) => AuctionItem(
-                name: e.name!,
-                description: e.description!,
-                image: e.images!,
-                currentBid: e.initialPrice!,
-                status: Status.live,
-                end_date: DateTime.parse(e.endDate!),
-              ),
-            )
-            .toList());
-        update();
-      }
-
-
   static Future<bool> recordUserBehavior(
       {required int auctionId, required String action}) async {
     bool isBehavedCorrectly = await AuctionService.recordUserBehavior(
@@ -257,7 +184,6 @@ class AuctionController extends GetxController {
           )
           .toList();
       update();
-
       return true;
     } catch (e) {
       rethrow;
@@ -330,63 +256,6 @@ class AuctionController extends GetxController {
     }
   }
 
-
-  Future<bool> getScheduledAuctionsByCategory({bool isRefresh = false}) async {
-    try {
-      if (isRefresh) {
-        if (kDebugMode) {
-          print(
-              'getting the scheduled auctions for the first time and store it in the controller');
-        }
-        List<MyModel> allAuctions = await AuctionService.getAuctionsByCategory(
-          type: Status.scheduled,
-        );
-        _scheduledAuctionsByCategory = allAuctions
-            .map(
-              (e) => AuctionItem(
-                name: e.name!,
-                description: e.description!,
-                image: e.images!,
-                currentBid: e.initialPrice!,
-                status: Status.scheduled,
-                end_date: DateTime.parse(e.endDate!),
-              ),
-            )
-            .toList();
-        update();
-        return true;
-      } else {
-        if (kDebugMode) {
-          print(
-              'add the new scheduled auctions to the extisting one in the controller');
-        }
-        List<MyModel> allAuctions = await AuctionService.getAuctionsByCategory(
-          type: Status.scheduled,
-          cursor: _scheduledAuctionNextPage.value,
-        );
-        _scheduledAuctionsByCategory.addAll(
-          allAuctions
-              .map(
-                (e) => AuctionItem(
-                  name: e.name!,
-                  description: e.description!,
-                  image: e.images!,
-                  currentBid: e.initialPrice!,
-                  status: Status.scheduled,
-                  end_date: DateTime.parse(e.endDate!),
-                ),
-              )
-              .toList(),
-        );
-
-        update();
-        return true;
-      }
-    } catch (e) {
-      rethrow;
-    }
-  }
-
   // Future<List<Map>?> getBiddersByAuction({required int auction_id}) async {
   //   try {
   //     List<Map>? listOfBiddersPriceMap =
@@ -400,12 +269,9 @@ class AuctionController extends GetxController {
   //   }
   // }
 
-
   Future<bool> getRecommendedAuctions() async {
     try {
-      List<Auction> allAuctions = await AuctionService.getAuctions(
-        limit: '10',
-      );
+      List<Auction> allAuctions = await AuctionService.getAuctions(limit: '10');
       _recommendedAuctions = allAuctions
           .map(
             (e) => AuctionItem(
