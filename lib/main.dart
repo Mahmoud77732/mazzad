@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:logger/logger.dart';
 import 'package:mazzad/controller/auction_controller.dart';
+import 'package:mazzad/controller/auctions_by_category_controller.dart';
 import 'package:mazzad/controller/categories_controller.dart';
 import 'package:mazzad/controller/details_controller.dart';
 import 'package:mazzad/controller/profile_controller.dart';
@@ -153,6 +154,7 @@ class Binding extends Bindings {
     Get.lazyPut(() => TextFieldController(), fenix: true);
     Get.lazyPut(() => ProfileController(), fenix: true);
     Get.lazyPut(() => DetailsController(), fenix: true);
+    Get.lazyPut(() => AuctionsByCategoryController(), fenix: true);
   }
 }
 

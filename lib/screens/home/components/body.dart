@@ -9,16 +9,20 @@ import 'package:mazzad/controller/home_controller.dart';
 import '../../../components/category_button.dart';
 import '../../../components/search_textfield.dart';
 import '../../../constants.dart';
+import '../../../controller/auctions_by_category_controller.dart';
 import '../../../controller/categories_controller.dart';
 import '../../../screens/categories/categories_screen.dart';
 import '../../../screens/notifications/notifications_screen.dart';
 import '../../../size_config.dart';
+import '../../auctions_category/auctions_by_category_screen.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    AuctionsByCategoryController auctionsByCategoryController =
+        Get.find<AuctionsByCategoryController>();
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -139,7 +143,13 @@ class Body extends StatelessWidget {
                       itemBuilder: (context, index) => CategoryButton(
                         color: categoryController.randomColor,
                         icon: categoryController.categories[index].icon,
-                        onPress: () {},
+                        onPress: () {
+                          auctionsByCategoryController.categoryName.value =
+                              categoryController.categories[index].name;
+                          auctionsByCategoryController.updateCategoryId(
+                              categoryController.categories[index].id);
+                          Get.to(() => const AuctionsByCategoryScreen());
+                        },
                         name: categoryController.categories[index].name,
                       ),
                       itemCount: categoryController.categories.length > 10

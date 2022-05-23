@@ -9,7 +9,23 @@ import '../models/categories/categories.dart';
 
 class CategoriesController extends GetxController {
   List<Categories> _categories = <Categories>[].obs;
-  List<Categories> get categories => _categories;
+  // List<Categories> get categories => _categories.toSet();
+  List<Categories> get categories {
+    var seen = Set<String?>();
+    List<Categories> uniquelist = _categories.where((element) {
+      bool exist = false;
+      for (var i in seen) {
+        if (i == element.name) exist = true;
+      }
+      if (exist) {
+        return false;
+      } else {
+        return seen.add(element.name);
+      }
+    }).toList();
+    return uniquelist;
+  }
+
   int _categoryId = -1;
   int get categoryId => _categoryId;
   // get categories name
