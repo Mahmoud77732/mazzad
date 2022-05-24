@@ -158,15 +158,9 @@ class Binding extends Bindings {
     Get.lazyPut(() => DetailsController(), fenix: true);
     Get.lazyPut(() => TextFieldController(), fenix: true);
     Get.lazyPut(() => AuctionController(anyFunc: 'recommended'), fenix: true);
-    Get.lazyPut(() => AuctionsByUserIdController(),
-        // ..getLiveAuctionsByUserId()
-        // ..getScheduledAuctionsByUserId(),
-        fenix: true);
+    Get.lazyPut(() => AuctionsByUserIdController(), fenix: true);
     Get.lazyPut(() => CategoriesController(), fenix: true);
-    Get.lazyPut(() => AuctionsByCategoryController(),
-        // ..getLiveAuctionsByCategory()
-        // ..getScheduledAuctionsByCategory(),
-        fenix: false);
+    Get.lazyPut(() => AuctionsByCategoryController(), fenix: false);
   }
 }
 

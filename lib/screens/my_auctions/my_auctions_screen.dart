@@ -6,11 +6,13 @@ import 'package:mazzad/components/auction_item_edit.dart';
 import 'package:mazzad/constants.dart';
 import 'package:mazzad/controller/auction_controller.dart';
 import 'package:mazzad/controller/auctions_by_user_id_controller.dart';
+import 'package:mazzad/controller/categories_controller.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class MyAuctionsScreen extends StatefulWidget {
-  MyAuctionsScreen({Key? key}) : super(key: key);
+  MyAuctionsScreen({Key? key, this.categoriesController}) : super(key: key);
   static const String routeName = '/my_auctions_screen';
+  CategoriesController? categoriesController;
 
   @override
   State<MyAuctionsScreen> createState() => _MyAuctionsScreenState();
@@ -29,17 +31,7 @@ class _MyAuctionsScreenState extends State<MyAuctionsScreen> {
   ];
   int _selectedTabBar = 0;
 
-  @override
-  void initState() {
-    super.initState();
-  }
 
-  @override
-  void didChangeDependencies() {
-    // auctionController = Get.find<AuctionController>();
-    // _isLoading.value = false;
-    super.didChangeDependencies();
-  }
 
   @override
   Widget build(BuildContext context) {
