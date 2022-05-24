@@ -76,36 +76,42 @@ class AddAuctionScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Auciton Types',
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                  MyDropDownButton(
-                    myDropDownItems: Status.values
-                        .map((e) => {
-                              'name': e.name,
-                              'id': e.index.toString(),
-                            })
-                        .toList(),
-                    isAuctionType: true,
-                  ),
-                ],
+              Expanded(
+                flex: 1,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Auciton Types',
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    MyDropDownButton(
+                      myDropDownItems: Status.values
+                          .map((e) => {
+                                'name': e.name,
+                                'id': e.index.toString(),
+                              })
+                          .toList(),
+                      isAuctionType: true,
+                    ),
+                  ],
+                ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Category',
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                  MyDropDownButton(
-                    myDropDownItems: categoriesController.categoriesNameAndId,
-                    isAuctionType: false,
-                  ),
-                ],
+              Expanded(
+                flex: 2,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Category',
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    MyDropDownButton(
+                      myDropDownItems: categoriesController.categoriesNameAndId,
+                      isAuctionType: false,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

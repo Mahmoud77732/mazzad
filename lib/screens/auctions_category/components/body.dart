@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mazzad/components/auction_item.dart';
-import 'package:mazzad/controller/auction_controller.dart';
 import 'package:mazzad/controller/auctions_by_category_controller.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -22,7 +21,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  var _isLoading = true;
+  final _isLoading = true;
   final List<Tab> _tabs = const [
     Tab(
       text: 'Live',
@@ -112,7 +111,7 @@ class LiveByCategory extends StatefulWidget {
 
 class _LiveByCategoryState extends State<LiveByCategory> {
   final RefreshController refreshController = RefreshController(
-    initialRefresh: false,
+    initialRefresh: true,
   );
 
   // var isLoading1 = true.obs;
@@ -195,7 +194,7 @@ class _LiveByCategoryState extends State<LiveByCategory> {
 }
 
 class ScheduledByCategory extends StatefulWidget {
-  ScheduledByCategory({Key? key}) : super(key: key);
+  const ScheduledByCategory({Key? key}) : super(key: key);
 
   @override
   State<ScheduledByCategory> createState() => _ScheduledByCategoryState();
@@ -204,7 +203,7 @@ class ScheduledByCategory extends StatefulWidget {
 class _ScheduledByCategoryState extends State<ScheduledByCategory> {
   // final controller = Get.find<AuctionController>();
   final RefreshController refreshController = RefreshController(
-    initialRefresh: false,
+    initialRefresh: true,
   );
 
   // var isLoading1 = true.obs;
