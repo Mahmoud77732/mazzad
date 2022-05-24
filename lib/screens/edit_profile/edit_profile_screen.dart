@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../components/default_button.dart';
 import '../../components/default_text_field.dart';
+import '../../components/dialogs/check_mark_dialog.dart';
 import '../../constants.dart';
 import '../../controller/layout_controller.dart';
 import '../../controller/text_field_controller.dart';
@@ -105,6 +106,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           final bool? check = await layoutController
                               .updateUserData(profile: profile);
                           _formKey.currentState!.validate();
+                          print(check);
+
+                          if (check!) {
+                            AppDialog.showCheckMarkDialog(
+                                context, 'Successfuly Changed');
+                            Get.back();
+                          } else {
+                            print('it does not work');
+                          }
                         },
                         text: 'Place Changes',
                       ),
