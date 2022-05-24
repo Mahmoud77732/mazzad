@@ -1,10 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mazzad/components/auction_item.dart';
 import 'package:mazzad/components/auction_item_edit.dart';
 import 'package:mazzad/constants.dart';
-import 'package:mazzad/controller/auction_controller.dart';
 import 'package:mazzad/controller/auctions_by_user_id_controller.dart';
 import 'package:mazzad/controller/categories_controller.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -30,8 +28,6 @@ class _MyAuctionsScreenState extends State<MyAuctionsScreen> {
     ),
   ];
   int _selectedTabBar = 0;
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +104,7 @@ class LiveByUserId extends StatefulWidget {
 
 class _LiveByUserIdState extends State<LiveByUserId> {
   final RefreshController refreshController = RefreshController(
-    initialRefresh: false,
+    initialRefresh: true,
   );
 
   // var isLoading1 = true.obs;
@@ -189,7 +185,7 @@ class _LiveByUserIdState extends State<LiveByUserId> {
 }
 
 class ScheduledByUserId extends StatefulWidget {
-  ScheduledByUserId({Key? key}) : super(key: key);
+  const ScheduledByUserId({Key? key}) : super(key: key);
 
   @override
   State<ScheduledByUserId> createState() => _ScheduledByUserIdState();
@@ -199,7 +195,7 @@ class _ScheduledByUserIdState extends State<ScheduledByUserId> {
   // final controller = Get.find<AuctionController>();
 
   final RefreshController refreshController = RefreshController(
-    initialRefresh: false,
+    initialRefresh: true,
   );
 
   // var isLoading1 = true.obs;

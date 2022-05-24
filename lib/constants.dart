@@ -96,7 +96,7 @@ class Constants {
   static ThemeData kMazzadTheme = ThemeData(
     appBarTheme: AppBarTheme(
       centerTitle: true,
-      titleTextStyle: GoogleFonts.abhayaLibre(
+      titleTextStyle: GoogleFonts.roboto(
         color: Colors.black,
         fontWeight: FontWeight.w900,
         fontSize: 24.0,
@@ -109,25 +109,25 @@ class Constants {
     ),
     textTheme: TextTheme(
       // thats for just a backup for the regular styling
-      bodyText1: GoogleFonts.abhayaLibre(
+      bodyText1: GoogleFonts.roboto(
         color: Colors.black,
         fontWeight: FontWeight.w700,
         fontSize: 14,
       ),
       // thats for regulra styling
-      bodyText2: GoogleFonts.abel(
+      bodyText2: GoogleFonts.roboto(
         color: Colors.black,
         fontWeight: FontWeight.w700,
         fontSize: 14,
       ),
       // thats for button styling
-      button: GoogleFonts.abel(
+      button: GoogleFonts.roboto(
         color: Colors.black,
         fontWeight: FontWeight.w700,
         fontSize: 14,
       ),
       // its for list tiles text
-      subtitle1: GoogleFonts.abel(
+      subtitle1: GoogleFonts.roboto(
         color: Colors.black,
         fontWeight: FontWeight.w900,
         // fontSize: 16,

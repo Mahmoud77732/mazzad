@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cron/cron.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -18,12 +16,11 @@ import 'package:mazzad/controller/home_controller.dart';
 import 'package:mazzad/controller/my_auctions_controller.dart';
 import 'package:mazzad/controller/profile_controller.dart';
 import 'package:mazzad/controller/text_field_controller.dart';
+import 'package:mazzad/screens/onboard/on_board_screen.dart';
 import 'package:mazzad/services/fcm_service.dart';
 
 import './/constants.dart';
 import './/firebase_options.dart';
-import './/screens/home/home_screen.dart';
-import './/screens/login/login_screen.dart';
 import './/services/auth_service.dart';
 import './router.dart' as router;
 
@@ -40,8 +37,6 @@ bool? initScreen;
 void main() async {
   Logger.level = Level.error;
   await GetStorage.init();
-
-  HttpOverrides.global = MyHttpOverrides();
   // firebase intilaization
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -109,7 +104,7 @@ class MyApp extends StatelessWidget {
 
   Future<Widget> getUser() async {
     if (initScreen == null || initScreen == false) {
-      return const HomeScreen();
+      return const OnBoardScreen();
     }
 
     if (await AuthService.isLoggedIn) {
@@ -119,10 +114,10 @@ class MyApp extends StatelessWidget {
         String refreshToken = AuthService.box.read("refresh_token").toString();
         AuthService.updateToken(refreshToken: refreshToken);
       }
-      return const HomeScreen();
+      return const OnBoardScreen();
     }
 
-    return LoginScreen();
+    return const OnBoardScreen();
   }
 
   @override
@@ -161,14 +156,5 @@ class Binding extends Bindings {
     Get.lazyPut(() => AuctionsByUserIdController(), fenix: true);
     Get.lazyPut(() => CategoriesController(), fenix: true);
     Get.lazyPut(() => AuctionsByCategoryController(), fenix: false);
-  }
-}
-
-class MyHttpOverrides extends HttpOverrides {
-  @override
-  HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)
-      ..badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
   }
 }

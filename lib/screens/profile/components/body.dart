@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mazzad/controller/categories_controller.dart';
 import 'package:mazzad/controller/my_auctions_controller.dart';
-import 'package:mazzad/models/profile/profile.dart';
 
 import './big_clipper.dart';
 import '../../../constants.dart';
@@ -193,45 +192,6 @@ class _BodyState extends State<Body> {
   static List<ListTile> profileTiles = [
     ListTile(
       title: const Text(
-        'Terms of use',
-        style: TextStyle(
-          color: Colors.grey,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      trailing: const Icon(Icons.arrow_forward_ios),
-      onTap: () {
-        Get.toNamed(TermsOfUseScreen.routeName);
-      },
-    ),
-    ListTile(
-      title: const Text(
-        'Privacy policy',
-        style: TextStyle(
-          color: Colors.grey,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      trailing: const Icon(Icons.arrow_forward_ios),
-      onTap: () {
-        Get.toNamed(PrivacyAndPolicy.routeName);
-      },
-    ),
-    ListTile(
-      title: const Text(
-        'Contact us',
-        style: TextStyle(
-          color: Colors.grey,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      trailing: const Icon(Icons.arrow_forward_ios),
-      onTap: () {
-        Get.toNamed(ContactUsScreen.routeName);
-      },
-    ),
-    ListTile(
-      title: const Text(
         'My auctions',
         style: TextStyle(
           color: Colors.grey,
@@ -247,20 +207,49 @@ class _BodyState extends State<Body> {
         print(
             '---> ProfileScreen.userId= ${Get.find<MyAuctionsController>().userId}');
         var categoriesController = Get.find<CategoriesController>();
-        print('------------profiel---------> ${categoriesController.categories}');
+        print(
+            '------------profiel---------> ${categoriesController.categories}');
         Get.to(MyAuctionsScreen(categoriesController: categoriesController));
       },
     ),
-    // ListTile(
-    //   title: const Text(
-    //     'Change password',
-    //     style: TextStyle(
-    //       color: Colors.grey,
-    //       fontWeight: FontWeight.bold,
-    //     ),
-    //   ),
-    //   trailing: const Icon(Icons.arrow_forward_ios),
-    //   onTap: () {},
-    // ),
+    ListTile(
+      title: const Text(
+        'Privacy policy',
+        style: TextStyle(
+          color: Colors.grey,
+          // fontWeight: FontWeight.bold,
+        ),
+      ),
+      trailing: const Icon(Icons.arrow_forward_ios),
+      onTap: () {
+        Get.toNamed(PrivacyAndPolicy.routeName);
+      },
+    ),
+    ListTile(
+      title: const Text(
+        'Terms of use',
+        style: TextStyle(
+          color: Colors.grey,
+          // fontWeight: FontWeight.bold,
+        ),
+      ),
+      trailing: const Icon(Icons.arrow_forward_ios),
+      onTap: () {
+        Get.toNamed(TermsOfUseScreen.routeName);
+      },
+    ),
+    ListTile(
+      title: const Text(
+        'Contact us',
+        style: TextStyle(
+          color: Colors.grey,
+          // fontWeight: FontWeight.bold,
+        ),
+      ),
+      trailing: const Icon(Icons.arrow_forward_ios),
+      onTap: () {
+        Get.toNamed(ContactUsScreen.routeName);
+      },
+    ),
   ];
 }

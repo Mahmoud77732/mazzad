@@ -26,7 +26,7 @@ class ProfileService {
     }
   }
 
-  static Future<bool>? updateUserData({Profile? profile}) async {
+  static Future<bool?>? updateUserData({Profile? profile}) async {
     try {
       final myStaticJson = {
         "id": profile!.id.toString(),

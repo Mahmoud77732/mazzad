@@ -3,11 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
-import 'package:mazzad/controller/auctions_by_user_id_controller.dart';
 
 import '../../components/auction_status.dart';
 import '../../components/components.dart';
 import '../../components/default_button.dart';
+import '../../components/dialogs/app_dialog.dart';
 import '../../constants.dart';
 import '../../controller/auction_controller.dart';
 import '../../controller/categories_controller.dart';
@@ -64,7 +64,7 @@ class AddAuctionScreen extends StatelessWidget {
 
           defaultFormField(
             controller: priceTextController,
-            type: TextInputType.text,
+            type: const TextInputType.numberWithOptions(),
             validate: (String? value) {
               if (value!.isEmpty) {
                 return 'enter initial price';
@@ -99,21 +99,19 @@ class AddAuctionScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Expanded(
-                flex: 2,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Category',
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                    MyDropDownButton(
-                      myDropDownItems: categoriesController.categoriesNameAndId,
-                      isAuctionType: false,
-                    ),
-                  ],
-                ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Category',
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  MyDropDownButton(
+                    myDropDownItems: categoriesController.categoriesNameAndId,
+                    isAuctionType: false,
+                  ),
+                ],
               ),
             ],
           ),
@@ -214,7 +212,7 @@ class AddAuctionScreen extends StatelessWidget {
           ),
           DefaultButton(
             text: 'place auction',
-            onPressed: () async {
+            onPressed: () {
               Auction addedAuctionModel = Auction(
                 name: nameTextController.text,
                 images: ['ddd1', 'ddd2'],
@@ -227,13 +225,12 @@ class AddAuctionScreen extends StatelessWidget {
                 end_date: endDateTextValue,
                 description: descriptionTextController.text,
                 category_id: auctionController.categoryId,
-                initial_price: double.parse(priceTextController.text),
+                initial_price: double.parse(priceTextController.text) ?? 0.0,
                 keywords: ['keywords'],
               );
-
-              bool? isAuctionAddedSuccessfully = await auctionController
-                  .postAuction(addedAuctionModel)!
-                  .then((value) {
+              AppDialog.showAuctionPlacedDialog(
+                  context, 'Auction has been placed successfully');
+              auctionController.postAuction(addedAuctionModel)!.then((value) {
                 print(value);
                 return null;
               });
@@ -290,7 +287,6 @@ class _MyDropDownButtonState extends State<MyDropDownButton> {
         });
         if (widget.isAuctionType!) {
           auctionController.updateAuctionName(newAuctionType: newValue);
-          print('---> auctionType: ${auctionController.auctionType}');
           // print('---> auctionController.addedAuctionModel!: ${addedAuctionModel.data}');
           // addedAuctionModel.data!.type = newValue;
         } else {
@@ -303,7 +299,6 @@ class _MyDropDownButtonState extends State<MyDropDownButton> {
               mySelectedItem['id']!,
             ),
           );
-          print('---> categoryId: ${auctionController.categoryId}');
         }
       },
       // items: widget.myDropDownItems.map<DropdownMenuItem<String>>((Map? value) {

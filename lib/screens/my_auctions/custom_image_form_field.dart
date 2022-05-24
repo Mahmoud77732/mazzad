@@ -33,15 +33,6 @@ class CustomImageFormField extends StatelessWidget {
                       print(e);
                     }
                   }
-                  // FilePickerResult? file = await FilePicker.platform
-                  //     .pickFiles(type: FileType.image, allowMultiple: false);
-                  // if (file != null) {
-                  //   _pickedFile = File(file.files.single.path!);
-                  //   onChanged.call(_pickedFile!);
-                  // } else {
-                  //   print(
-                  //       'can\'t pick the file or the user cancelled the picker ');
-                  // }
                 },
                 child: Container(
                   margin: const EdgeInsets.all(8),

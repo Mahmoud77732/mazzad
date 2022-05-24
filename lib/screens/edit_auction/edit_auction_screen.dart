@@ -4,15 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
 import 'package:mazzad/controller/auctions_by_user_id_controller.dart';
-import 'package:mazzad/screens/home/home_screen.dart';
-import 'package:mazzad/screens/my_auctions/custom_image_form_field.dart';
 import 'package:mazzad/screens/my_auctions/my_auctions_screen.dart';
 
 import '../../components/auction_status.dart';
 import '../../components/components.dart';
 import '../../components/default_button.dart';
 import '../../constants.dart';
-import '../../controller/auction_controller.dart';
 import '../../controller/categories_controller.dart';
 import '../../models/auction/auction.dart';
 
@@ -25,7 +22,6 @@ class EditAuctionScreen extends StatelessWidget {
   // CategoriesController? categoriesController;
   final Auction myAuction;
   //  var categoriesController =  Get.lazyPut(() => CategoriesController()..getCategories(), fenix: true);
-
 
   var nameTextController = TextEditingController();
   var descriptionTextController = TextEditingController();
@@ -49,7 +45,8 @@ class EditAuctionScreen extends StatelessWidget {
           init: AuctionsByUserIdController(),
           initState: (state) {
             // categoriesController = Get.find<CategoriesController>();
-            print('-----------i here------------> ${categoriesController.categoriesNameAndId}');
+            print(
+                '-----------i here------------> ${categoriesController.categoriesNameAndId}');
             // print('-----------i here catController------------> ${catController.categoriesNameAndId}');
           },
           builder: (auctionController) {
@@ -110,12 +107,11 @@ class EditAuctionScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 10),
                       // Constants.kSmallVerticalSpacing,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: Column(
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const Text(
@@ -136,25 +132,23 @@ class EditAuctionScreen extends StatelessWidget {
                                 ),
                               ],
                             ),
-                          ),
-                          Expanded(
-                            flex: 2,
-                            
-                            child: Column(
+                            Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const Text(
                                   'Category',
                                   style: TextStyle(color: Colors.grey),
                                 ),
-                                (!Get.find<CategoriesController>().initialized &&
+                                (!Get.find<CategoriesController>()
+                                            .initialized &&
                                         !auctionController.initialized)
                                     ? const Center(
                                         child: CircularProgressIndicator())
                                     : MyDropDownButton(
                                         auctionController: auctionController,
-                                        myDropDownItems: Get.find<CategoriesController>()
-                                            .categoriesNameAndId,
+                                        myDropDownItems:
+                                            Get.find<CategoriesController>()
+                                                .categoriesNameAndId,
                                         isAuctionType: false,
                                         myAuctionType: myAuction.type.name,
                                         myAuctionCategoryId:
@@ -162,8 +156,8 @@ class EditAuctionScreen extends StatelessWidget {
                                       ),
                               ],
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
