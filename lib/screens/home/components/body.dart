@@ -24,20 +24,26 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  var isLoadingSlider = true.obs;
-  var isLoadingCategories = true.obs;
+  bool isLoadingSlider = true;
+  bool isLoadingCategories = true;
+  // bool isLoadingAuctions = true;
   AuctionsByCategoryController? auctionsByCategoryController;
+  // AuctionController? auctionsController;
   HomeController? homeController;
-  CategoriesController? categoriesController;
+  // CategoriesController? categoriesController;
 
   @override
-  void didChangeDependencies() {
+  void initState() {
     auctionsByCategoryController = Get.find<AuctionsByCategoryController>();
     homeController = Get.find<HomeController>();
-    categoriesController = Get.find<CategoriesController>();
-    isLoadingSlider.value = false;
-    isLoadingCategories.value = false;
-    super.didChangeDependencies();
+    // categoriesController = Get.find<CategoriesController>();
+    // auctionsController = Get.find<AuctionController>();
+    setState(() {
+      isLoadingSlider = false;
+      // isLoadingCategories = false;
+      // isLoadingAuctions = false;
+    });
+    super.initState();
   }
 
   @override
@@ -94,7 +100,7 @@ class _BodyState extends State<Body> {
               //     isLoading.value = false;
               //   }
               // },
-              (isLoadingSlider.value)
+              (isLoadingSlider)
                   ? const Center(child: CircularProgressIndicator())
                   : FutureBuilder(
                       future: homeController!.getSlider(),
@@ -153,33 +159,43 @@ class _BodyState extends State<Body> {
                 ],
               ),
               Constants.kSmallVerticalSpacing,
-              (isLoadingCategories.value)
-                  ? const Center(child: CircularProgressIndicator())
-                  : SizedBox(
-                      height: getProportionateScreenHeight(110),
-                      child: ListView.separated(
-                        keyboardDismissBehavior:
-                            ScrollViewKeyboardDismissBehavior.onDrag,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) => CategoryButton(
-                          color: categoriesController!.randomColor,
-                          icon: categoriesController!.categories[index].icon,
-                          onPress: () {
-                            auctionsByCategoryController!.categoryName.value =
-                                categoriesController!.categories[index].name;
-                            auctionsByCategoryController!.updateCategoryId(
-                                categoriesController!.categories[index].id);
-                            Get.to(() => const AuctionsByCategoryScreen());
-                          },
-                          name: categoriesController!.categories[index].name,
-                        ),
-                        itemCount: categoriesController!.categories.length > 10
-                            ? 10
-                            : categoriesController!.categories.length,
-                        separatorBuilder: (context, index) =>
-                            Constants.kTinyHorizontalSpacing,
-                      ),
-                    ),
+              SizedBox(
+                height: getProportionateScreenHeight(110),
+                child: GetBuilder<CategoriesController>(
+                    init: CategoriesController(),
+                    builder: (categoriesController) {
+                      return (!categoriesController.initialized)
+                          ? const Center(child: CircularProgressIndicator())
+                          : ListView.separated(
+                              keyboardDismissBehavior:
+                                  ScrollViewKeyboardDismissBehavior.onDrag,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) => CategoryButton(
+                                color: categoriesController.randomColor,
+                                icon:
+                                    categoriesController.categories[index].icon,
+                                name:
+                                    categoriesController.categories[index].name,
+                                onPress: () {
+                                  auctionsByCategoryController!
+                                          .categoryName.value =
+                                      categoriesController
+                                          .categories[index].name;
+                                  auctionsByCategoryController!
+                                      .updateCategoryId(categoriesController
+                                          .categories[index].id);
+                                  Get.to(() => AuctionsByCategoryScreen());
+                                },
+                              ),
+                              itemCount:
+                                  categoriesController.categories.length > 10
+                                      ? 10
+                                      : categoriesController.categories.length,
+                              separatorBuilder: (context, index) =>
+                                  Constants.kTinyHorizontalSpacing,
+                            );
+                    }),
+              ),
               Constants.kBigVertcialSpacing,
               Text(
                 'Recommended Auctions',
@@ -191,14 +207,18 @@ class _BodyState extends State<Body> {
               SizedBox(
                 height: 175,
                 child: GetBuilder<AuctionController>(
-                    init: AuctionController(),
-                    builder: (controller) {
-                      return ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: List.generate(
-                            controller.recommendedAuctionsLength.value,
-                            (index) => controller.recommendedAuctions[index]),
-                      );
+                    init: AuctionController(anyFunc: 'recommended'),
+                    builder: (auctionController) {
+                      return (!auctionController.initialized)
+                          ? const Center(child: CircularProgressIndicator())
+                          : ListView(
+                              scrollDirection: Axis.horizontal,
+                              children: List.generate(
+                                  auctionController
+                                      .recommendedAuctionsLength.value,
+                                  (index) => auctionController
+                                      .recommendedAuctions[index]),
+                            );
                     }),
               ),
               Constants.kSmallVerticalSpacing,

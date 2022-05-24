@@ -5,6 +5,7 @@ import 'package:mazzad/components/auction_item.dart';
 import 'package:mazzad/components/auction_item_edit.dart';
 import 'package:mazzad/constants.dart';
 import 'package:mazzad/controller/auction_controller.dart';
+import 'package:mazzad/controller/auctions_by_user_id_controller.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class MyAuctionsScreen extends StatefulWidget {
@@ -120,11 +121,11 @@ class _LiveByUserIdState extends State<LiveByUserId> {
 
   var isLoading1 = true.obs;
   var isLoading2 = true.obs;
-  AuctionController? auctionController;
+  AuctionsByUserIdController? auctionController;
 
   @override
   void didChangeDependencies() {
-    auctionController = Get.find<AuctionController>();
+    auctionController = Get.find<AuctionsByUserIdController>();
     isLoading1.value = false;
     isLoading2.value = false;
     super.didChangeDependencies();
@@ -207,11 +208,11 @@ class _ScheduledByUserIdState extends State<ScheduledByUserId> {
 
   var isLoading1 = true.obs;
   var isLoading2 = true.obs;
-  AuctionController? auctionController;
+  AuctionsByUserIdController? auctionController;
 
   @override
   void didChangeDependencies() {
-    auctionController = Get.find<AuctionController>();
+    auctionController = Get.find<AuctionsByUserIdController>();
     isLoading1.value = false;
     isLoading2.value = false;
     super.didChangeDependencies();

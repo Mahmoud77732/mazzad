@@ -100,7 +100,7 @@ class Live extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AuctionController>(
-        init: AuctionController(),
+        init: AuctionController(anyFunc: 'live'),
         builder: (controller) {
           return SmartRefresher(
             enablePullUp: true,
@@ -161,7 +161,9 @@ class Scheduled extends StatelessWidget {
   );
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AuctionController>(builder: (context) {
+    return GetBuilder<AuctionController>(
+      init: AuctionController(anyFunc: 'scheduled'),
+      builder: (context) {
       return SmartRefresher(
         enablePullUp: true,
         onRefresh: () async {
