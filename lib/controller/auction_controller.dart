@@ -635,27 +635,27 @@ class AuctionController extends GetxController {
     }
   }
 
-  Future<bool>? editAuction(Auction editedAuctionModel) async {
-    try {
-      final response = await http.post(
-        Uri.parse('${Constants.api}/auction/${editedAuctionModel.id}'),
-        body: jsonEncode(editedAuctionModel.toJson()),
-        headers: await Constants.headers,
-      );
-      if (kDebugMode) {
-        print(response.body);
-        print(response.statusCode);
-      }
-      if (response.statusCode == 200) {
-        return true;
-      } else {
-        if (kDebugMode) print('there is an err in updating user data');
-        return false;
-      }
-    } catch (e) {
-      rethrow;
-    }
-  }
+  // Future<bool>? editAuction(Auction editedAuctionModel) async {
+  //   try {
+  //     final response = await http.post(
+  //       Uri.parse('${Constants.api}/auction/${editedAuctionModel.id}'),
+  //       body: jsonEncode(editedAuctionModel.toJson()),
+  //       headers: await Constants.headers,
+  //     );
+  //     if (kDebugMode) {
+  //       print(response.body);
+  //       print(response.statusCode);
+  //     }
+  //     if (response.statusCode == 200) {
+  //       return true;
+  //     } else {
+  //       if (kDebugMode) print('there is an err in updating user data');
+  //       return false;
+  //     }
+  //   } catch (e) {
+  //     rethrow;
+  //   }
+  // }
 
   Future<bool>? deleteAuction(Auction deletedAuctionModel) async {
     try {

@@ -7,6 +7,7 @@ import 'package:mazzad/screens/my_auctions/my_auctions_screen.dart';
 
 import '../controller/details_controller.dart';
 import '../models/auction/auction.dart';
+import '../screens/add_auction/add_auction_screen.dart';
 import '../size_config.dart';
 
 class AuctionItemEdit extends StatelessWidget {

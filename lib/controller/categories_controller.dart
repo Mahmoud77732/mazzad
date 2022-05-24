@@ -29,12 +29,15 @@ class CategoriesController extends GetxController {
   int _categoryId = -1;
   int get categoryId => _categoryId;
   // get categories name
-  List<Map<String?, String?>> get categoriesNameAndId => _categories
-      .map((e) => {
-            'name': e.name,
-            'id': e.id.toString(),
-          })
-      .toList();
+  // List<Map<String?, String?>> get categoriesNameAndId => _categories
+  //     .map((e) => {
+  //           'name': e.name,
+  //           'id': e.id.toString(),
+  //         })
+  //     .toList();
+  // get categories name
+  RxList<Map<String?, String?>> categoriesNameAndId =
+      <Map<String?, String>>[].obs;
   Rx<int> get length => _categories.length.obs;
   List<Color> myColors = [
     Colors.pinkAccent,
@@ -48,8 +51,10 @@ class CategoriesController extends GetxController {
   Color get randomColor => myColors[Random().nextInt(myColors.length)];
 
   CategoriesController() {
+    print('---> CategoriesController()');
     getCategories();
   }
+
   void setCategoryAcutionId({int? mySelectedCategoryId}) {
     _categoryId = mySelectedCategoryId ?? -1;
     update();
@@ -59,6 +64,12 @@ class CategoriesController extends GetxController {
     try {
       await CategoriesService.getAllCategories()
           .then((value) => _categories = value);
+      categoriesNameAndId.value = _categories
+          .map((e) => {
+                'name': e.name,
+                'id': e.id.toString(),
+              })
+          .toList();
       update();
     } catch (e) {
       if (kDebugMode) {
