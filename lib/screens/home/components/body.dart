@@ -16,13 +16,38 @@ import '../../../screens/notifications/notifications_screen.dart';
 import '../../../size_config.dart';
 import '../../auctions_category/auctions_by_category_screen.dart';
 
-class Body extends StatelessWidget {
-  const Body({Key? key}) : super(key: key);
+class Body extends StatefulWidget {
+  Body({Key? key}) : super(key: key);
+
+  @override
+  State<Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  bool isLoadingSlider = true;
+  bool isLoadingCategories = true;
+  // bool isLoadingAuctions = true;
+  AuctionsByCategoryController? auctionsByCategoryController;
+  // AuctionController? auctionsController;
+  HomeController? homeController;
+  // CategoriesController? categoriesController;
+
+  @override
+  void initState() {
+    auctionsByCategoryController = Get.find<AuctionsByCategoryController>();
+    homeController = Get.find<HomeController>();
+    // categoriesController = Get.find<CategoriesController>();
+    // auctionsController = Get.find<AuctionController>();
+    setState(() {
+      isLoadingSlider = false;
+      // isLoadingCategories = false;
+      // isLoadingAuctions = false;
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    AuctionsByCategoryController auctionsByCategoryController =
-        Get.find<AuctionsByCategoryController>();
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -70,11 +95,15 @@ class Body extends StatelessWidget {
               Constants.kSmallVerticalSpacing,
               const SearchTextField(),
               Constants.kBigVertcialSpacing,
-              GetBuilder<HomeController>(
-                  init: HomeController(),
-                  builder: (controller) {
-                    return FutureBuilder(
-                      future: controller.getSlider(),
+              // initState: (controllerState) {
+              //   if (controllerState.controller!.initialized) {
+              //     isLoading.value = false;
+              //   }
+              // },
+              (isLoadingSlider)
+                  ? const Center(child: CircularProgressIndicator())
+                  : FutureBuilder(
+                      future: homeController!.getSlider(),
                       builder: (context, snapshot) {
                         switch (snapshot.connectionState) {
                           case ConnectionState.active:
@@ -85,11 +114,11 @@ class Body extends StatelessWidget {
                           case ConnectionState.done:
                             return CarouselSlider(
                               items: List.generate(
-                                controller.length,
+                                homeController!.length,
                                 (index) => InkWell(
                                   onTap: () {},
                                   child: Image.network(
-                                      'https://mazzad.unidevs.co/storage/${controller.slider![index].image!}'),
+                                      'https://mazzad.unidevs.co/storage/${homeController!.slider![index].image!}'),
                                 ),
                               ),
                               options: CarouselOptions(
@@ -105,8 +134,7 @@ class Body extends StatelessWidget {
                             );
                         }
                       },
-                    );
-                  }),
+                    ),
               Constants.kBigVertcialSpacing,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -134,32 +162,39 @@ class Body extends StatelessWidget {
               SizedBox(
                 height: getProportionateScreenHeight(110),
                 child: GetBuilder<CategoriesController>(
-                  init: CategoriesController(),
-                  builder: (categoryController) {
-                    return ListView.separated(
-                      keyboardDismissBehavior:
-                          ScrollViewKeyboardDismissBehavior.onDrag,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => CategoryButton(
-                        color: categoryController.randomColor,
-                        icon: categoryController.categories[index].icon,
-                        onPress: () {
-                          auctionsByCategoryController.categoryName.value =
-                              categoryController.categories[index].name;
-                          auctionsByCategoryController.updateCategoryId(
-                              categoryController.categories[index].id);
-                          Get.to(() => const AuctionsByCategoryScreen());
-                        },
-                        name: categoryController.categories[index].name,
-                      ),
-                      itemCount: categoryController.categories.length > 10
-                          ? 10
-                          : categoryController.categories.length,
-                      separatorBuilder: (context, index) =>
-                          Constants.kTinyHorizontalSpacing,
-                    );
-                  },
-                ),
+                    init: CategoriesController(),
+                    builder: (categoriesController) {
+                      return (!categoriesController.initialized)
+                          ? const Center(child: CircularProgressIndicator())
+                          : ListView.separated(
+                              keyboardDismissBehavior:
+                                  ScrollViewKeyboardDismissBehavior.onDrag,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) => CategoryButton(
+                                color: categoriesController.randomColor,
+                                icon:
+                                    categoriesController.categories[index].icon,
+                                name:
+                                    categoriesController.categories[index].name,
+                                onPress: () {
+                                  auctionsByCategoryController!
+                                          .categoryName.value =
+                                      categoriesController
+                                          .categories[index].name;
+                                  auctionsByCategoryController!
+                                      .updateCategoryId(categoriesController
+                                          .categories[index].id);
+                                  Get.to(() => AuctionsByCategoryScreen());
+                                },
+                              ),
+                              itemCount:
+                                  categoriesController.categories.length > 10
+                                      ? 10
+                                      : categoriesController.categories.length,
+                              separatorBuilder: (context, index) =>
+                                  Constants.kTinyHorizontalSpacing,
+                            );
+                    }),
               ),
               Constants.kBigVertcialSpacing,
               Text(
@@ -172,14 +207,18 @@ class Body extends StatelessWidget {
               SizedBox(
                 height: 175,
                 child: GetBuilder<AuctionController>(
-                    init: AuctionController(),
-                    builder: (controller) {
-                      return ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: List.generate(
-                            controller.recommendedAuctionsLength.value,
-                            (index) => controller.recommendedAuctions[index]),
-                      );
+                    init: AuctionController(anyFunc: 'recommended'),
+                    builder: (auctionController) {
+                      return (!auctionController.initialized)
+                          ? const Center(child: CircularProgressIndicator())
+                          : ListView(
+                              scrollDirection: Axis.horizontal,
+                              children: List.generate(
+                                  auctionController
+                                      .recommendedAuctionsLength.value,
+                                  (index) => auctionController
+                                      .recommendedAuctions[index]),
+                            );
                     }),
               ),
               Constants.kSmallVerticalSpacing,

@@ -50,7 +50,7 @@ class CategoriesScreen extends StatelessWidget {
                                   categoryController.categories[index].name;
                               auctionsByCategoryController.updateCategoryId(
                                   categoryController.categories[index].id);
-                              Get.to(() => const AuctionsByCategoryScreen());
+                              Get.to(() => AuctionsByCategoryScreen());
                             },
                             name: categoryController.categories[index].name,
                           );

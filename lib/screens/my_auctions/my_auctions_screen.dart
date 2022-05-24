@@ -1,163 +1,273 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mazzad/components/auction_item_edit.dart';
+import 'package:mazzad/constants.dart';
+import 'package:mazzad/controller/auctions_by_user_id_controller.dart';
+import 'package:mazzad/controller/categories_controller.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-import './custom_image_form_field.dart';
-import '../../services/validator.dart';
-
-class MyAuctionsScreen extends StatelessWidget {
-  MyAuctionsScreen({Key? key}) : super(key: key);
+class MyAuctionsScreen extends StatefulWidget {
+  MyAuctionsScreen({Key? key, this.categoriesController}) : super(key: key);
   static const String routeName = '/my_auctions_screen';
-  final TextEditingController _emailTextEditingController =
-      TextEditingController();
-  final TextEditingController _nameTextEditingController =
-      TextEditingController();
-  final _formKey = GlobalKey<FormState>();
+  CategoriesController? categoriesController;
+
+  @override
+  State<MyAuctionsScreen> createState() => _MyAuctionsScreenState();
+}
+
+class _MyAuctionsScreenState extends State<MyAuctionsScreen> {
+  // var _isLoading = true.obs;
+  // AuctionController? auctionController;
+  final List<Tab> _tabs = const [
+    Tab(
+      text: 'Live',
+    ),
+    Tab(
+      text: 'Scheduled',
+    ),
+  ];
+  int _selectedTabBar = 0;
+
   @override
   Widget build(BuildContext context) {
+    // Get.put<AuctionController>(AuctionController());
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Auctions'),
+        centerTitle: true,
       ),
-      body: Form(
-          //autovalidateMode: AutovalidateMode.always,
-          key: _formKey,
+      body: DefaultTabController(
+        length: _tabs.length,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: Constants.kHorizontalSpacing,
+          ),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
             children: [
-              InputTextWidget(
-                hintText: "full Name",
-                keyboardType: TextInputType.text,
-                keyboardAction: TextInputAction.done,
-                inputController: _emailTextEditingController,
-                validator: (value) {
-                  if (value == null || value.isEmpty || !value.isValidEmail) {
-                    return "Full Name field is required";
-                  }
-                  if (kDebugMode) {
-                    print(value.isValidEmail);
-                  }
-                  return null;
-                },
+              // Constants.kSmallVerticalSpacing,
+              // const SearchTextField(),
+              Constants.kSmallVerticalSpacing,
+              Container(
+                height: 40,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.16),
+                        offset: const Offset(1, 3),
+                        blurRadius: 5,
+                        spreadRadius: 1,
+                      ),
+                    ]),
+                child: TabBar(
+                  tabs: _tabs,
+                  onTap: (index) {
+                    setState(() {
+                      _selectedTabBar = index;
+                    });
+                  },
+                  labelColor: Constants.kPrimaryColor,
+                  indicator: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10), // Creates border
+                    color: Constants.kPrimaryColor.withOpacity(0.2),
+                  ),
+                ),
               ),
-              InputTextWidget(
-                hintText: "full Name",
-                keyboardType: TextInputType.text,
-                keyboardAction: TextInputAction.done,
-                // inputController: _emailTextEditingController,
-                validator: (value) {
-                  if (value == null || value.isEmpty || !value.isValidName) {
-                    return "Full Name field is required";
-                  }
-                  if (kDebugMode) {
-                    print(value.isValidEmail);
-                  }
-                  return null;
-                },
-              ),
-              CustomImageFormField(
-                validator: (val) {
-                  if (val == null) return 'Pick a picture';
-                  return null;
-                },
-                onChanged: (_file) {},
-              ),
-              TextButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      if (kDebugMode) {
-                        print('all valid');
-                      }
+              Constants.kSmallVerticalSpacing,
+              Expanded(
+                child: Builder(
+                  builder: (_) {
+                    if (_selectedTabBar == 0) {
+                      return LiveByUserId();
+                    } else if (_selectedTabBar == 1) {
+                      return ScheduledByUserId();
                     } else {
-                      if (kDebugMode) {
-                        print('its not valid');
-                      }
+                      return LiveByUserId();
                     }
                   },
-                  child: const Text('press here')),
+                ),
+              ),
             ],
-          )),
+          ),
+        ),
+      ),
     );
   }
 }
 
-class InputTextWidget extends StatelessWidget {
-  final String? hintText;
-  final TextInputType? keyboardType;
-  final TextInputAction? keyboardAction;
-  final TextEditingController? inputController;
-  final double? height;
-  final FormFieldValidator<String>? validator;
+class LiveByUserId extends StatefulWidget {
+  @override
+  State<LiveByUserId> createState() => _LiveByUserIdState();
+}
 
-  const InputTextWidget(
-      {Key? key,
-      @required this.hintText,
-      @required this.keyboardType,
-      @required this.keyboardAction,
-      @required this.inputController,
-      this.validator,
-      this.height = 50})
-      : super(key: key);
+class _LiveByUserIdState extends State<LiveByUserId> {
+  final RefreshController refreshController = RefreshController(
+    initialRefresh: true,
+  );
+
+  // var isLoading1 = true.obs;
+  // var isLoading2 = true.obs;
+  // AuctionsByUserIdController? auctionController;
+
+  @override
+  void didChangeDependencies() {
+    // auctionController = Get.find<AuctionsByUserIdController>();
+    // isLoading1.value = false;
+    // isLoading2.value = false;
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return FormField(
-        validator: validator,
-        builder: (FormFieldState formFieldState) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: height,
-                width: double.maxFinite,
-                decoration: BoxDecoration(
-                  border: Border.all(),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(8),
-                  ),
-                ),
-                child: TextField(
-                  onChanged: (String value) {
-                    formFieldState.didChange(value);
+    return GetBuilder<AuctionsByUserIdController>(
+        init: AuctionsByUserIdController(anyFunc: 'live'),
+        builder: (controller) {
+          return (!controller.initialized)
+              ? const Center(child: CircularProgressIndicator())
+              : SmartRefresher(
+                  enablePullUp: true,
+                  onRefresh: () async {
+                    if (kDebugMode) {
+                      print('---> inside the onRefresh live auctions');
+                    }
+                    bool refresed = await controller.getLiveAuctionsByUserId(
+                        isRefresh: true);
+                    if (refresed) {
+                      refreshController.refreshCompleted();
+                    } else {
+                      refreshController.refreshFailed();
+                    }
                   },
-                  controller: inputController,
-                  style: const TextStyle(fontSize: 14),
-                  keyboardType: keyboardType,
-                  textInputAction: keyboardAction,
-                  decoration:
-                      InputDecoration.collapsed(hintText: hintText).copyWith(
-                    contentPadding: const EdgeInsets.symmetric(
-                      vertical: 15,
-                      horizontal: 10,
-                    ),
-                  ),
-                ),
-              ),
-              // Show Form Field Error
-              _showError(formFieldState),
-            ],
-          );
+                  onLoading: () async {
+                    if (kDebugMode) {
+                      print('inside the onloading live auctions');
+                    }
+                    bool refresed = await controller.getLiveAuctionsByUserId(
+                        isRefresh: false);
+                    if (refresed) {
+                      if (kDebugMode) {
+                        print(
+                            'live data loaded successfully to the new to exsiting data');
+                      }
+                      refreshController.loadComplete();
+                    } else {
+                      if (kDebugMode) {
+                        print(
+                            'an err occured while loading the new live data to exsiting data');
+                      }
+                      refreshController.loadFailed();
+                    }
+                  },
+                  controller: refreshController,
+                  child: (!controller.initialized)
+                      ? const Center(child: CircularProgressIndicator())
+                      : GridView.builder(
+                          itemCount:
+                              controller.liveAuctionsByUserIdLength.value,
+                          keyboardDismissBehavior:
+                              ScrollViewKeyboardDismissBehavior.onDrag,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisSpacing: Constants.kHorizontalSpacing,
+                            mainAxisSpacing: Constants.kHorizontalSpacing / 2,
+                            crossAxisCount: 2,
+                          ),
+                          itemBuilder: (ctx, index) => AuctionItemEdit(
+                            myAuction: controller
+                                .liveAuctionsByUserId[index].myAuction,
+                          ),
+                        ),
+                );
         });
   }
+}
 
-  Widget _showError(FormFieldState formFieldState) {
-    if (formFieldState.hasError) {
-      return Row(
-        children: [
-          const Icon(Icons.warning),
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0, top: 5),
-            child: Text(
-              formFieldState.errorText!,
-              style: const TextStyle(
-                color: Colors.red,
-                fontWeight: FontWeight.w500,
-                fontSize: 30,
-              ),
-            ),
-          ),
-        ],
-      );
-    }
-    return const SizedBox();
+class ScheduledByUserId extends StatefulWidget {
+  const ScheduledByUserId({Key? key}) : super(key: key);
+
+  @override
+  State<ScheduledByUserId> createState() => _ScheduledByUserIdState();
+}
+
+class _ScheduledByUserIdState extends State<ScheduledByUserId> {
+  // final controller = Get.find<AuctionController>();
+
+  final RefreshController refreshController = RefreshController(
+    initialRefresh: true,
+  );
+
+  // var isLoading1 = true.obs;
+  // var isLoading2 = true.obs;
+  // AuctionsByUserIdController? auctionController;
+
+  @override
+  void didChangeDependencies() {
+    // auctionController = Get.find<AuctionsByUserIdController>();
+    // isLoading1.value = false;
+    // isLoading2.value = false;
+    super.didChangeDependencies();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<AuctionsByUserIdController>(
+        init: AuctionsByUserIdController(anyFunc: 'scheduled'),
+        builder: (controller) {
+          return SmartRefresher(
+            enablePullUp: true,
+            onRefresh: () async {
+              if (kDebugMode) {
+                print('inside the onRefresh Scheduled auctions');
+              }
+              bool refresed = await controller.getScheduledAuctionsByUserId(
+                  isRefresh: true);
+              if (refresed) {
+                refreshController.refreshCompleted();
+              } else {
+                refreshController.refreshFailed();
+              }
+            },
+            onLoading: () async {
+              if (kDebugMode) {
+                print('inside the onloading Scheduled auctions');
+              }
+              bool refresed = await controller.getScheduledAuctionsByUserId(
+                  isRefresh: false);
+              if (refresed) {
+                if (kDebugMode) {
+                  print(
+                      'Scheduled data loaded successfully to the new to exsiting data');
+                }
+                refreshController.loadComplete();
+              } else {
+                if (kDebugMode) {
+                  print(
+                      'an err occured while loading the new live data to exsiting data');
+                }
+                refreshController.loadFailed();
+              }
+            },
+            controller: refreshController,
+            child: (!controller.initialized)
+                ? const Center(child: CircularProgressIndicator())
+                : GridView.builder(
+                    itemCount: controller.scheduledAuctionsByUserIdLength.value,
+                    keyboardDismissBehavior:
+                        ScrollViewKeyboardDismissBehavior.onDrag,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisSpacing: Constants.kHorizontalSpacing,
+                      mainAxisSpacing: Constants.kHorizontalSpacing / 2,
+                      crossAxisCount: 2,
+                    ),
+                    itemBuilder: (ctx, index) => AuctionItemEdit(
+                      myAuction:
+                          controller.scheduledAuctionsByUserId[index].myAuction,
+                    ),
+                  ),
+          );
+        });
   }
 }

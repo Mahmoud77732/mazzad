@@ -2,6 +2,7 @@ import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mazzad/services/auth_service.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import './models/bidder/bidder.dart';
@@ -22,13 +23,11 @@ class Constants {
       };
   static Future<Map<String, String>> get profileHeader async => {
         // "Authorization": "Bearer ${await AuthService.token}",
-        "Authorization":
-            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NWY5NzM2Ny03M2E5LTQ3NWEtYjgxNy0xNmMwZDU2N2Q2OTciLCJqdGkiOiI5YmU2YWU5NDkwMGI4ZTJkMzAyYWZjM2Q0NmI0YWVmMjM0OGI0MWFiMzA4MjBkYWE5YzE3MDk5Y2VhODJjN2VkM2Q3YWM0NTA5YjgzZjk5NCIsImlhdCI6MTY1MzE2ODgzNy4zMDU3NTgsIm5iZiI6MTY1MzE2ODgzNy4zMDU3NjIsImV4cCI6MTY4NDcwNDgzNy4yOTU1MDMsInN1YiI6IjEiLCJzY29wZXMiOlsiKiJdfQ.1rtdXSm4LjQLBgLEhUv-nEDzbL07q4ig8__WMUvvOH5Rihk9Sz885m9wjJWnLoJRcU5x8MAbKZH7YhySrZYGdObZHOgzUoiGs9151VR2PZm27A7qryKZC_6LPge2S1K1ZDA9I6BgFtZ83xm1ewqUKw6MtEDv27_QOsY52G4f0kJbsn0PBJ6hnQzKG8gQ6Lk4s6Xt5hc3X0sL4ydb_litg6znfvCBQgLQemb3GeVGaqyO9dDkJxLYAIzdnRE-XGWVGBPYFzH644xT2_OLuKc0QxxHG4tJBM_L1Re1OSN1_nGgU0RuIxGDmS5hpjtLX_cP_qLrFD0GzjWuiAONBEK6DYJ4P9zZQfWQPxT0ihyo4FKJlfr79zrHUYmhzFYUTsxPv77CHC-uoxcBtAKsMK184Lz6BKqWYGhF3NMrlBTE2Os1HaNWOgWMLGRAGCh7WI-WdWlqeyHYjQIy0pg1hjdgAARdVwvGIynYK_EYQjnIHA67ZnkGJ9tvzeUoYXCUJbLG7A89Z4SyJT6wqOBI0xhs3om55TBickoJ-qcI9Y149wVS8bjDL5vPoM0p3QqPhI48IHBisQ86Z13GE3wS4--lDJ7zelwon2z5cT4trvYNJPVNuafYLbkc43RA4WNsGJtCTBQAw6d4kq5oELWeN_Sb-WqG3x2VSESl1sDwoG-D3mY",
+        "Authorization": "Bearer ${await AuthService.token}",
       };
   static Future<Map<String, String>> get headers async => {
         // "Authorization": "Bearer ${await AuthService.token}",
-        "Authorization":
-            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NWY5NzM2Ny03M2E5LTQ3NWEtYjgxNy0xNmMwZDU2N2Q2OTciLCJqdGkiOiI5YmU2YWU5NDkwMGI4ZTJkMzAyYWZjM2Q0NmI0YWVmMjM0OGI0MWFiMzA4MjBkYWE5YzE3MDk5Y2VhODJjN2VkM2Q3YWM0NTA5YjgzZjk5NCIsImlhdCI6MTY1MzE2ODgzNy4zMDU3NTgsIm5iZiI6MTY1MzE2ODgzNy4zMDU3NjIsImV4cCI6MTY4NDcwNDgzNy4yOTU1MDMsInN1YiI6IjEiLCJzY29wZXMiOlsiKiJdfQ.1rtdXSm4LjQLBgLEhUv-nEDzbL07q4ig8__WMUvvOH5Rihk9Sz885m9wjJWnLoJRcU5x8MAbKZH7YhySrZYGdObZHOgzUoiGs9151VR2PZm27A7qryKZC_6LPge2S1K1ZDA9I6BgFtZ83xm1ewqUKw6MtEDv27_QOsY52G4f0kJbsn0PBJ6hnQzKG8gQ6Lk4s6Xt5hc3X0sL4ydb_litg6znfvCBQgLQemb3GeVGaqyO9dDkJxLYAIzdnRE-XGWVGBPYFzH644xT2_OLuKc0QxxHG4tJBM_L1Re1OSN1_nGgU0RuIxGDmS5hpjtLX_cP_qLrFD0GzjWuiAONBEK6DYJ4P9zZQfWQPxT0ihyo4FKJlfr79zrHUYmhzFYUTsxPv77CHC-uoxcBtAKsMK184Lz6BKqWYGhF3NMrlBTE2Os1HaNWOgWMLGRAGCh7WI-WdWlqeyHYjQIy0pg1hjdgAARdVwvGIynYK_EYQjnIHA67ZnkGJ9tvzeUoYXCUJbLG7A89Z4SyJT6wqOBI0xhs3om55TBickoJ-qcI9Y149wVS8bjDL5vPoM0p3QqPhI48IHBisQ86Z13GE3wS4--lDJ7zelwon2z5cT4trvYNJPVNuafYLbkc43RA4WNsGJtCTBQAw6d4kq5oELWeN_Sb-WqG3x2VSESl1sDwoG-D3mY",
+        "Authorization": "Bearer ${await AuthService.token}",
         "Content-Type": "application/json",
         "Accept": "application/json",
         "OS_Name": Platform.operatingSystem,
@@ -96,7 +95,7 @@ class Constants {
   static ThemeData kMazzadTheme = ThemeData(
     appBarTheme: AppBarTheme(
       centerTitle: true,
-      titleTextStyle: GoogleFonts.abhayaLibre(
+      titleTextStyle: GoogleFonts.roboto(
         color: Colors.black,
         fontWeight: FontWeight.w900,
         fontSize: 24.0,
@@ -109,25 +108,25 @@ class Constants {
     ),
     textTheme: TextTheme(
       // thats for just a backup for the regular styling
-      bodyText1: GoogleFonts.abhayaLibre(
+      bodyText1: GoogleFonts.roboto(
         color: Colors.black,
         fontWeight: FontWeight.w700,
         fontSize: 14,
       ),
       // thats for regulra styling
-      bodyText2: GoogleFonts.abel(
+      bodyText2: GoogleFonts.roboto(
         color: Colors.black,
         fontWeight: FontWeight.w700,
         fontSize: 14,
       ),
       // thats for button styling
-      button: GoogleFonts.abel(
+      button: GoogleFonts.roboto(
         color: Colors.black,
         fontWeight: FontWeight.w700,
         fontSize: 14,
       ),
       // its for list tiles text
-      subtitle1: GoogleFonts.abel(
+      subtitle1: GoogleFonts.roboto(
         color: Colors.black,
         fontWeight: FontWeight.w900,
         // fontSize: 16,
