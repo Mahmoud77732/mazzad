@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mazzad/controller/categories_controller.dart';
 import 'package:mazzad/controller/my_auctions_controller.dart';
 import 'package:mazzad/models/profile/profile.dart';
 
@@ -26,22 +27,24 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  var isLoading = true.obs;
-  ProfileController? profileController;
+  var categoriesController = Get.find<CategoriesController>();
+  // var isLoading = true.obs;
+  // ProfileController? profileController;
 
   @override
   void didChangeDependencies() {
-    profileController = Get.find<ProfileController>();
-    isLoading.value = false;
+    // profileController = Get.find<ProfileController>();
+    // isLoading.value = false;
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
     // MyAuctionsController myAuctionsController=Get.find<MyAuctionsController>();
-    return (isLoading.value)
-        ? const Center(child: CircularProgressIndicator())
-        : SingleChildScrollView(
+    return GetBuilder<ProfileController>(
+        init: ProfileController(),
+        builder: (profileController) {
+          return (!profileController.initialized) ? const Center(child: CircularProgressIndicator()) :SingleChildScrollView(
             child: Column(
               children: [
                 SizedBox(
@@ -140,7 +143,7 @@ class _BodyState extends State<Body> {
                               height: getProportionateScreenHeight(15),
                             ),
                             Text(
-                              profileController!.myProfile!.value.name ??
+                              profileController.myProfile!.value.name ??
                                   "user",
                               style: TextStyle(
                                 fontSize: getProportionateScreenHeight(20),
@@ -157,7 +160,7 @@ class _BodyState extends State<Body> {
                             keyboardDismissBehavior:
                                 ScrollViewKeyboardDismissBehavior.onDrag,
                             itemBuilder: (ctx, index) {
-                              return (isLoading.value)
+                              return (!profileController.initialized)
                                   ? const Center(
                                       child: CircularProgressIndicator())
                                   : profileTiles[index];
@@ -181,6 +184,7 @@ class _BodyState extends State<Body> {
               ],
             ),
           );
+        });
   }
 
   static List<ListTile> profileTiles = [

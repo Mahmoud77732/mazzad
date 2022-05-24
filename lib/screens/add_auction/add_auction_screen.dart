@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
+import 'package:mazzad/controller/auctions_by_user_id_controller.dart';
 
 import '../../components/auction_status.dart';
 import '../../components/components.dart';
@@ -13,6 +14,7 @@ import '../../controller/categories_controller.dart';
 import '../../models/auction/auction.dart';
 
 final AuctionController auctionController = Get.find<AuctionController>();
+// final AuctionsByUserIdController auctionsByUserIdController = Get.find<AuctionsByUserIdController>();
 
 class AddAuctionScreen extends StatelessWidget {
   final categoriesController = Get.find<CategoriesController>();

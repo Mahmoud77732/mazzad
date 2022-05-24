@@ -45,8 +45,10 @@ class CategoriesController extends GetxController {
   Color get randomColor => myColors[Random().nextInt(myColors.length)];
 
   CategoriesController() {
+    print('---> CategoriesController()');
     getCategories();
   }
+
   void setCategoryAcutionId({int? mySelectedCategoryId}) {
     _categoryId = mySelectedCategoryId ?? -1;
     update();

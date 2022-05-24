@@ -34,6 +34,7 @@ class ProfileService {
         "name": profile.name,
         "phone_number": profile.phone_number
       };
+      print('------------> myStaticJson');
       final response = await http.post(
           Uri.parse('${Constants.api}/me/updateProfile'),
           body: myStaticJson,

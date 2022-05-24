@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:mazzad/components/auction_item.dart';
 import 'package:mazzad/components/auction_status.dart';
+import 'package:mazzad/constants.dart';
 import 'package:mazzad/models/auction/auction.dart';
 import 'package:mazzad/services/auction_service.dart';
+import 'package:http/http.dart' as http;
 
 class AuctionsByUserIdController extends GetxController {
   final Rx<String?> _liveAuctionByUserIdNextPage = ''.obs;
@@ -20,9 +24,27 @@ class AuctionsByUserIdController extends GetxController {
       _scheduledAuctionsByUserId.length.obs;
   List<AuctionItem> get scheduledAuctionsByUserId => _scheduledAuctionsByUserId;
 
-  AuctionsByUserIdController() {
-    // getLiveAuctionsByUserId();
-    // getScheduledAuctionsByUserId();
+  String? _auctionType;
+  String? get auctionType => _auctionType;
+  int _categoryId = -1;
+  int get categoryId => _categoryId;
+
+  String? anyFunc;
+
+  AuctionsByUserIdController({this.anyFunc}) {
+    if (anyFunc == 'live') {
+      getLiveAuctionsByUserId();
+    } else if(anyFunc == 'scheduled') {
+      getScheduledAuctionsByUserId();
+    }
+    else{
+
+    }
+  }
+
+  void updateAuctionName({String? newAuctionType}) {
+    _auctionType = newAuctionType;
+    update();
   }
 
   void updateLiveByUserIdNextPage({String? newNextPage}) {
@@ -32,6 +54,11 @@ class AuctionsByUserIdController extends GetxController {
 
   void updateScheduledByUserIdNextPage({String? newNextPage}) {
     _scheduledAuctionByUserIdNextPage.value = newNextPage;
+    update();
+  }
+
+  void updateCategoryAcutionId({int? mySelectedCategoryId}) {
+    _categoryId = mySelectedCategoryId ?? -1;
     update();
   }
 
@@ -158,6 +185,51 @@ class AuctionsByUserIdController extends GetxController {
       }
 
       return true;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<bool>? editAuction(Auction editedAuctionModel) async {
+    try {
+      final response = await http.post(
+        Uri.parse('${Constants.api}/auction/${editedAuctionModel.id}'),
+        body: jsonEncode(editedAuctionModel.toJson()),
+        headers: await Constants.headers,
+      );
+      if (kDebugMode) {
+        print(response.body);
+        print(response.statusCode);
+      }
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        if (kDebugMode) print('there is an err in updating user data');
+        return false;
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<bool>? deleteAuction(Auction deletedAuctionModel) async {
+    try {
+      print('-------------auction id----------> $deletedAuctionModel');
+      final response = await http.delete(
+        Uri.parse('${Constants.api}/auction/${deletedAuctionModel.id}'),
+        body: jsonEncode(deletedAuctionModel.toJson()),
+        headers: await Constants.headers,
+      );
+      if (kDebugMode) {
+        print(response.body);
+        print(response.statusCode);
+      }
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        if (kDebugMode) print('there is an err in updating user data');
+        return false;
+      }
     } catch (e) {
       rethrow;
     }
