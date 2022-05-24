@@ -117,49 +117,9 @@ class _BodyState extends State<Body> {
                               fontSize: 20,
                             ),
                           ),
-                          SizedBox(
-                            height: 160,
-                            child: GetBuilder<AuctionController>(
-                                init: AuctionController(anyFunc: 'similar'),
-                                builder: (auctionController) {
-                                  return (!auctionController.initialized)
-                                      ? const Center(
-                                          child: CircularProgressIndicator())
-                                      : FutureBuilder(
-                                          future: auctionController
-                                              .getSimilarAuctions(
-                                                  auctionId: detailsController
-                                                      .argumentsValues!['id']),
-                                          builder: ((context, snapshot) {
-                                            switch (snapshot.connectionState) {
-                                              case ConnectionState.active:
-                                              case ConnectionState.none:
-                                              case ConnectionState.waiting:
-                                                return const Center(
-                                                    child:
-                                                        CircularProgressIndicator());
-                                              case ConnectionState.done:
-                                                return ListView.builder(
-                                                  shrinkWrap: true,
-                                                  itemBuilder:
-                                                      ((context, index) {
-                                                    AuctionItem similarItem =
-                                                        auctionController
-                                                                .similarAuctions[
-                                                            index];
-                                                    return similarItem;
-                                                  }),
-                                                  scrollDirection:
-                                                      Axis.horizontal,
-                                                  itemCount: auctionController
-                                                      .similarAuctionsLength
-                                                      .value,
-                                                );
-                                            }
-                                          }),
-                                        );
-                                }),
-                          ),
+                          SimilarAuctions(
+                              id: detailsController.argumentsValues!['id']
+                                  as int),
                           Constants.kBigVertcialSpacing,
                           DefaultButton(
                             onPressed: () {
@@ -177,5 +137,51 @@ class _BodyState extends State<Body> {
                   ],
                 );
         });
+  }
+}
+
+class SimilarAuctions extends StatefulWidget {
+  const SimilarAuctions({
+    this.id,
+    Key? key,
+  }) : super(key: key);
+  final int? id;
+  @override
+  State<SimilarAuctions> createState() => _SimilarAuctionsState();
+}
+
+class _SimilarAuctionsState extends State<SimilarAuctions> {
+  AuctionController controller = Get.find<AuctionController>();
+  bool isLoaded = false;
+  @override
+  void initState() {
+    _similarAuctions();
+    super.initState();
+  }
+
+  _similarAuctions() async {
+    bool loaded = await controller.getSimilarAuctions(auctionId: widget.id);
+    setState(() {
+      isLoaded = loaded;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    print(widget.id);
+    return SizedBox(
+      height: 160,
+      child: isLoaded
+          ? ListView.builder(
+              shrinkWrap: true,
+              itemBuilder: ((context, index) {
+                AuctionItem similarItem = controller.similarAuctions[index];
+                return similarItem;
+              }),
+              scrollDirection: Axis.horizontal,
+              itemCount: controller.similarAuctionsLength.value,
+            )
+          : const Center(child: CircularProgressIndicator()),
+    );
   }
 }
