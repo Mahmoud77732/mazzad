@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:mazzad/components/dialogs/app_dialog.dart';
 
 import './contact_us_info.dart';
 import '../../../components/default_button.dart';
@@ -41,6 +42,8 @@ class Body extends StatelessWidget {
                 text: 'Submit',
                 onPressed: () {
                   //submitting the complain
+                  AppDialog.showContactUsDialog(
+                      context, 'ur message has been successfully sent');
                 },
               ),
               Constants.kBigVertcialSpacing,

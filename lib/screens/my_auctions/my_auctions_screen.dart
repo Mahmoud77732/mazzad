@@ -1,23 +1,24 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mazzad/components/auction_item.dart';
 import 'package:mazzad/components/auction_item_edit.dart';
 import 'package:mazzad/constants.dart';
-import 'package:mazzad/controller/auction_controller.dart';
+import 'package:mazzad/controller/auctions_by_user_id_controller.dart';
+import 'package:mazzad/controller/categories_controller.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class MyAuctionsScreen extends StatefulWidget {
-  MyAuctionsScreen({Key? key}) : super(key: key);
+  MyAuctionsScreen({Key? key, this.categoriesController}) : super(key: key);
   static const String routeName = '/my_auctions_screen';
+  CategoriesController? categoriesController;
 
   @override
   State<MyAuctionsScreen> createState() => _MyAuctionsScreenState();
 }
 
 class _MyAuctionsScreenState extends State<MyAuctionsScreen> {
-  var _isLoading = true.obs;
-  AuctionController? auctionController;
+  // var _isLoading = true.obs;
+  // AuctionController? auctionController;
   final List<Tab> _tabs = const [
     Tab(
       text: 'Live',
@@ -27,18 +28,6 @@ class _MyAuctionsScreenState extends State<MyAuctionsScreen> {
     ),
   ];
   int _selectedTabBar = 0;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    auctionController = Get.find<AuctionController>();
-    _isLoading.value = false;
-    super.didChangeDependencies();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +77,7 @@ class _MyAuctionsScreenState extends State<MyAuctionsScreen> {
               ),
               Constants.kSmallVerticalSpacing,
               Expanded(
-                child: (_isLoading.value) ? Center(child: CircularProgressIndicator()): Builder(
+                child: Builder(
                   builder: (_) {
                     if (_selectedTabBar == 0) {
                       return LiveByUserId();
@@ -115,84 +104,88 @@ class LiveByUserId extends StatefulWidget {
 
 class _LiveByUserIdState extends State<LiveByUserId> {
   final RefreshController refreshController = RefreshController(
-    initialRefresh: false,
+    initialRefresh: true,
   );
 
-  var isLoading1 = true.obs;
-  var isLoading2 = true.obs;
-  AuctionController? auctionController;
+  // var isLoading1 = true.obs;
+  // var isLoading2 = true.obs;
+  // AuctionsByUserIdController? auctionController;
 
   @override
   void didChangeDependencies() {
-    auctionController = Get.find<AuctionController>();
-    isLoading1.value = false;
-    isLoading2.value = false;
+    // auctionController = Get.find<AuctionsByUserIdController>();
+    // isLoading1.value = false;
+    // isLoading2.value = false;
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-    return (isLoading1.value)
-        ? const Center(child: CircularProgressIndicator())
-        : SmartRefresher(
-            enablePullUp: true,
-            onRefresh: () async {
-              if (kDebugMode) {
-                print('---> inside the onRefresh live auctions');
-              }
-              bool refresed = await auctionController!
-                  .getLiveAuctionsByUserId(isRefresh: true);
-              if (refresed) {
-                refreshController.refreshCompleted();
-              } else {
-                refreshController.refreshFailed();
-              }
-            },
-            onLoading: () async {
-              if (kDebugMode) {
-                print('inside the onloading live auctions');
-              }
-              bool refresed = await auctionController!
-                  .getLiveAuctionsByUserId(isRefresh: false);
-              if (refresed) {
-                if (kDebugMode) {
-                  print(
-                      'live data loaded successfully to the new to exsiting data');
-                }
-                refreshController.loadComplete();
-              } else {
-                if (kDebugMode) {
-                  print(
-                      'an err occured while loading the new live data to exsiting data');
-                }
-                refreshController.loadFailed();
-              }
-            },
-            controller: refreshController,
-            child: (isLoading2.value)
-                ? const Center(child: CircularProgressIndicator())
-                : GridView.builder(
-                    itemCount:
-                        auctionController!.liveAuctionsByUserIdLength.value,
-                    keyboardDismissBehavior:
-                        ScrollViewKeyboardDismissBehavior.onDrag,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisSpacing: Constants.kHorizontalSpacing,
-                      mainAxisSpacing: Constants.kHorizontalSpacing / 2,
-                      crossAxisCount: 2,
-                    ),
-                    itemBuilder: (ctx, index) => AuctionItemEdit(
-                      myAuction: auctionController!
-                          .liveAuctionsByUserId[index].myAuction,
-                    ),
-                  ),
-          );
+    return GetBuilder<AuctionsByUserIdController>(
+        init: AuctionsByUserIdController(anyFunc: 'live'),
+        builder: (controller) {
+          return (!controller.initialized)
+              ? const Center(child: CircularProgressIndicator())
+              : SmartRefresher(
+                  enablePullUp: true,
+                  onRefresh: () async {
+                    if (kDebugMode) {
+                      print('---> inside the onRefresh live auctions');
+                    }
+                    bool refresed = await controller.getLiveAuctionsByUserId(
+                        isRefresh: true);
+                    if (refresed) {
+                      refreshController.refreshCompleted();
+                    } else {
+                      refreshController.refreshFailed();
+                    }
+                  },
+                  onLoading: () async {
+                    if (kDebugMode) {
+                      print('inside the onloading live auctions');
+                    }
+                    bool refresed = await controller.getLiveAuctionsByUserId(
+                        isRefresh: false);
+                    if (refresed) {
+                      if (kDebugMode) {
+                        print(
+                            'live data loaded successfully to the new to exsiting data');
+                      }
+                      refreshController.loadComplete();
+                    } else {
+                      if (kDebugMode) {
+                        print(
+                            'an err occured while loading the new live data to exsiting data');
+                      }
+                      refreshController.loadFailed();
+                    }
+                  },
+                  controller: refreshController,
+                  child: (!controller.initialized)
+                      ? const Center(child: CircularProgressIndicator())
+                      : GridView.builder(
+                          itemCount:
+                              controller.liveAuctionsByUserIdLength.value,
+                          keyboardDismissBehavior:
+                              ScrollViewKeyboardDismissBehavior.onDrag,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisSpacing: Constants.kHorizontalSpacing,
+                            mainAxisSpacing: Constants.kHorizontalSpacing / 2,
+                            crossAxisCount: 2,
+                          ),
+                          itemBuilder: (ctx, index) => AuctionItemEdit(
+                            myAuction: controller
+                                .liveAuctionsByUserId[index].myAuction,
+                          ),
+                        ),
+                );
+        });
   }
 }
 
 class ScheduledByUserId extends StatefulWidget {
-  ScheduledByUserId({Key? key}) : super(key: key);
+  const ScheduledByUserId({Key? key}) : super(key: key);
 
   @override
   State<ScheduledByUserId> createState() => _ScheduledByUserIdState();
@@ -202,33 +195,34 @@ class _ScheduledByUserIdState extends State<ScheduledByUserId> {
   // final controller = Get.find<AuctionController>();
 
   final RefreshController refreshController = RefreshController(
-    initialRefresh: false,
+    initialRefresh: true,
   );
 
-  var isLoading1 = true.obs;
-  var isLoading2 = true.obs;
-  AuctionController? auctionController;
+  // var isLoading1 = true.obs;
+  // var isLoading2 = true.obs;
+  // AuctionsByUserIdController? auctionController;
 
   @override
   void didChangeDependencies() {
-    auctionController = Get.find<AuctionController>();
-    isLoading1.value = false;
-    isLoading2.value = false;
+    // auctionController = Get.find<AuctionsByUserIdController>();
+    // isLoading1.value = false;
+    // isLoading2.value = false;
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-    return (isLoading2.value)
-        ? const Center(child: CircularProgressIndicator())
-        : SmartRefresher(
+    return GetBuilder<AuctionsByUserIdController>(
+        init: AuctionsByUserIdController(anyFunc: 'scheduled'),
+        builder: (controller) {
+          return SmartRefresher(
             enablePullUp: true,
             onRefresh: () async {
               if (kDebugMode) {
                 print('inside the onRefresh Scheduled auctions');
               }
-              bool refresed = await auctionController!
-                  .getScheduledAuctionsByUserId(isRefresh: true);
+              bool refresed = await controller.getScheduledAuctionsByUserId(
+                  isRefresh: true);
               if (refresed) {
                 refreshController.refreshCompleted();
               } else {
@@ -239,8 +233,8 @@ class _ScheduledByUserIdState extends State<ScheduledByUserId> {
               if (kDebugMode) {
                 print('inside the onloading Scheduled auctions');
               }
-              bool refresed = await auctionController!
-                  .getScheduledAuctionsByUserId(isRefresh: false);
+              bool refresed = await controller.getScheduledAuctionsByUserId(
+                  isRefresh: false);
               if (refresed) {
                 if (kDebugMode) {
                   print(
@@ -256,11 +250,10 @@ class _ScheduledByUserIdState extends State<ScheduledByUserId> {
               }
             },
             controller: refreshController,
-            child: (isLoading2.value)
+            child: (!controller.initialized)
                 ? const Center(child: CircularProgressIndicator())
                 : GridView.builder(
-                    itemCount: auctionController!
-                        .scheduledAuctionsByUserIdLength.value,
+                    itemCount: controller.scheduledAuctionsByUserIdLength.value,
                     keyboardDismissBehavior:
                         ScrollViewKeyboardDismissBehavior.onDrag,
                     gridDelegate:
@@ -270,10 +263,11 @@ class _ScheduledByUserIdState extends State<ScheduledByUserId> {
                       crossAxisCount: 2,
                     ),
                     itemBuilder: (ctx, index) => AuctionItemEdit(
-                      myAuction: auctionController!
-                          .scheduledAuctionsByUserId[index].myAuction,
+                      myAuction:
+                          controller.scheduledAuctionsByUserId[index].myAuction,
                     ),
                   ),
           );
+        });
   }
 }

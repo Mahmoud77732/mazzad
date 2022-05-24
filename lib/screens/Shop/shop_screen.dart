@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mazzad/controller/home_controller.dart';
 
 import '../../constants.dart';
@@ -20,28 +20,24 @@ class ShopScreen extends StatelessWidget {
           'Shop',
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-            horizontal: Constants.kHorizontalSpacing),
-        child: Column(
-          children: [
-            const Spacer(),
-            const Expanded(
-              flex: 1,
-              child: Text(
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+              horizontal: Constants.kHorizontalSpacing),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text(
                 'Coming Soon',
                 style: TextStyle(
                   fontSize: 30,
                 ),
               ),
-            ),
-            Expanded(
-              flex: 5,
-              child: SvgPicture.asset('assets/icons/shop.svg',
+              Lottie.asset('assets/lotties/no_auction.json',
                   height: SizeConfig.screenHeight * 0.43),
-            ),
-            const Spacer(),
-          ],
+            ],
+          ),
         ),
       ),
     );

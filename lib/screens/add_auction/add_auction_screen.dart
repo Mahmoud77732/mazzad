@@ -7,12 +7,14 @@ import 'package:get/get.dart';
 import '../../components/auction_status.dart';
 import '../../components/components.dart';
 import '../../components/default_button.dart';
+import '../../components/dialogs/app_dialog.dart';
 import '../../constants.dart';
 import '../../controller/auction_controller.dart';
 import '../../controller/categories_controller.dart';
 import '../../models/auction/auction.dart';
 
 final AuctionController auctionController = Get.find<AuctionController>();
+// final AuctionsByUserIdController auctionsByUserIdController = Get.find<AuctionsByUserIdController>();
 
 class AddAuctionScreen extends StatelessWidget {
   final categoriesController = Get.find<CategoriesController>();
@@ -62,7 +64,7 @@ class AddAuctionScreen extends StatelessWidget {
 
           defaultFormField(
             controller: priceTextController,
-            type: TextInputType.text,
+            type: const TextInputType.numberWithOptions(),
             validate: (String? value) {
               if (value!.isEmpty) {
                 return 'enter initial price';
@@ -76,25 +78,29 @@ class AddAuctionScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Auciton Types',
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                  MyDropDownButton(
-                    myDropDownItems: Status.values
-                        .map((e) => {
-                              'name': e.name,
-                              'id': e.index.toString(),
-                            })
-                        .toList(),
-                    isAuctionType: true,
-                  ),
-                ],
+              Expanded(
+                flex: 1,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Auciton Types',
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    MyDropDownButton(
+                      myDropDownItems: Status.values
+                          .map((e) => {
+                                'name': e.name,
+                                'id': e.index.toString(),
+                              })
+                          .toList(),
+                      isAuctionType: true,
+                    ),
+                  ],
+                ),
               ),
               Column(
+                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
@@ -206,7 +212,7 @@ class AddAuctionScreen extends StatelessWidget {
           ),
           DefaultButton(
             text: 'place auction',
-            onPressed: () async {
+            onPressed: () {
               Auction addedAuctionModel = Auction(
                 name: nameTextController.text,
                 images: ['ddd1', 'ddd2'],
@@ -219,13 +225,12 @@ class AddAuctionScreen extends StatelessWidget {
                 end_date: endDateTextValue,
                 description: descriptionTextController.text,
                 category_id: auctionController.categoryId,
-                initial_price: double.parse(priceTextController.text),
+                initial_price: double.parse(priceTextController.text) ?? 0.0,
                 keywords: ['keywords'],
               );
-
-              bool? isAuctionAddedSuccessfully = await auctionController
-                  .postAuction(addedAuctionModel)!
-                  .then((value) {
+              AppDialog.showAuctionPlacedDialog(
+                  context, 'Auction has been placed successfully');
+              auctionController.postAuction(addedAuctionModel)!.then((value) {
                 print(value);
                 return null;
               });
@@ -282,7 +287,6 @@ class _MyDropDownButtonState extends State<MyDropDownButton> {
         });
         if (widget.isAuctionType!) {
           auctionController.updateAuctionName(newAuctionType: newValue);
-          print('---> auctionType: ${auctionController.auctionType}');
           // print('---> auctionController.addedAuctionModel!: ${addedAuctionModel.data}');
           // addedAuctionModel.data!.type = newValue;
         } else {
@@ -295,7 +299,6 @@ class _MyDropDownButtonState extends State<MyDropDownButton> {
               mySelectedItem['id']!,
             ),
           );
-          print('---> categoryId: ${auctionController.categoryId}');
         }
       },
       // items: widget.myDropDownItems.map<DropdownMenuItem<String>>((Map? value) {

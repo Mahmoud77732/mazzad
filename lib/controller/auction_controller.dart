@@ -47,176 +47,181 @@ class AuctionController extends GetxController {
   int _categoryId = -1;
   int get categoryId => _categoryId;
 
-  final Rx<String?> _liveAuctionByCategoryNextPage = ''.obs;
-  Rx<String?> get liveAuctionByCategoryNextPage =>
-      _liveAuctionByCategoryNextPage;
-  final RxList<AuctionItem> _liveAuctionsByCategory = <AuctionItem>[].obs;
-  List<AuctionItem> get liveAuctionsByCategory => _liveAuctionsByCategory;
-  Rx<int> get liveAuctionsByCategoryLength => _liveAuctionsByCategory
-      .length.obs; //> 15 ? 0.obs : _liveAuctions.length.obs
+  String? anyFunc;
 
-  final Rx<String?> _scheduledAuctionByCategoryNextPage = ''.obs;
-  Rx<String?> get scheduledAuctionByCategoryNextPage =>
-      _scheduledAuctionByCategoryNextPage;
-  List<AuctionItem> _scheduledAuctionsByCategory = <AuctionItem>[].obs;
-  List<AuctionItem> get scheduledAuctionsByCategory =>
-      _scheduledAuctionsByCategory;
-  Rx<int> get scheduledAuctionsByCategoryLength =>
-      _scheduledAuctionsByCategory.length.obs;
+  // final Rx<String?> _liveAuctionByCategoryNextPage = ''.obs;
+  // Rx<String?> get liveAuctionByCategoryNextPage =>
+  //     _liveAuctionByCategoryNextPage;
+  // final RxList<AuctionItem> _liveAuctionsByCategory = <AuctionItem>[].obs;
+  // List<AuctionItem> get liveAuctionsByCategory => _liveAuctionsByCategory;
+  // Rx<int> get liveAuctionsByCategoryLength => _liveAuctionsByCategory
+  //     .length.obs; //> 15 ? 0.obs : _liveAuctions.length.obs
 
-  final Rx<String?> _liveAuctionByUserIdNextPage = ''.obs;
-  Rx<String?> get liveAuctionByUserIdNextPage => _liveAuctionByUserIdNextPage;
-  final RxList<AuctionItem> _liveAuctionsByUserId = <AuctionItem>[].obs;
-  Rx<int> get liveAuctionsByUserIdLength => _liveAuctionsByUserId.length.obs;
-  List<AuctionItem> get liveAuctionsByUserId => _liveAuctionsByUserId;
+  // final Rx<String?> _scheduledAuctionByCategoryNextPage = ''.obs;
+  // Rx<String?> get scheduledAuctionByCategoryNextPage =>
+  //     _scheduledAuctionByCategoryNextPage;
+  // List<AuctionItem> _scheduledAuctionsByCategory = <AuctionItem>[].obs;
+  // List<AuctionItem> get scheduledAuctionsByCategory =>
+  //     _scheduledAuctionsByCategory;
+  // Rx<int> get scheduledAuctionsByCategoryLength =>
+  //     _scheduledAuctionsByCategory.length.obs;
 
-  final Rx<String?> _scheduledAuctionByUserIdNextPage = ''.obs;
-  Rx<String?> get scheduledAuctionByUserIdNextPage =>
-      _scheduledAuctionByUserIdNextPage;
-  final RxList<AuctionItem> _scheduledAuctionsByUserId = <AuctionItem>[].obs;
-  Rx<int> get scheduledAuctionsByUserIdLength =>
-      _scheduledAuctionsByUserId.length.obs;
-  List<AuctionItem> get scheduledAuctionsByUserId => _scheduledAuctionsByUserId;
+  // final Rx<String?> _liveAuctionByUserIdNextPage = ''.obs;
+  // Rx<String?> get liveAuctionByUserIdNextPage => _liveAuctionByUserIdNextPage;
+  // final RxList<AuctionItem> _liveAuctionsByUserId = <AuctionItem>[].obs;
+  // Rx<int> get liveAuctionsByUserIdLength => _liveAuctionsByUserId.length.obs;
+  // List<AuctionItem> get liveAuctionsByUserId => _liveAuctionsByUserId;
 
-  AuctionController() {
-    getRecommendedAuctions();
-    getLiveAuctions();
-    getScheduledAuctions();
-    getSimilarAuctions(auctionId: 1);
-    getLiveAuctionsByCategory();
-    getScheduledAuctionsByCategory();
-    getLiveAuctionsByUserId();
-    getScheduledAuctionsByUserId();
-  }
+  // final Rx<String?> _scheduledAuctionByUserIdNextPage = ''.obs;
+  // Rx<String?> get scheduledAuctionByUserIdNextPage =>
+  //     _scheduledAuctionByUserIdNextPage;
+  // final RxList<AuctionItem> _scheduledAuctionsByUserId = <AuctionItem>[].obs;
+  // Rx<int> get scheduledAuctionsByUserIdLength =>
+  //     _scheduledAuctionsByUserId.length.obs;
+  // List<AuctionItem> get scheduledAuctionsByUserId => _scheduledAuctionsByUserId;
 
-  Future<bool> getLiveAuctionsByCategory({bool isRefresh = false}) async {
-    try {
-      if (isRefresh) {
-        if (kDebugMode) {
-          print(
-              'getting the live auctions for the first time and store it in the controller');
-        }
-        List<Auction> allAuctions = await AuctionService.getAuctionsByCategory(
-          type: Status.live,
-        );
-        _liveAuctionsByCategory.value = allAuctions
-            .map(
-              (e) => AuctionItem(
-                myAuction: Auction(
-                    name: e.name,
-                    description: e.description,
-                    images: e.images,
-                    initial_price: e.initial_price,
-                    type: Status.live,
-                    end_date: e.end_date,
-                    category_id: e.category_id,
-                    keywords: e.keywords,
-                    start_date: e.start_date,
-                    id: e.id),
-              ),
-            )
-            .toList();
-        update();
-      } else {
-        if (kDebugMode) {
-          print(
-              'add the new live auctions to the extisting one in the controller');
-        }
-        List<Auction> allAuctions = await AuctionService.getAuctionsByCategory(
-          type: Status.live,
-          cursor: _liveAuctionByCategoryNextPage.value,
-        );
-        _liveAuctionsByCategory.addAll(allAuctions
-            .map(
-              (e) => AuctionItem(
-                myAuction: Auction(
-                    name: e.name,
-                    description: e.description,
-                    images: e.images,
-                    initial_price: e.initial_price,
-                    type: Status.live,
-                    end_date: e.end_date,
-                    category_id: e.category_id,
-                    keywords: e.keywords,
-                    start_date: e.start_date,
-                    id: e.id),
-              ),
-            )
-            .toList());
-        update();
-      }
-
-      return true;
-    } catch (e) {
-      rethrow;
+  AuctionController({this.anyFunc}) {
+    if (anyFunc == 'recommended') {
+      getRecommendedAuctions();
+    } else if (anyFunc == 'similar') {
+      getSimilarAuctions(auctionId: 1);
+    } else if (anyFunc == 'live') {
+      getLiveAuctions();
+    } else if (anyFunc == 'scheduled') {
+      getScheduledAuctions();
+    } else {
+      getRecommendedAuctions();
     }
   }
 
-  Future<bool> getScheduledAuctionsByCategory({bool isRefresh = false}) async {
-    try {
-      if (isRefresh) {
-        if (kDebugMode) {
-          print(
-              'getting the scheduled auctions for the first time and store it in the controller');
-        }
-        List<Auction> allAuctions = await AuctionService.getAuctionsByCategory(
-          type: Status.scheduled,
-        );
-        _scheduledAuctionsByCategory = allAuctions
-            .map(
-              (e) => AuctionItem(
-                myAuction: Auction(
-                    name: e.name,
-                    description: e.description,
-                    images: e.images,
-                    initial_price: e.initial_price,
-                    type: Status.scheduled,
-                    end_date: e.end_date,
-                    category_id: e.category_id,
-                    keywords: e.keywords,
-                    start_date: e.start_date,
-                    id: e.id),
-              ),
-            )
-            .toList();
-        update();
-        return true;
-      } else {
-        if (kDebugMode) {
-          print(
-              'add the new scheduled auctions to the extisting one in the controller');
-        }
-        List<Auction> allAuctions = await AuctionService.getAuctionsByCategory(
-          type: Status.scheduled,
-          cursor: _scheduledAuctionByCategoryNextPage.value,
-        );
-        _scheduledAuctionsByCategory.addAll(
-          allAuctions
-              .map(
-                (e) => AuctionItem(
-                  myAuction: Auction(
-                      name: e.name,
-                      description: e.description,
-                      images: e.images,
-                      initial_price: e.initial_price,
-                      type: Status.scheduled,
-                      end_date: e.end_date,
-                      category_id: e.category_id,
-                      keywords: e.keywords,
-                      start_date: e.start_date,
-                      id: e.id),
-                ),
-              )
-              .toList(),
-        );
+  // Future<bool> getLiveAuctionsByCategory({bool isRefresh = false}) async {
+  //   try {
+  //     if (isRefresh) {
+  //       if (kDebugMode) {
+  //         print(
+  //             'getting the live auctions for the first time and store it in the controller');
+  //       }
+  //       List<Auction> allAuctions = await AuctionService.getAuctionsByCategory(
+  //         type: Status.live,
+  //       );
+  //       _liveAuctionsByCategory.value = allAuctions
+  //           .map(
+  //             (e) => AuctionItem(
+  //               myAuction: Auction(
+  //                   name: e.name,
+  //                   description: e.description,
+  //                   images: e.images,
+  //                   initial_price: e.initial_price,
+  //                   type: Status.live,
+  //                   end_date: e.end_date,
+  //                   category_id: e.category_id,
+  //                   keywords: e.keywords,
+  //                   start_date: e.start_date,
+  //                   id: e.id),
+  //             ),
+  //           )
+  //           .toList();
+  //       update();
+  //     } else {
+  //       if (kDebugMode) {
+  //         print(
+  //             'add the new live auctions to the extisting one in the controller');
+  //       }
+  //       List<Auction> allAuctions = await AuctionService.getAuctionsByCategory(
+  //         type: Status.live,
+  //         cursor: _liveAuctionByCategoryNextPage.value,
+  //       );
+  //       _liveAuctionsByCategory.addAll(allAuctions
+  //           .map(
+  //             (e) => AuctionItem(
+  //               myAuction: Auction(
+  //                   name: e.name,
+  //                   description: e.description,
+  //                   images: e.images,
+  //                   initial_price: e.initial_price,
+  //                   type: Status.live,
+  //                   end_date: e.end_date,
+  //                   category_id: e.category_id,
+  //                   keywords: e.keywords,
+  //                   start_date: e.start_date,
+  //                   id: e.id),
+  //             ),
+  //           )
+  //           .toList());
+  //       update();
+  //     }
 
-        update();
-        return true;
-      }
-    } catch (e) {
-      rethrow;
-    }
-  }
+  //     return true;
+  //   } catch (e) {
+  //     rethrow;
+  //   }
+  // }
+
+  // Future<bool> getScheduledAuctionsByCategory({bool isRefresh = false}) async {
+  //   try {
+  //     if (isRefresh) {
+  //       if (kDebugMode) {
+  //         print(
+  //             'getting the scheduled auctions for the first time and store it in the controller');
+  //       }
+  //       List<Auction> allAuctions = await AuctionService.getAuctionsByCategory(
+  //         type: Status.scheduled,
+  //       );
+  //       _scheduledAuctionsByCategory = allAuctions
+  //           .map(
+  //             (e) => AuctionItem(
+  //               myAuction: Auction(
+  //                   name: e.name,
+  //                   description: e.description,
+  //                   images: e.images,
+  //                   initial_price: e.initial_price,
+  //                   type: Status.scheduled,
+  //                   end_date: e.end_date,
+  //                   category_id: e.category_id,
+  //                   keywords: e.keywords,
+  //                   start_date: e.start_date,
+  //                   id: e.id),
+  //             ),
+  //           )
+  //           .toList();
+  //       update();
+  //       return true;
+  //     } else {
+  //       if (kDebugMode) {
+  //         print(
+  //             'add the new scheduled auctions to the extisting one in the controller');
+  //       }
+  //       List<Auction> allAuctions = await AuctionService.getAuctionsByCategory(
+  //         type: Status.scheduled,
+  //         cursor: _scheduledAuctionByCategoryNextPage.value,
+  //       );
+  //       _scheduledAuctionsByCategory.addAll(
+  //         allAuctions
+  //             .map(
+  //               (e) => AuctionItem(
+  //                 myAuction: Auction(
+  //                     name: e.name,
+  //                     description: e.description,
+  //                     images: e.images,
+  //                     initial_price: e.initial_price,
+  //                     type: Status.scheduled,
+  //                     end_date: e.end_date,
+  //                     category_id: e.category_id,
+  //                     keywords: e.keywords,
+  //                     start_date: e.start_date,
+  //                     id: e.id),
+  //               ),
+  //             )
+  //             .toList(),
+  //       );
+
+  //       update();
+  //       return true;
+  //     }
+  //   } catch (e) {
+  //     rethrow;
+  //   }
+  // }
 
   // to get the auction type
   void updateAuctionName({String? newAuctionType}) {
@@ -234,25 +239,25 @@ class AuctionController extends GetxController {
     update();
   }
 
-  void updateLiveByCategoryNextPage({String? newNextPage}) {
-    _liveAuctionByCategoryNextPage.value = newNextPage;
-    update();
-  }
+  // void updateLiveByCategoryNextPage({String? newNextPage}) {
+  //   _liveAuctionByCategoryNextPage.value = newNextPage;
+  //   update();
+  // }
 
-  void updateScheduledByCategoryNextPage({String? newNextPage}) {
-    _scheduledAuctionByCategoryNextPage.value = newNextPage;
-    update();
-  }
+  // void updateScheduledByCategoryNextPage({String? newNextPage}) {
+  //   _scheduledAuctionByCategoryNextPage.value = newNextPage;
+  //   update();
+  // }
 
-  void updateLiveByUserIdNextPage({String? newNextPage}) {
-    _liveAuctionByUserIdNextPage.value = newNextPage;
-    update();
-  }
+  // void updateLiveByUserIdNextPage({String? newNextPage}) {
+  //   _liveAuctionByUserIdNextPage.value = newNextPage;
+  //   update();
+  // }
 
-  void updateScheduledByUserIdNextPage({String? newNextPage}) {
-    _scheduledAuctionByUserIdNextPage.value = newNextPage;
-    update();
-  }
+  // void updateScheduledByUserIdNextPage({String? newNextPage}) {
+  //   _scheduledAuctionByUserIdNextPage.value = newNextPage;
+  //   update();
+  // }
 
   // to get the auction cat id
   void updateCategoryAcutionId({int? mySelectedCategoryId}) {
@@ -332,133 +337,133 @@ class AuctionController extends GetxController {
     }
   }
 
-  Future<bool> getLiveAuctionsByUserId({bool isRefresh = false}) async {
-    try {
-      if (isRefresh) {
-        if (kDebugMode) {
-          print(
-              'getting the live auctions for the first time and store it in the controller');
-        }
-        List<Auction> allAuctions = await AuctionService.getAuctionsByUserId(
-          type: Status.live,
-        );
-        _liveAuctionsByUserId.value = allAuctions
-            .map(
-              (e) => AuctionItem(
-                myAuction: Auction(
-                  id: e.id,
-                  category_id: e.category_id,
-                  name: e.name,
-                  description: e.description,
-                  images: e.images,
-                  initial_price: e.initial_price,
-                  start_date: e.start_date,
-                  end_date: e.end_date,
-                  type: Status.live,
-                  keywords: e.keywords,
-                ),
-              ),
-            )
-            .toList();
-        update();
-      } else {
-        if (kDebugMode) {
-          print(
-              'add the new live auctions to the extisting one in the controller');
-        }
-        List<Auction> allAuctions = await AuctionService.getAuctions(
-          type: Status.live,
-          cursor: _liveAuctionByUserIdNextPage.value,
-        );
-        _liveAuctionsByUserId.addAll(allAuctions
-            .map(
-              (e) => AuctionItem(
-                myAuction: Auction(
-                    id: e.id,
-                    category_id: e.category_id,
-                    name: e.name,
-                    description: e.description,
-                    images: e.images,
-                    initial_price: e.initial_price,
-                    start_date: e.start_date,
-                    end_date: e.end_date,
-                    type: Status.live,
-                    keywords: e.keywords),
-              ),
-            )
-            .toList());
-        update();
-      }
+  // Future<bool> getLiveAuctionsByUserId({bool isRefresh = false}) async {
+  //   try {
+  //     if (isRefresh) {
+  //       if (kDebugMode) {
+  //         print(
+  //             'getting the live auctions for the first time and store it in the controller');
+  //       }
+  //       List<Auction> allAuctions = await AuctionService.getAuctionsByUserId(
+  //         type: Status.live,
+  //       );
+  //       _liveAuctionsByUserId.value = allAuctions
+  //           .map(
+  //             (e) => AuctionItem(
+  //               myAuction: Auction(
+  //                 id: e.id,
+  //                 category_id: e.category_id,
+  //                 name: e.name,
+  //                 description: e.description,
+  //                 images: e.images,
+  //                 initial_price: e.initial_price,
+  //                 start_date: e.start_date,
+  //                 end_date: e.end_date,
+  //                 type: Status.live,
+  //                 keywords: e.keywords,
+  //               ),
+  //             ),
+  //           )
+  //           .toList();
+  //       update();
+  //     } else {
+  //       if (kDebugMode) {
+  //         print(
+  //             'add the new live auctions to the extisting one in the controller');
+  //       }
+  //       List<Auction> allAuctions = await AuctionService.getAuctions(
+  //         type: Status.live,
+  //         cursor: _liveAuctionByUserIdNextPage.value,
+  //       );
+  //       _liveAuctionsByUserId.addAll(allAuctions
+  //           .map(
+  //             (e) => AuctionItem(
+  //               myAuction: Auction(
+  //                   id: e.id,
+  //                   category_id: e.category_id,
+  //                   name: e.name,
+  //                   description: e.description,
+  //                   images: e.images,
+  //                   initial_price: e.initial_price,
+  //                   start_date: e.start_date,
+  //                   end_date: e.end_date,
+  //                   type: Status.live,
+  //                   keywords: e.keywords),
+  //             ),
+  //           )
+  //           .toList());
+  //       update();
+  //     }
 
-      return true;
-    } catch (e) {
-      rethrow;
-    }
-  }
+  //     return true;
+  //   } catch (e) {
+  //     rethrow;
+  //   }
+  // }
 
-  Future<bool> getScheduledAuctionsByUserId({bool isRefresh = false}) async {
-    try {
-      if (isRefresh) {
-        if (kDebugMode) {
-          print(
-              'getting the live auctions for the first time and store it in the controller');
-        }
-        List<Auction> allAuctions = await AuctionService.getAuctionsByUserId(
-          type: Status.scheduled,
-        );
-        _scheduledAuctionsByUserId.value = allAuctions
-            .map(
-              (e) => AuctionItem(
-                myAuction: Auction(
-                  id: e.id,
-                  category_id: e.category_id,
-                  name: e.name,
-                  description: e.description,
-                  images: e.images,
-                  initial_price: e.initial_price,
-                  start_date: e.start_date,
-                  end_date: e.end_date,
-                  type: Status.scheduled,
-                  keywords: e.keywords,
-                ),
-              ),
-            )
-            .toList();
-        update();
-      } else {
-        if (kDebugMode) {
-          print(
-              'add the new live auctions to the extisting one in the controller');
-        }
-        List<Auction> allAuctions = await AuctionService.getAuctions(
-          type: Status.live,
-          cursor: _scheduledAuctionByUserIdNextPage.value,
-        );
-        _scheduledAuctionsByUserId.addAll(allAuctions
-            .map(
-              (e) => AuctionItem(
-                myAuction: Auction(
-                    id: e.id,
-                    category_id: e.category_id,
-                    name: e.name,
-                    description: e.description,
-                    images: e.images,
-                    initial_price: e.initial_price,
-                    start_date: e.start_date,
-                    end_date: e.end_date,
-                    type: Status.scheduled,
-                    keywords: e.keywords),
-              ),
-            )
-            .toList());
-        update();
-      }
+  // Future<bool> getScheduledAuctionsByUserId({bool isRefresh = false}) async {
+  //   try {
+  //     if (isRefresh) {
+  //       if (kDebugMode) {
+  //         print(
+  //             'getting the live auctions for the first time and store it in the controller');
+  //       }
+  //       List<Auction> allAuctions = await AuctionService.getAuctionsByUserId(
+  //         type: Status.scheduled,
+  //       );
+  //       _scheduledAuctionsByUserId.value = allAuctions
+  //           .map(
+  //             (e) => AuctionItem(
+  //               myAuction: Auction(
+  //                 id: e.id,
+  //                 category_id: e.category_id,
+  //                 name: e.name,
+  //                 description: e.description,
+  //                 images: e.images,
+  //                 initial_price: e.initial_price,
+  //                 start_date: e.start_date,
+  //                 end_date: e.end_date,
+  //                 type: Status.scheduled,
+  //                 keywords: e.keywords,
+  //               ),
+  //             ),
+  //           )
+  //           .toList();
+  //       update();
+  //     } else {
+  //       if (kDebugMode) {
+  //         print(
+  //             'add the new live auctions to the extisting one in the controller');
+  //       }
+  //       List<Auction> allAuctions = await AuctionService.getAuctions(
+  //         type: Status.live,
+  //         cursor: _scheduledAuctionByUserIdNextPage.value,
+  //       );
+  //       _scheduledAuctionsByUserId.addAll(allAuctions
+  //           .map(
+  //             (e) => AuctionItem(
+  //               myAuction: Auction(
+  //                   id: e.id,
+  //                   category_id: e.category_id,
+  //                   name: e.name,
+  //                   description: e.description,
+  //                   images: e.images,
+  //                   initial_price: e.initial_price,
+  //                   start_date: e.start_date,
+  //                   end_date: e.end_date,
+  //                   type: Status.scheduled,
+  //                   keywords: e.keywords),
+  //             ),
+  //           )
+  //           .toList());
+  //       update();
+  //     }
 
-      return true;
-    } catch (e) {
-      rethrow;
-    }
-  }
+  //     return true;
+  //   } catch (e) {
+  //     rethrow;
+  //   }
+  // }
 
   static Future<bool> recordUserBehavior(
       {required int auctionId, required String action}) async {
@@ -630,27 +635,27 @@ class AuctionController extends GetxController {
     }
   }
 
-  Future<bool>? editAuction(Auction editedAuctionModel) async {
-    try {
-      final response = await http.post(
-        Uri.parse('${Constants.api}/auction/${editedAuctionModel.id}'),
-        body: jsonEncode(editedAuctionModel.toJson()),
-        headers: await Constants.headers,
-      );
-      if (kDebugMode) {
-        print(response.body);
-        print(response.statusCode);
-      }
-      if (response.statusCode == 200) {
-        return true;
-      } else {
-        if (kDebugMode) print('there is an err in updating user data');
-        return false;
-      }
-    } catch (e) {
-      rethrow;
-    }
-  }
+  // Future<bool>? editAuction(Auction editedAuctionModel) async {
+  //   try {
+  //     final response = await http.post(
+  //       Uri.parse('${Constants.api}/auction/${editedAuctionModel.id}'),
+  //       body: jsonEncode(editedAuctionModel.toJson()),
+  //       headers: await Constants.headers,
+  //     );
+  //     if (kDebugMode) {
+  //       print(response.body);
+  //       print(response.statusCode);
+  //     }
+  //     if (response.statusCode == 200) {
+  //       return true;
+  //     } else {
+  //       if (kDebugMode) print('there is an err in updating user data');
+  //       return false;
+  //     }
+  //   } catch (e) {
+  //     rethrow;
+  //   }
+  // }
 
   Future<bool>? deleteAuction(Auction deletedAuctionModel) async {
     try {

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../components/default_button.dart';
 import '../../components/default_text_field.dart';
+import '../../components/dialogs/app_dialog.dart';
 import '../../constants.dart';
 import '../../controller/layout_controller.dart';
 import '../../controller/text_field_controller.dart';
@@ -102,9 +103,56 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 Get.find<TextFieldController>().phoneNumber,
                             id: model.id,
                           );
-                          final bool? check = await layoutController
-                              .updateUserData(profile: profile);
+
+                          await layoutController.updateUserData(
+                              profile: profile);
+                          AppDialog.showCheckMarkDialog(
+                            context,
+                            'Profile Changed Successfully',
+                          );
+                          AppDialog.showCheckMarkDialog(
+                            context,
+                            'Profile Changed Successfully',
+                          );
+                          // showDialog(
+                          //   context: context,
+                          //   builder: (context) {
+                          //     return Container(
+                          //       decoration: BoxDecoration(
+                          //           borderRadius: BorderRadius.circular(20)),
+                          //       child: Dialog(
+                          //         child: Padding(
+                          //           padding: const EdgeInsets.symmetric(
+                          //               horizontal:
+                          //                   Constants.kHorizontalSpacing),
+                          //           child: Column(
+                          //             mainAxisSize: MainAxisSize.min,
+                          //             children: [
+                          //               const Text(
+                          //                 'You Successfuly Changed your profile',
+                          //                 style: TextStyle(fontSize: 20),
+                          //               ),
+                          //               Constants.kBigVertcialSpacing,
+                          //               Lottie.asset(
+                          //                   'assets/lotties/changes_check.json',
+                          //                   height: 200),
+                          //             ],
+                          //           ),
+                          //         ),
+                          //       ),
+                          //     );
+                          //   },
+                          // ).timeout(
+                          //     const Duration(
+                          //       milliseconds: 3000,
+                          //     ), onTimeout: () {
+                          //   Get.back();
+                          //   Get.back();
+                          // });
+
                           _formKey.currentState!.validate();
+
+                          Get.back();
                         },
                         text: 'Place Changes',
                       ),

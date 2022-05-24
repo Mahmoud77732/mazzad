@@ -21,17 +21,17 @@ class _BodyState extends State<Body> {
   List<Map<String, String>> splashData = [
     {
       "text": "Welcome to Mazzad, Lets bid!",
-      "image": "assets/images/splash_1.png"
+      "image": "assets/lotties/splash_1.json"
     },
     {
       "text":
           "We help people bid, buy and setup auctions for their used and new products around the whole Egypt",
-      "image": "assets/images/splash_2.png"
+      "image": "assets/lotties/splash_3.json"
     },
     {
       "text":
-          "We shoe the easy way to attened and host auctions.\nJust stay at home with us!",
-      "image": "assets/images/splash_3.png"
+          "We show the easy way to attened and host auctions.\nJust stay at home with us!",
+      "image": "assets/lotties/splash_5.json"
     },
   ];
 

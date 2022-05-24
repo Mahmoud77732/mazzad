@@ -10,6 +10,7 @@ class MainBidders extends StatelessWidget {
   const MainBidders({Key? key, this.auction_id}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    print('----auction_id------> $auction_id');
     return Scaffold(
       appBar: AppBar(
         title: const Text(
