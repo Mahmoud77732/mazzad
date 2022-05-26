@@ -33,37 +33,38 @@ class CategoriesScreen extends StatelessWidget {
             ),
             Expanded(
               child: GetBuilder<CategoriesController>(
-                  init: CategoriesController(),
-                  builder: (categoryController) {
-                    return GridView(
-                      keyboardDismissBehavior:
-                          ScrollViewKeyboardDismissBehavior.onDrag,
-                      children: List.generate(
-                        categoryController.categories.length,
-                        (index) {
-                          // print(categoryController.categories[index].icon);
-                          return CategoryButton(
-                            color: categoryController.randomColor,
-                            icon: categoryController.categories[index].icon,
-                            onPress: () {
-                              auctionsByCategoryController.categoryName.value =
-                                  categoryController.categories[index].name;
-                              auctionsByCategoryController.updateCategoryId(
-                                  categoryController.categories[index].id);
-                              Get.to(() => AuctionsByCategoryScreen());
-                            },
-                            name: categoryController.categories[index].name,
-                          );
-                        },
-                      ),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 4,
-                        childAspectRatio: 4 / 5,
-                      ),
-                      // shrinkWrap: true,
-                    );
-                  }),
+                init: CategoriesController(),
+                builder: (categoryController) {
+                  return GridView(
+                    keyboardDismissBehavior:
+                        ScrollViewKeyboardDismissBehavior.onDrag,
+                    children: List.generate(
+                      categoryController.categories.length,
+                      (index) {
+                        // print(categoryController.categories[index].icon);
+                        return CategoryButton(
+                          color: categoryController.randomColor,
+                          icon: categoryController.categories[index].icon,
+                          onPress: () {
+                            auctionsByCategoryController.categoryName.value =
+                                categoryController.categories[index].name;
+                            auctionsByCategoryController.updateCategoryId(
+                                categoryController.categories[index].id);
+                            Get.to(() => const AuctionsByCategoryScreen());
+                          },
+                          name: categoryController.categories[index].name,
+                        );
+                      },
+                    ),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4,
+                      childAspectRatio: 4 / 5,
+                    ),
+                    // shrinkWrap: true,
+                  );
+                },
+              ),
             ),
           ],
         ),
